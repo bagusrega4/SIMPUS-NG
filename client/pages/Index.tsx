@@ -17,6 +17,7 @@ import {
   MapPin,
   Clock,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
@@ -126,30 +127,30 @@ export default function Index() {
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-8">
-              <a
-                href="#home"
+              <Link
+                to="/"
                 className="text-gray-700 hover:text-stis-blue transition-colors font-medium"
               >
                 Beranda
-              </a>
-              <a
-                href="#about"
+              </Link>
+              <Link
+                to="/about"
                 className="text-gray-700 hover:text-stis-blue transition-colors font-medium"
               >
                 Tentang Kami
-              </a>
-              <a
-                href="#collection"
+              </Link>
+              <Link
+                to="/collection"
                 className="text-gray-700 hover:text-stis-blue transition-colors font-medium"
               >
                 Koleksi
-              </a>
-              <a
-                href="#help"
+              </Link>
+              <Link
+                to="/help"
                 className="text-gray-700 hover:text-stis-blue transition-colors font-medium"
               >
                 Bantuan
-              </a>
+              </Link>
             </nav>
 
             {/* Login Button & Mobile Menu */}
@@ -177,30 +178,34 @@ export default function Index() {
           {isMenuOpen && (
             <div className="md:hidden py-4 border-t border-gray-200">
               <nav className="flex flex-col space-y-3">
-                <a
-                  href="#home"
+                <Link
+                  to="/"
                   className="px-4 py-2 text-gray-700 hover:text-stis-blue transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
                 >
                   Beranda
-                </a>
-                <a
-                  href="#about"
+                </Link>
+                <Link
+                  to="/about"
                   className="px-4 py-2 text-gray-700 hover:text-stis-blue transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
                 >
                   Tentang Kami
-                </a>
-                <a
-                  href="#collection"
+                </Link>
+                <Link
+                  to="/collection"
                   className="px-4 py-2 text-gray-700 hover:text-stis-blue transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
                 >
                   Koleksi
-                </a>
-                <a
-                  href="#help"
+                </Link>
+                <Link
+                  to="/help"
                   className="px-4 py-2 text-gray-700 hover:text-stis-blue transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
                 >
                   Bantuan
-                </a>
+                </Link>
                 <div className="px-4 pt-2">
                   <Button className="w-full bg-stis-blue hover:bg-stis-blue-dark">
                     Masuk
