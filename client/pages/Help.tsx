@@ -24,6 +24,8 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 export default function Help() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -159,6 +161,7 @@ export default function Help() {
 
   return (
     <div className="min-h-screen bg-white">
+      <Header />
       {/* Header */}
       <div className="bg-gradient-to-br from-stis-blue-light via-white to-stis-gray-light pt-24 pb-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -450,6 +453,8 @@ export default function Help() {
           </Tabs>
         </div>
       </section>
+
+      <Footer />
     </div>
   );
 }

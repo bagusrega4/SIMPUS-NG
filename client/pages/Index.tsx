@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import {
   Search,
-  Menu,
-  X,
   BookOpen,
   FileText,
   Monitor,
@@ -13,11 +11,7 @@ import {
   Calendar,
   ChevronDown,
   ChevronUp,
-  Phone,
-  MapPin,
-  Clock,
 } from "lucide-react";
-import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
@@ -27,9 +21,10 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 export default function Index() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [openFAQ, setOpenFAQ] = useState<number | null>(null);
 
@@ -110,112 +105,7 @@ export default function Index() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            {/* Logo */}
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-stis-blue rounded-lg flex items-center justify-center">
-                <BookOpen className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <h1 className="text-xl font-bold text-stis-blue">SIMPus</h1>
-                <p className="text-xs text-gray-600">STIS Library</p>
-              </div>
-            </div>
-
-            {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center space-x-8">
-              <Link
-                to="/"
-                className="text-gray-700 hover:text-stis-blue transition-colors font-medium"
-              >
-                Beranda
-              </Link>
-              <Link
-                to="/about"
-                className="text-gray-700 hover:text-stis-blue transition-colors font-medium"
-              >
-                Tentang Kami
-              </Link>
-              <Link
-                to="/collection"
-                className="text-gray-700 hover:text-stis-blue transition-colors font-medium"
-              >
-                Koleksi
-              </Link>
-              <Link
-                to="/help"
-                className="text-gray-700 hover:text-stis-blue transition-colors font-medium"
-              >
-                Bantuan
-              </Link>
-            </nav>
-
-            {/* Login Button & Mobile Menu */}
-            <div className="flex items-center space-x-4">
-              <Button className="hidden sm:flex bg-stis-blue hover:bg-stis-blue-dark">
-                Masuk
-              </Button>
-
-              {/* Mobile Menu Button */}
-              <button
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="md:hidden p-2 rounded-lg hover:bg-gray-100"
-                aria-label="Toggle menu"
-              >
-                {isMenuOpen ? (
-                  <X className="w-5 h-5" />
-                ) : (
-                  <Menu className="w-5 h-5" />
-                )}
-              </button>
-            </div>
-          </div>
-
-          {/* Mobile Navigation */}
-          {isMenuOpen && (
-            <div className="md:hidden py-4 border-t border-gray-200">
-              <nav className="flex flex-col space-y-3">
-                <Link
-                  to="/"
-                  className="px-4 py-2 text-gray-700 hover:text-stis-blue transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Beranda
-                </Link>
-                <Link
-                  to="/about"
-                  className="px-4 py-2 text-gray-700 hover:text-stis-blue transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Tentang Kami
-                </Link>
-                <Link
-                  to="/collection"
-                  className="px-4 py-2 text-gray-700 hover:text-stis-blue transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Koleksi
-                </Link>
-                <Link
-                  to="/help"
-                  className="px-4 py-2 text-gray-700 hover:text-stis-blue transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Bantuan
-                </Link>
-                <div className="px-4 pt-2">
-                  <Button className="w-full bg-stis-blue hover:bg-stis-blue-dark">
-                    Masuk
-                  </Button>
-                </div>
-              </nav>
-            </div>
-          )}
-        </div>
-      </header>
+      <Header />
 
       {/* Hero Section */}
       <section
@@ -417,91 +307,7 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-stis-blue text-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {/* Brand */}
-            <div className="lg:col-span-2">
-              <div className="flex items-center space-x-3 mb-6">
-                <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center">
-                  <BookOpen className="w-7 h-7 text-white" />
-                </div>
-                <div>
-                  <h4 className="text-2xl font-bold">SIMPus</h4>
-                  <p className="text-white/80">
-                    Sistem Informasi Manajemen Perpustakaan STIS
-                  </p>
-                </div>
-              </div>
-              <p className="text-white/80 mb-6 max-w-md">
-                Perpustakaan digital modern yang mendukung kegiatan akademik dan
-                penelitian di Politeknik Statistika STIS.
-              </p>
-            </div>
-
-            {/* Contact Info */}
-            <div>
-              <h5 className="text-lg font-semibold mb-4">Kontak</h5>
-              <div className="space-y-3">
-                <div className="flex items-start space-x-3">
-                  <MapPin className="w-5 h-5 text-white/60 mt-1 flex-shrink-0" />
-                  <p className="text-white/80 text-sm">
-                    Jl. Otto Iskandardinata No.64C, Jakarta Timur 13330
-                  </p>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <Phone className="w-5 h-5 text-white/60" />
-                  <p className="text-white/80 text-sm">(021) 8191437</p>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <Clock className="w-5 h-5 text-white/60" />
-                  <p className="text-white/80 text-sm">
-                    Senin - Jumat: 08:00 - 16:00
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Quick Links */}
-            <div>
-              <h5 className="text-lg font-semibold mb-4">Pintasan</h5>
-              <div className="space-y-3">
-                <a
-                  href="#"
-                  className="block text-white/80 hover:text-white transition-colors text-sm"
-                >
-                  Katalog Online
-                </a>
-                <a
-                  href="#"
-                  className="block text-white/80 hover:text-white transition-colors text-sm"
-                >
-                  Perpanjangan Buku
-                </a>
-                <a
-                  href="#"
-                  className="block text-white/80 hover:text-white transition-colors text-sm"
-                >
-                  Reservasi Ruang
-                </a>
-                <a
-                  href="#"
-                  className="block text-white/80 hover:text-white transition-colors text-sm"
-                >
-                  Download Formulir
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div className="border-t border-white/20 mt-12 pt-8 text-center">
-            <p className="text-white/60 text-sm">
-              © 2024 Perpustakaan STIS. Hak cipta dilindungi undang-undang.
-            </p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
