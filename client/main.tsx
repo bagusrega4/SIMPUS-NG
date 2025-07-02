@@ -11,6 +11,11 @@ import Profile from "./pages/about/Profile";
 import Structure from "./pages/about/Structure";
 import Vision from "./pages/about/Vision";
 import Facilities from "./pages/about/Facilities";
+import Books from "./pages/collection/Books";
+import Digital from "./pages/collection/Digital";
+import Repository from "./pages/collection/Repository";
+import BorrowingHistory from "./pages/collection/BorrowingHistory";
+import ReadingHistory from "./pages/collection/ReadingHistory";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -27,6 +32,17 @@ const App = () => (
           <Route path="/about/structure" element={<Structure />} />
           <Route path="/about/vision" element={<Vision />} />
           <Route path="/about/facilities" element={<Facilities />} />
+          <Route path="/collection/books" element={<Books />} />
+          <Route path="/collection/digital" element={<Digital />} />
+          <Route path="/collection/repository" element={<Repository />} />
+          <Route
+            path="/collection/borrowing-history"
+            element={<BorrowingHistory />}
+          />
+          <Route
+            path="/collection/reading-history"
+            element={<ReadingHistory />}
+          />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
