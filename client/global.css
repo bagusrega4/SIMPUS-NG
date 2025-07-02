@@ -18,16 +18,16 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 216 85% 27%;
+    --primary: 160 84% 39%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 195 100% 97%;
-    --secondary-foreground: 216 85% 27%;
+    --secondary: 156 28% 95%;
+    --secondary-foreground: 160 84% 39%;
 
-    --muted: 195 100% 97%;
+    --muted: 156 28% 95%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 188 100% 42%;
+    --accent: 168 76% 42%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
@@ -35,16 +35,16 @@
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 216 85% 27%;
+    --ring: 160 84% 39%;
 
     --radius: 0.75rem;
 
     /* STIS Library Brand Colors */
-    --stis-blue: 216 85% 27%;
-    --stis-blue-dark: 216 85% 20%;
-    --stis-blue-light: 195 100% 97%;
-    --stis-cyan: 188 100% 42%;
-    --stis-gray-light: 195 30% 97%;
+    --stis-blue: 160 84% 39%;
+    --stis-blue-dark: 160 84% 32%;
+    --stis-blue-light: 156 28% 95%;
+    --stis-cyan: 168 76% 42%;
+    --stis-gray-light: 156 28% 95%;
     --stis-gray-medium: 215 15% 50%;
 
     --sidebar-background: 0 0% 98%;
@@ -74,7 +74,7 @@
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 188 100% 42%;
+    --primary: 168 76% 42%;
     --primary-foreground: 222.2 47.4% 11.2%;
 
     --secondary: 217.2 32.6% 17.5%;
@@ -91,13 +91,13 @@
 
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 188 100% 42%;
+    --ring: 168 76% 42%;
 
     /* STIS Dark Mode Colors */
-    --stis-blue: 188 100% 42%;
-    --stis-blue-dark: 188 100% 35%;
+    --stis-blue: 168 76% 42%;
+    --stis-blue-dark: 168 76% 35%;
     --stis-blue-light: 217.2 32.6% 17.5%;
-    --stis-cyan: 188 100% 42%;
+    --stis-cyan: 168 76% 42%;
     --stis-gray-light: 217.2 32.6% 17.5%;
     --stis-gray-medium: 215 20.2% 65.1%;
     --sidebar-background: 240 5.9% 10%;
