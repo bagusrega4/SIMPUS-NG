@@ -12,7 +12,7 @@ import {
   Wifi,
   Printer,
   Shield,
-  Stairs,
+  MoveUp,
   Archive,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -196,7 +196,7 @@ export default function Map() {
     {
       feature: "Tangga Darurat",
       description: "Tangga darurat di setiap lantai",
-      icon: Stairs,
+      icon: MoveUp,
     },
     {
       feature: "WiFi Coverage",
