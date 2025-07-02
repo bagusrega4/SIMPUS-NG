@@ -16,6 +16,13 @@ import Digital from "./pages/collection/Digital";
 import Repository from "./pages/collection/Repository";
 import BorrowingHistory from "./pages/collection/BorrowingHistory";
 import ReadingHistory from "./pages/collection/ReadingHistory";
+import Circulation from "./pages/services/Circulation";
+import Clearance from "./pages/services/Clearance";
+import Rules from "./pages/info/Rules";
+import Map from "./pages/info/Map";
+import FAQ from "./pages/info/FAQ";
+import News from "./pages/info/News";
+import Contact from "./pages/info/Contact";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -43,6 +50,13 @@ const App = () => (
             path="/collection/reading-history"
             element={<ReadingHistory />}
           />
+          <Route path="/services/circulation" element={<Circulation />} />
+          <Route path="/services/clearance" element={<Clearance />} />
+          <Route path="/info/rules" element={<Rules />} />
+          <Route path="/info/map" element={<Map />} />
+          <Route path="/info/faq" element={<FAQ />} />
+          <Route path="/info/news" element={<News />} />
+          <Route path="/info/contact" element={<Contact />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
