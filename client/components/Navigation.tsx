@@ -103,9 +103,9 @@ export default function Navigation() {
           description: "Tata tertib dan peraturan perpustakaan",
         },
         {
-          label: "Panduan Pengguna",
-          href: "/info/guide",
-          description: "Panduan menggunakan layanan perpustakaan",
+          label: "Denah",
+          href: "/info/map",
+          description: "Denah ruangan dan fasilitas perpustakaan",
         },
         {
           label: "FAQ",
