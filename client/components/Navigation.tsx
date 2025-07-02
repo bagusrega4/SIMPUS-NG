@@ -53,11 +53,6 @@ export default function Navigation() {
       label: "Koleksi",
       dropdown: [
         {
-          label: "Katalog Online",
-          href: "/collection/catalog",
-          description: "Pencarian koleksi buku dan dokumen",
-        },
-        {
           label: "Koleksi Cetak",
           href: "/collection/books",
           description: "Buku fisik dan publikasi cetak",
@@ -68,14 +63,19 @@ export default function Navigation() {
           description: "E-book, e-journal, dan repository",
         },
         {
-          label: "Database Online",
-          href: "/collection/database",
-          description: "Akses database dan jurnal internasional",
-        },
-        {
           label: "Repository STIS",
           href: "/collection/repository",
           description: "Karya ilmiah mahasiswa dan dosen",
+        },
+        {
+          label: "Riwayat Pinjaman",
+          href: "/collection/borrowing-history",
+          description: "Histori peminjaman buku Anda",
+        },
+        {
+          label: "Riwayat Baca",
+          href: "/collection/reading-history",
+          description: "Riwayat aktivitas membaca Anda",
         },
       ],
     },
@@ -88,24 +88,9 @@ export default function Navigation() {
           description: "Peminjaman dan pengembalian buku",
         },
         {
-          label: "Layanan Referensi",
-          href: "/services/reference",
-          description: "Bantuan penelusuran informasi",
-        },
-        {
-          label: "Layanan Fotokopi",
-          href: "/services/photocopy",
-          description: "Layanan fotokopi dan scan dokumen",
-        },
-        {
           label: "Bebas Perpustakaan",
           href: "/services/clearance",
           description: "Surat keterangan bebas perpustakaan",
-        },
-        {
-          label: "Reservasi Ruang",
-          href: "/services/reservation",
-          description: "Pemesanan ruang baca dan diskusi",
         },
       ],
     },
