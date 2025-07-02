@@ -1,0 +1,308 @@
+import { useState, useRef, useEffect } from "react";
+import { BookOpen, Menu, X, ChevronDown } from "lucide-react";
+import { Button } from "@/components/ui/button";
+
+interface DropdownItem {
+  label: string;
+  href: string;
+  description?: string;
+}
+
+interface NavItem {
+  label: string;
+  href?: string;
+  dropdown?: DropdownItem[];
+}
+
+export default function Navigation() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const navItems: NavItem[] = [
+    {
+      label: "Beranda",
+      href: "/",
+    },
+    {
+      label: "Tentang Kami",
+      dropdown: [
+        {
+          label: "Profil Perpustakaan",
+          href: "/about/profile",
+          description: "Sejarah dan visi misi perpustakaan",
+        },
+        {
+          label: "Struktur Organisasi",
+          href: "/about/structure",
+          description: "Susunan organisasi dan staff",
+        },
+        {
+          label: "Visi & Misi",
+          href: "/about/vision",
+          description: "Visi, misi, dan tujuan perpustakaan",
+        },
+        {
+          label: "Fasilitas",
+          href: "/about/facilities",
+          description: "Fasilitas dan layanan perpustakaan",
+        },
+      ],
+    },
+    {
+      label: "Koleksi",
+      dropdown: [
+        {
+          label: "Katalog Online",
+          href: "/collection/catalog",
+          description: "Pencarian koleksi buku dan dokumen",
+        },
+        {
+          label: "Koleksi Cetak",
+          href: "/collection/books",
+          description: "Buku fisik dan publikasi cetak",
+        },
+        {
+          label: "Koleksi Digital",
+          href: "/collection/digital",
+          description: "E-book, e-journal, dan repository",
+        },
+        {
+          label: "Database Online",
+          href: "/collection/database",
+          description: "Akses database dan jurnal internasional",
+        },
+        {
+          label: "Repository STIS",
+          href: "/collection/repository",
+          description: "Karya ilmiah mahasiswa dan dosen",
+        },
+      ],
+    },
+    {
+      label: "Layanan",
+      dropdown: [
+        {
+          label: "Sirkulasi",
+          href: "/services/circulation",
+          description: "Peminjaman dan pengembalian buku",
+        },
+        {
+          label: "Layanan Referensi",
+          href: "/services/reference",
+          description: "Bantuan penelusuran informasi",
+        },
+        {
+          label: "Layanan Fotokopi",
+          href: "/services/photocopy",
+          description: "Layanan fotokopi dan scan dokumen",
+        },
+        {
+          label: "Bebas Perpustakaan",
+          href: "/services/clearance",
+          description: "Surat keterangan bebas perpustakaan",
+        },
+        {
+          label: "Reservasi Ruang",
+          href: "/services/reservation",
+          description: "Pemesanan ruang baca dan diskusi",
+        },
+      ],
+    },
+    {
+      label: "Informasi",
+      dropdown: [
+        {
+          label: "Peraturan",
+          href: "/info/rules",
+          description: "Tata tertib dan peraturan perpustakaan",
+        },
+        {
+          label: "Panduan Pengguna",
+          href: "/info/guide",
+          description: "Panduan menggunakan layanan perpustakaan",
+        },
+        {
+          label: "FAQ",
+          href: "/info/faq",
+          description: "Pertanyaan yang sering diajukan",
+        },
+        {
+          label: "Berita & Pengumuman",
+          href: "/info/news",
+          description: "Berita terbaru dan pengumuman",
+        },
+        {
+          label: "Kontak",
+          href: "/info/contact",
+          description: "Informasi kontak perpustakaan",
+        },
+      ],
+    },
+  ];
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setActiveDropdown(null);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const handleDropdownToggle = (label: string) => {
+    setActiveDropdown(activeDropdown === label ? null : label);
+  };
+
+  return (
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo */}
+          <a href="/" className="flex items-center space-x-3">
+            <div className="w-10 h-10 bg-stis-blue rounded-lg flex items-center justify-center">
+              <BookOpen className="w-6 h-6 text-white" />
+            </div>
+            <div>
+              <h1 className="text-xl font-bold text-stis-blue">SIMPus</h1>
+              <p className="text-xs text-gray-600">STIS Library</p>
+            </div>
+          </a>
+
+          {/* Desktop Navigation */}
+          <nav
+            className="hidden lg:flex items-center space-x-2"
+            ref={dropdownRef}
+          >
+            {navItems.map((item) => (
+              <div key={item.label} className="relative">
+                {item.dropdown ? (
+                  <button
+                    onClick={() => handleDropdownToggle(item.label)}
+                    className="flex items-center space-x-1 px-4 py-2 text-gray-700 hover:text-stis-blue transition-colors font-medium rounded-lg hover:bg-gray-50"
+                  >
+                    <span>{item.label}</span>
+                    <ChevronDown
+                      className={`w-4 h-4 transition-transform ${
+                        activeDropdown === item.label ? "rotate-180" : ""
+                      }`}
+                    />
+                  </button>
+                ) : (
+                  <a
+                    href={item.href}
+                    className="px-4 py-2 text-gray-700 hover:text-stis-blue transition-colors font-medium rounded-lg hover:bg-gray-50"
+                  >
+                    {item.label}
+                  </a>
+                )}
+
+                {/* Dropdown Menu */}
+                {item.dropdown && activeDropdown === item.label && (
+                  <div className="absolute top-full left-0 mt-2 w-80 bg-white rounded-xl shadow-lg border border-gray-200 py-2 z-50">
+                    {item.dropdown.map((dropdownItem) => (
+                      <a
+                        key={dropdownItem.label}
+                        href={dropdownItem.href}
+                        className="block px-4 py-3 hover:bg-gray-50 transition-colors"
+                      >
+                        <div className="font-medium text-gray-900 mb-1">
+                          {dropdownItem.label}
+                        </div>
+                        {dropdownItem.description && (
+                          <div className="text-sm text-gray-600">
+                            {dropdownItem.description}
+                          </div>
+                        )}
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </nav>
+
+          {/* Login Button & Mobile Menu */}
+          <div className="flex items-center space-x-4">
+            <Button className="hidden sm:flex bg-stis-blue hover:bg-stis-blue-dark">
+              Masuk
+            </Button>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="lg:hidden p-2 rounded-lg hover:bg-gray-100"
+              aria-label="Toggle menu"
+            >
+              {isMenuOpen ? (
+                <X className="w-5 h-5" />
+              ) : (
+                <Menu className="w-5 h-5" />
+              )}
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Navigation */}
+        {isMenuOpen && (
+          <div className="lg:hidden py-4 border-t border-gray-200">
+            <nav className="space-y-2">
+              {navItems.map((item) => (
+                <div key={item.label}>
+                  {item.dropdown ? (
+                    <div>
+                      <button
+                        onClick={() => handleDropdownToggle(item.label)}
+                        className="w-full flex items-center justify-between px-4 py-3 text-gray-700 hover:text-stis-blue transition-colors font-medium rounded-lg hover:bg-gray-50"
+                      >
+                        <span>{item.label}</span>
+                        <ChevronDown
+                          className={`w-4 h-4 transition-transform ${
+                            activeDropdown === item.label ? "rotate-180" : ""
+                          }`}
+                        />
+                      </button>
+                      {activeDropdown === item.label && (
+                        <div className="pl-4 mt-2 space-y-2">
+                          {item.dropdown.map((dropdownItem) => (
+                            <a
+                              key={dropdownItem.label}
+                              href={dropdownItem.href}
+                              className="block px-4 py-2 text-sm text-gray-600 hover:text-stis-blue transition-colors rounded-lg hover:bg-gray-50"
+                              onClick={() => setIsMenuOpen(false)}
+                            >
+                              {dropdownItem.label}
+                            </a>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  ) : (
+                    <a
+                      href={item.href}
+                      className="block px-4 py-3 text-gray-700 hover:text-stis-blue transition-colors font-medium rounded-lg hover:bg-gray-50"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      {item.label}
+                    </a>
+                  )}
+                </div>
+              ))}
+              <div className="px-4 pt-4">
+                <Button className="w-full bg-stis-blue hover:bg-stis-blue-dark">
+                  Masuk
+                </Button>
+              </div>
+            </nav>
+          </div>
+        )}
+      </div>
+    </header>
+  );
+}
