@@ -47,6 +47,15 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        // STIS Library Brand Colors
+        stis: {
+          blue: "hsl(var(--stis-blue))",
+          "blue-dark": "hsl(var(--stis-blue-dark))",
+          "blue-light": "hsl(var(--stis-blue-light))",
+          cyan: "hsl(var(--stis-cyan))",
+          "gray-light": "hsl(var(--stis-gray-light))",
+          "gray-medium": "hsl(var(--stis-gray-medium))",
+        },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
