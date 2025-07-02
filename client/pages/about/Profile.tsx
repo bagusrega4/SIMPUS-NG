@@ -1,0 +1,377 @@
+import { Calendar, Users, BookOpen, Clock, Award, Target } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import Navigation from "@/components/Navigation";
+
+export default function Profile() {
+  const milestones = [
+    {
+      year: "1958",
+      title: "Pendirian STIS",
+      description:
+        "Perpustakaan STIS didirikan bersamaan dengan pendirian institusi sebagai pusat pembelajaran statistika.",
+    },
+    {
+      year: "1970",
+      title: "Pengembangan Koleksi",
+      description:
+        "Mulai mengembangkan koleksi khusus statistika dan matematika dengan dukungan pemerintah.",
+    },
+    {
+      year: "1985",
+      title: "Modernisasi Pertama",
+      description:
+        "Implementasi sistem katalog manual yang terstruktur dan penataan ulang ruang perpustakaan.",
+    },
+    {
+      year: "1995",
+      title: "Era Komputerisasi",
+      description:
+        "Mulai menggunakan sistem komputer untuk katalog dan manajemen sirkulasi buku.",
+    },
+    {
+      year: "2005",
+      title: "Perpustakaan Digital",
+      description:
+        "Pengembangan koleksi digital dan akses online untuk mendukung pembelajaran jarak jauh.",
+    },
+    {
+      year: "2015",
+      title: "Integrasi Sistem",
+      description:
+        "Integrasi sistem perpustakaan dengan sistem akademik dan pengembangan repository institusi.",
+    },
+    {
+      year: "2023",
+      title: "SIMPus Modern",
+      description:
+        "Peluncuran SIMPus dengan antarmuka modern, fitur AI, dan integrasi cloud computing.",
+    },
+  ];
+
+  const achievements = [
+    {
+      icon: Users,
+      title: "15,000+",
+      subtitle: "Anggota Aktif",
+      description: "Mahasiswa, dosen, dan peneliti yang terdaftar",
+    },
+    {
+      icon: BookOpen,
+      title: "50,000+",
+      subtitle: "Koleksi Total",
+      description: "Buku cetak, digital, jurnal, dan publikasi",
+    },
+    {
+      icon: Clock,
+      title: "24/7",
+      subtitle: "Layanan Online",
+      description: "Akses portal dan koleksi digital sepanjang waktu",
+    },
+    {
+      icon: Award,
+      title: "ISO 21500",
+      subtitle: "Sertifikasi",
+      description: "Standar manajemen perpustakaan internasional",
+    },
+  ];
+
+  return (
+    <div className="min-h-screen bg-white">
+      <Navigation />
+
+      {/* Header */}
+      <div className="bg-gradient-to-br from-stis-blue-light via-white to-stis-gray-light pt-24 pb-16">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto text-center">
+            <Badge variant="secondary" className="mb-4">
+              Tentang Kami
+            </Badge>
+            <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
+              Profil <span className="text-stis-blue">Perpustakaan STIS</span>
+            </h1>
+            <p className="text-lg sm:text-xl text-gray-600 leading-relaxed">
+              Perpustakaan Politeknik Statistika STIS telah melayani komunitas
+              akademik selama lebih dari 65 tahun sebagai pusat informasi dan
+              pembelajaran statistika terdepan di Indonesia.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Overview */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div>
+                <h2 className="text-3xl font-bold text-gray-900 mb-6">
+                  Pusat Informasi Statistika Terdepan
+                </h2>
+                <p className="text-gray-600 mb-6 leading-relaxed">
+                  Perpustakaan STIS merupakan perpustakaan khusus yang fokus
+                  pada bidang statistika, matematika, dan komputasi. Kami
+                  berkomitmen untuk menyediakan sumber daya informasi
+                  berkualitas tinggi yang mendukung proses pembelajaran,
+                  penelitian, dan pengembangan ilmu pengetahuan.
+                </p>
+                <p className="text-gray-600 mb-6 leading-relaxed">
+                  Dengan koleksi yang terus berkembang dan teknologi terkini,
+                  perpustakaan kami menjadi tulang punggung dalam menciptakan
+                  lulusan yang kompeten dan siap menghaditi tantangan era
+                  digital.
+                </p>
+                <div className="flex items-center space-x-4">
+                  <div className="flex items-center space-x-2">
+                    <Target className="w-5 h-5 text-stis-blue" />
+                    <span className="text-sm font-medium text-gray-700">
+                      Fokus Statistika
+                    </span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <Award className="w-5 h-5 text-stis-cyan" />
+                    <span className="text-sm font-medium text-gray-700">
+                      Standar Internasional
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-6">
+                {achievements.map((achievement, index) => {
+                  const IconComponent = achievement.icon;
+                  return (
+                    <Card
+                      key={index}
+                      className="text-center border-0 shadow-lg"
+                    >
+                      <CardContent className="p-6">
+                        <div className="w-12 h-12 bg-stis-blue/10 rounded-lg flex items-center justify-center mx-auto mb-4">
+                          <IconComponent className="w-6 h-6 text-stis-blue" />
+                        </div>
+                        <div className="text-2xl font-bold text-stis-blue mb-1">
+                          {achievement.title}
+                        </div>
+                        <div className="text-sm font-medium text-gray-900 mb-2">
+                          {achievement.subtitle}
+                        </div>
+                        <div className="text-xs text-gray-600">
+                          {achievement.description}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Timeline */}
+      <section className="py-20 bg-stis-gray-light">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">
+                Sejarah & Perkembangan
+              </h2>
+              <p className="text-lg text-gray-600">
+                Perjalanan panjang perpustakaan STIS dalam melayani kebutuhan
+                informasi akademik
+              </p>
+            </div>
+
+            <div className="relative">
+              {/* Timeline line */}
+              <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-stis-blue/20"></div>
+
+              <div className="space-y-12">
+                {milestones.map((milestone, index) => (
+                  <div key={index} className="relative flex items-start">
+                    {/* Timeline dot */}
+                    <div className="absolute left-6 w-4 h-4 bg-stis-blue rounded-full border-4 border-white shadow-lg"></div>
+
+                    {/* Content */}
+                    <div className="ml-20">
+                      <Card className="border-0 shadow-md hover:shadow-lg transition-shadow">
+                        <CardContent className="p-6">
+                          <div className="flex items-center gap-3 mb-3">
+                            <Badge
+                              variant="outline"
+                              className="border-stis-blue text-stis-blue"
+                            >
+                              {milestone.year}
+                            </Badge>
+                            <Calendar className="w-4 h-4 text-gray-400" />
+                          </div>
+                          <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                            {milestone.title}
+                          </h3>
+                          <p className="text-gray-600 leading-relaxed">
+                            {milestone.description}
+                          </p>
+                        </CardContent>
+                      </Card>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Current Status */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              Kondisi Terkini
+            </h2>
+            <p className="text-lg text-gray-600 mb-8">
+              Saat ini, Perpustakaan STIS telah berkembang menjadi perpustakaan
+              modern yang mengintegrasikan teknologi terdepan dengan layanan
+              konvensional untuk memberikan pengalaman pengguna yang optimal.
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <Card className="border-0 shadow-lg">
+                <CardContent className="p-6 text-center">
+                  <div className="w-16 h-16 bg-stis-blue/10 rounded-xl flex items-center justify-center mx-auto mb-4">
+                    <BookOpen className="w-8 h-8 text-stis-blue" />
+                  </div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                    Koleksi Terlengkap
+                  </h3>
+                  <p className="text-sm text-gray-600">
+                    Koleksi statistika dan matematika terlengkap di Indonesia
+                    dengan akses digital 24/7
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card className="border-0 shadow-lg">
+                <CardContent className="p-6 text-center">
+                  <div className="w-16 h-16 bg-stis-cyan/10 rounded-xl flex items-center justify-center mx-auto mb-4">
+                    <Users className="w-8 h-8 text-stis-cyan" />
+                  </div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                    Layanan Prima
+                  </h3>
+                  <p className="text-sm text-gray-600">
+                    Didukung oleh pustakawan profesional dan sistem teknologi
+                    informasi modern
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card className="border-0 shadow-lg">
+                <CardContent className="p-6 text-center">
+                  <div className="w-16 h-16 bg-stis-blue/10 rounded-xl flex items-center justify-center mx-auto mb-4">
+                    <Award className="w-8 h-8 text-stis-blue" />
+                  </div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                    Standar Internasional
+                  </h3>
+                  <p className="text-sm text-gray-600">
+                    Menerapkan standar pengelolaan perpustakaan internasional
+                    dan best practices
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-stis-blue text-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {/* Brand */}
+            <div className="lg:col-span-2">
+              <div className="flex items-center space-x-3 mb-6">
+                <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center">
+                  <BookOpen className="w-7 h-7 text-white" />
+                </div>
+                <div>
+                  <h4 className="text-2xl font-bold">SIMPus</h4>
+                  <p className="text-white/80">
+                    Sistem Informasi Manajemen Perpustakaan STIS
+                  </p>
+                </div>
+              </div>
+              <p className="text-white/80 mb-6 max-w-md">
+                Perpustakaan digital modern yang mendukung kegiatan akademik dan
+                penelitian di Politeknik Statistika STIS.
+              </p>
+            </div>
+
+            {/* Contact Info */}
+            <div>
+              <h5 className="text-lg font-semibold mb-4">Kontak</h5>
+              <div className="space-y-3">
+                <div className="flex items-start space-x-3">
+                  <div className="w-5 h-5 text-white/60 mt-1 flex-shrink-0">
+                    📍
+                  </div>
+                  <p className="text-white/80 text-sm">
+                    Jl. Otto Iskandardinata No.64C, Jakarta Timur 13330
+                  </p>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <div className="w-5 h-5 text-white/60">📞</div>
+                  <p className="text-white/80 text-sm">(021) 8191437</p>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <div className="w-5 h-5 text-white/60">🕒</div>
+                  <p className="text-white/80 text-sm">
+                    Senin - Jumat: 08:00 - 16:00
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Quick Links */}
+            <div>
+              <h5 className="text-lg font-semibold mb-4">Pintasan</h5>
+              <div className="space-y-3">
+                <a
+                  href="#"
+                  className="block text-white/80 hover:text-white transition-colors text-sm"
+                >
+                  Katalog Online
+                </a>
+                <a
+                  href="#"
+                  className="block text-white/80 hover:text-white transition-colors text-sm"
+                >
+                  Perpanjangan Buku
+                </a>
+                <a
+                  href="#"
+                  className="block text-white/80 hover:text-white transition-colors text-sm"
+                >
+                  Reservasi Ruang
+                </a>
+                <a
+                  href="#"
+                  className="block text-white/80 hover:text-white transition-colors text-sm"
+                >
+                  Download Formulir
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div className="border-t border-white/20 mt-12 pt-8 text-center">
+            <p className="text-white/60 text-sm">
+              © 2024 Perpustakaan STIS. Hak cipta dilindungi undang-undang.
+            </p>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
