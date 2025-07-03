@@ -178,7 +178,7 @@ export default function Repository() {
             </h1>
             <p className="text-lg sm:text-xl text-gray-600 leading-relaxed">
               Repositori institusi yang menyimpan dan menyediakan akses terbuka
-              terhadap karya ilmiah civitas akademika STIS, termasuk tugas
+              terhadap karya ilmiah civitas akademika Polstat STIS, termasuk tugas
               akhir, penelitian, dan publikasi
             </p>
           </div>

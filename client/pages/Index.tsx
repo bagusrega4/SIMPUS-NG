@@ -76,7 +76,7 @@ export default function Index() {
       date: "24 Oktober 2023",
       title: "Koleksi Bacaan Terbaru",
       description:
-        "Haiiii Sobat Perpus STIS! Koleksi buku dan jurnal terbaru telah tersedia untuk dipinjam.",
+        "Haiiii Sobat Perpus Polstat STIS! Koleksi buku dan jurnal terbaru telah tersedia untuk dipinjam.",
       image: "/placeholder.svg",
     },
   ];
@@ -85,7 +85,7 @@ export default function Index() {
     {
       question: "Bagaimana cara berkunjung di perpustakaan?",
       answer:
-        "Untuk berkunjung ke perpustakaan, Anda perlu membawa kartu identitas mahasiswa atau dosen STIS. Daftar di meja resepsionis dan ikuti protokol kesehatan yang berlaku.",
+        "Untuk berkunjung ke perpustakaan, Anda perlu membawa kartu identitas mahasiswa atau dosen Polstat STIS. Daftar di meja resepsionis dan ikuti protokol kesehatan yang berlaku.",
     },
     {
       question:
