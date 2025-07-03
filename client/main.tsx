@@ -23,6 +23,7 @@ import Map from "./pages/info/Map";
 import FAQ from "./pages/info/FAQ";
 import News from "./pages/info/News";
 import Contact from "./pages/info/Contact";
+import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -57,6 +58,7 @@ const App = () => (
           <Route path="/info/faq" element={<FAQ />} />
           <Route path="/info/news" element={<News />} />
           <Route path="/info/contact" element={<Contact />} />
+          <Route path="/login" element={<Login />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
