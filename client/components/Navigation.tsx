@@ -215,9 +215,11 @@ export default function Navigation() {
 
           {/* Login Button & Mobile Menu */}
           <div className="flex items-center space-x-4">
-            <Button className="hidden sm:flex bg-stis-blue hover:bg-stis-blue-dark">
-              Masuk
-            </Button>
+            <a href="/login">
+              <Button className="hidden sm:flex bg-stis-blue hover:bg-stis-blue-dark">
+                Masuk
+              </Button>
+            </a>
 
             {/* Mobile Menu Button */}
             <button
