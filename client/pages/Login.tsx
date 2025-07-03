@@ -21,7 +21,7 @@ export default function Login() {
       return "Format email tidak valid";
     }
     if (!email.toLowerCase().endsWith("@stis.ac.id")) {
-      return "Hanya email STIS (@stis.ac.id) yang diizinkan";
+      return "Hanya email Polstat STIS (@stis.ac.id) yang diizinkan";
     }
     return "";
   };
@@ -87,9 +87,9 @@ export default function Login() {
       // Decode the JWT token to get user info
       const payload = JSON.parse(atob(response.credential.split(".")[1]));
 
-      // Validate STIS domain
+      // Validate Polstat STIS domain
       if (!payload.email || !payload.email.endsWith("@stis.ac.id")) {
-        alert("Hanya email STIS (@stis.ac.id) yang diizinkan masuk");
+        alert("Hanya email Polstat STIS (@stis.ac.id) yang diizinkan masuk");
         return;
       }
 
@@ -116,7 +116,7 @@ export default function Login() {
             Masuk ke SIMPus
           </h2>
           <p className="mt-2 text-sm text-gray-600">
-            Gunakan email STIS atau masuk dengan Google
+            Gunakan email Polstat STIS atau masuk dengan Google
           </p>
         </div>
 
@@ -129,7 +129,7 @@ export default function Login() {
                 htmlFor="email"
                 className="text-sm font-medium text-gray-700"
               >
-                Email STIS
+                Email Polstat STIS
               </Label>
               <div className="mt-1 relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -154,7 +154,7 @@ export default function Login() {
                 </div>
               )}
               <p className="mt-1 text-xs text-gray-500">
-                Gunakan email Google STIS Anda (@stis.ac.id)
+                Gunakan email Google Polstat STIS Anda (@stis.ac.id)
               </p>
             </div>
 
@@ -280,7 +280,7 @@ export default function Login() {
                       d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
                     />
                   </svg>
-                  <span>Masuk dengan Google STIS</span>
+                  <span>Masuk dengan Google Polstat STIS</span>
                 </>
               )}
             </Button>

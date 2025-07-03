@@ -156,7 +156,7 @@ export default function Navigation() {
             </div>
             <div>
               <h1 className="text-xl font-bold text-stis-blue">SIMPus</h1>
-              <p className="text-xs text-gray-600">STIS Library</p>
+              <p className="text-xs text-gray-600">Polstat STIS Library</p>
             </div>
           </a>
 
