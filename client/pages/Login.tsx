@@ -116,7 +116,7 @@ export default function Login() {
             Masuk ke SIMPus
           </h2>
           <p className="mt-2 text-sm text-gray-600">
-            Masuk dengan akun Google STIS Anda
+            Gunakan email STIS atau masuk dengan Google
           </p>
         </div>
 
