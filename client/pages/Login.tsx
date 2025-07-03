@@ -12,6 +12,7 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isGoogleLoading, setIsGoogleLoading] = useState(false);
   const [emailError, setEmailError] = useState("");
 
   const validateEmail = (email: string) => {
@@ -52,6 +53,53 @@ export default function Login() {
       // Handle login logic here
       console.log("Login attempt:", { email, password, rememberMe });
     }, 1000);
+  };
+
+  const handleGoogleSignIn = async () => {
+    setIsGoogleLoading(true);
+
+    try {
+      // Initialize Google Sign-In
+      if (typeof window !== "undefined" && window.google) {
+        window.google.accounts.id.initialize({
+          client_id: "YOUR_GOOGLE_CLIENT_ID", // Replace with actual client ID
+          callback: handleGoogleResponse,
+          auto_select: false,
+          cancel_on_tap_outside: true,
+        });
+
+        window.google.accounts.id.prompt();
+      } else {
+        // Fallback: redirect to Google OAuth
+        const googleAuthUrl = `https://accounts.google.com/oauth/authorize?client_id=YOUR_GOOGLE_CLIENT_ID&redirect_uri=${encodeURIComponent(window.location.origin + "/auth/google/callback")}&scope=openid%20email%20profile&response_type=code&access_type=offline&hd=stis.ac.id`;
+        window.location.href = googleAuthUrl;
+      }
+    } catch (error) {
+      console.error("Google Sign-In error:", error);
+      setIsGoogleLoading(false);
+    }
+  };
+
+  const handleGoogleResponse = (response: any) => {
+    setIsGoogleLoading(false);
+
+    try {
+      // Decode the JWT token to get user info
+      const payload = JSON.parse(atob(response.credential.split(".")[1]));
+
+      // Validate STIS domain
+      if (!payload.email || !payload.email.endsWith("@stis.ac.id")) {
+        alert("Hanya email STIS (@stis.ac.id) yang diizinkan masuk");
+        return;
+      }
+
+      // Handle successful Google login
+      console.log("Google login successful:", payload);
+      // Redirect to dashboard or handle authentication
+    } catch (error) {
+      console.error("Error processing Google response:", error);
+      alert("Terjadi kesalahan saat masuk dengan Google");
+    }
   };
 
   return (
