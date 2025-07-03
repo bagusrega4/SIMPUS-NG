@@ -282,9 +282,11 @@ export default function Navigation() {
                 </div>
               ))}
               <div className="px-4 pt-4">
-                <Button className="w-full bg-stis-blue hover:bg-stis-blue-dark">
-                  Masuk
-                </Button>
+                <a href="/login" className="block">
+                  <Button className="w-full bg-stis-blue hover:bg-stis-blue-dark">
+                    Masuk
+                  </Button>
+                </a>
               </div>
             </nav>
           </div>
