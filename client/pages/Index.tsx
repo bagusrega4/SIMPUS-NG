@@ -177,8 +177,8 @@ export default function Index() {
               Fasilitas & Layanan
             </h3>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Perpustakaan STIS menyediakan berbagai layanan dan fasilitas
-              modern untuk mendukung kegiatan akademik Anda
+              Perpustakaan Polstat STIS menyediakan berbagai layanan dan
+              fasilitas modern untuk mendukung kegiatan akademik Anda
             </p>
           </div>
 
@@ -322,7 +322,7 @@ export default function Index() {
                 <div>
                   <h4 className="text-2xl font-bold">SIMPus</h4>
                   <p className="text-white/80">
-                    Sistem Informasi Manajemen Perpustakaan STIS
+                    Sistem Informasi Manajemen Perpustakaan Polstat STIS
                   </p>
                 </div>
               </div>
@@ -389,7 +389,8 @@ export default function Index() {
 
           <div className="border-t border-white/20 mt-12 pt-8 text-center">
             <p className="text-white/60 text-sm">
-              © 2024 Perpustakaan STIS. Hak cipta dilindungi undang-undang.
+              © 2024 Perpustakaan Polstat STIS. Hak cipta dilindungi
+              undang-undang.
             </p>
           </div>
         </div>
