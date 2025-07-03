@@ -303,8 +303,8 @@ export default function Login() {
         {/* Footer */}
         <div className="text-center">
           <p className="text-xs text-gray-500">
-            © 2024 STIS Library. Hanya untuk civitas akademika STIS dengan
-            email @stis.ac.id
+            © 2024 Polstat STIS Library. Hanya untuk civitas akademika Polstat
+            STIS dengan email @stis.ac.id
           </p>
         </div>
       </div>
