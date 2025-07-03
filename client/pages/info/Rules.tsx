@@ -227,7 +227,7 @@ export default function Rules() {
               Peraturan <span className="text-stis-blue">Perpustakaan</span>
             </h1>
             <p className="text-lg sm:text-xl text-gray-600 leading-relaxed">
-              Tata tertib dan peraturan yang berlaku di Perpustakaan STIS untuk
+              Tata tertib dan peraturan yang berlaku di Perpustakaan Polstat STIS untuk
               menciptakan lingkungan belajar yang kondusif dan nyaman bagi
               seluruh pengguna
             </p>
@@ -576,7 +576,7 @@ export default function Rules() {
                 <div>
                   <h4 className="text-2xl font-bold">SIMPus</h4>
                   <p className="text-white/80">
-                    Sistem Informasi Manajemen Perpustakaan STIS
+                    Sistem Informasi Manajemen Perpustakaan Polstat STIS
                   </p>
                 </div>
               </div>
@@ -645,7 +645,7 @@ export default function Rules() {
 
           <div className="border-t border-white/20 mt-12 pt-8 text-center">
             <p className="text-white/60 text-sm">
-              © 2024 Perpustakaan STIS. Hak cipta dilindungi undang-undang.
+              © 2024 Perpustakaan Polstat STIS. Hak cipta dilindungi undang-undang.
             </p>
           </div>
         </div>

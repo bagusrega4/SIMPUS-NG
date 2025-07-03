@@ -191,7 +191,7 @@ export default function Circulation() {
             </h1>
             <p className="text-lg sm:text-xl text-gray-600 leading-relaxed">
               Layanan peminjaman dan pengembalian buku dengan sistem digital
-              yang memudahkan akses koleksi perpustakaan STIS
+              yang memudahkan akses koleksi perpustakaan Polstat STIS
             </p>
           </div>
         </div>
@@ -258,7 +258,7 @@ export default function Circulation() {
                     Cara Meminjam Buku
                   </h3>
                   <p className="text-lg text-gray-600">
-                    Panduan lengkap proses peminjaman buku di perpustakaan STIS
+                    Panduan lengkap proses peminjaman buku di perpustakaan Polstat STIS
                   </p>
                 </div>
 
@@ -582,7 +582,7 @@ export default function Circulation() {
                 <div>
                   <h4 className="text-2xl font-bold">SIMPus</h4>
                   <p className="text-white/80">
-                    Sistem Informasi Manajemen Perpustakaan STIS
+                    Sistem Informasi Manajemen Perpustakaan Polstat STIS
                   </p>
                 </div>
               </div>
@@ -651,7 +651,7 @@ export default function Circulation() {
 
           <div className="border-t border-white/20 mt-12 pt-8 text-center">
             <p className="text-white/60 text-sm">
-              © 2024 Perpustakaan STIS. Hak cipta dilindungi undang-undang.
+              © 2024 Perpustakaan Polstat STIS. Hak cipta dilindungi undang-undang.
             </p>
           </div>
         </div>

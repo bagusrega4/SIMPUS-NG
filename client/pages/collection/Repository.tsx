@@ -642,7 +642,7 @@ export default function Repository() {
                 <div>
                   <h4 className="text-2xl font-bold">SIMPus</h4>
                   <p className="text-white/80">
-                    Sistem Informasi Manajemen Perpustakaan STIS
+                    Sistem Informasi Manajemen Perpustakaan Polstat STIS
                   </p>
                 </div>
               </div>
@@ -711,7 +711,7 @@ export default function Repository() {
 
           <div className="border-t border-white/20 mt-12 pt-8 text-center">
             <p className="text-white/60 text-sm">
-              © 2024 Perpustakaan STIS. Hak cipta dilindungi undang-undang.
+              © 2024 Perpustakaan Polstat STIS. Hak cipta dilindungi undang-undang.
             </p>
           </div>
         </div>

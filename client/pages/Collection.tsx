@@ -75,7 +75,7 @@ export default function Collection() {
   const recentJournals = [
     {
       title: "Indonesian Journal of Statistics",
-      publisher: "STIS Press",
+      publisher: "Polstat STIS Press",
       issue: "Vol. 15 No. 2, 2023",
       articles: 12,
       type: "journal",

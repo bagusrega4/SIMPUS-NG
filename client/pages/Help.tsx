@@ -63,14 +63,14 @@ export default function Help() {
       category: "Umum",
       questions: [
         {
-          question: "Bagaimana cara menjadi anggota perpustakaan STIS?",
+          question: "Bagaimana cara menjadi anggota perpustakaan Polstat STIS?",
           answer:
-            "Untuk menjadi anggota perpustakaan STIS, Anda perlu membawa kartu identitas (KTP/SIM), pas foto 3x4 sebanyak 2 lembar, dan mengisi formulir pendaftaran. Pendaftaran gratis untuk mahasiswa, dosen, dan karyawan STIS.",
+            "Untuk menjadi anggota perpustakaan Polstat STIS, Anda perlu membawa kartu identitas (KTP/SIM), pas foto 3x4 sebanyak 2 lembar, dan mengisi formulir pendaftaran. Pendaftaran gratis untuk mahasiswa, dosen, dan karyawan STIS.",
         },
         {
           question: "Jam operasional perpustakaan?",
           answer:
-            "Perpustakaan STIS buka Senin-Jumat pukul 08:00-16:00 WIB. Pada hari Sabtu buka pukul 08:00-12:00 WIB. Layanan online tersedia 24/7.",
+            "Perpustakaan Polstat STIS buka Senin-Jumat pukul 08:00-16:00 WIB. Pada hari Sabtu buka pukul 08:00-12:00 WIB. Layanan online tersedia 24/7.",
         },
         {
           question: "Apa saja fasilitas yang tersedia di perpustakaan?",

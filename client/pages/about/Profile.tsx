@@ -9,7 +9,7 @@ export default function Profile() {
       year: "1958",
       title: "Pendirian STIS",
       description:
-        "Perpustakaan STIS didirikan bersamaan dengan pendirian institusi sebagai pusat pembelajaran statistika.",
+        "Perpustakaan Polstat STIS didirikan bersamaan dengan pendirian institusi sebagai pusat pembelajaran statistika.",
     },
     {
       year: "1970",
@@ -88,7 +88,7 @@ export default function Profile() {
               Tentang Kami
             </Badge>
             <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
-              Profil <span className="text-stis-blue">Perpustakaan STIS</span>
+              Profil <span className="text-stis-blue">Perpustakaan Polstat STIS</span>
             </h1>
             <p className="text-lg sm:text-xl text-gray-600 leading-relaxed">
               Perpustakaan Politeknik Statistika STIS telah melayani komunitas
@@ -109,7 +109,7 @@ export default function Profile() {
                   Pusat Informasi Statistika Terdepan
                 </h2>
                 <p className="text-gray-600 mb-6 leading-relaxed">
-                  Perpustakaan STIS merupakan perpustakaan khusus yang fokus
+                  Perpustakaan Polstat STIS merupakan perpustakaan khusus yang fokus
                   pada bidang statistika, matematika, dan komputasi. Kami
                   berkomitmen untuk menyediakan sumber daya informasi
                   berkualitas tinggi yang mendukung proses pembelajaran,
@@ -177,7 +177,7 @@ export default function Profile() {
                 Sejarah & Perkembangan
               </h2>
               <p className="text-lg text-gray-600">
-                Perjalanan panjang perpustakaan STIS dalam melayani kebutuhan
+                Perjalanan panjang perpustakaan Polstat STIS dalam melayani kebutuhan
                 informasi akademik
               </p>
             </div>
@@ -230,7 +230,7 @@ export default function Profile() {
               Kondisi Terkini
             </h2>
             <p className="text-lg text-gray-600 mb-8">
-              Saat ini, Perpustakaan STIS telah berkembang menjadi perpustakaan
+              Saat ini, Perpustakaan Polstat STIS telah berkembang menjadi perpustakaan
               modern yang mengintegrasikan teknologi terdepan dengan layanan
               konvensional untuk memberikan pengalaman pengguna yang optimal.
             </p>
@@ -298,7 +298,7 @@ export default function Profile() {
                 <div>
                   <h4 className="text-2xl font-bold">SIMPus</h4>
                   <p className="text-white/80">
-                    Sistem Informasi Manajemen Perpustakaan STIS
+                    Sistem Informasi Manajemen Perpustakaan Polstat STIS
                   </p>
                 </div>
               </div>
@@ -367,7 +367,7 @@ export default function Profile() {
 
           <div className="border-t border-white/20 mt-12 pt-8 text-center">
             <p className="text-white/60 text-sm">
-              © 2024 Perpustakaan STIS. Hak cipta dilindungi undang-undang.
+              © 2024 Perpustakaan Polstat STIS. Hak cipta dilindungi undang-undang.
             </p>
           </div>
         </div>

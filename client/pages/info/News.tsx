@@ -44,7 +44,7 @@ export default function News() {
     id: 1,
     title: "Peluncuran SIMPus 3.0 dengan Fitur AI Assistant",
     excerpt:
-      "Perpustakaan STIS dengan bangga memperkenalkan SIMPus versi 3.0 yang dilengkapi dengan AI Assistant untuk membantu pencarian koleksi dan rekomendasi bacaan yang lebih personal.",
+      "Perpustakaan Polstat STIS dengan bangga memperkenalkan SIMPus versi 3.0 yang dilengkapi dengan AI Assistant untuk membantu pencarian koleksi dan rekomendasi bacaan yang lebih personal.",
     content:
       "Jakarta, 15 Januari 2024 - Perpustakaan Politeknik Statistika STIS resmi meluncurkan Sistem Informasi Manajemen Perpustakaan (SIMPus) versi 3.0 yang menghadirkan berbagai fitur revolusioner. Fitur unggulan adalah AI Assistant yang dapat membantu pengguna dalam mencari koleksi, memberikan rekomendasi bacaan berdasarkan minat dan riwayat baca, serta menjawab pertanyaan seputar layanan perpustakaan.",
     category: "pengumuman",
@@ -126,7 +126,7 @@ export default function News() {
       id: 7,
       title: "Kerjasama dengan IEEE Digital Library",
       excerpt:
-        "Perpustakaan STIS resmi bermitra dengan IEEE untuk akses database jurnal internasional.",
+        "Perpustakaan Polstat STIS resmi bermitra dengan IEEE untuk akses database jurnal internasional.",
       category: "berita",
       author: "Kepala Perpustakaan",
       date: "2024-01-01",
@@ -226,7 +226,7 @@ export default function News() {
             </h1>
             <p className="text-lg sm:text-xl text-gray-600 leading-relaxed">
               Informasi terbaru tentang layanan, kegiatan, dan perkembangan
-              Perpustakaan STIS yang perlu Anda ketahui
+              Perpustakaan Polstat STIS yang perlu Anda ketahui
             </p>
           </div>
         </div>
@@ -591,7 +591,7 @@ export default function News() {
                 <div>
                   <h4 className="text-2xl font-bold">SIMPus</h4>
                   <p className="text-white/80">
-                    Sistem Informasi Manajemen Perpustakaan STIS
+                    Sistem Informasi Manajemen Perpustakaan Polstat STIS
                   </p>
                 </div>
               </div>
@@ -660,7 +660,7 @@ export default function News() {
 
           <div className="border-t border-white/20 mt-12 pt-8 text-center">
             <p className="text-white/60 text-sm">
-              © 2024 Perpustakaan STIS. Hak cipta dilindungi undang-undang.
+              © 2024 Perpustakaan Polstat STIS. Hak cipta dilindungi undang-undang.
             </p>
           </div>
         </div>

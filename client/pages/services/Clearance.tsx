@@ -540,7 +540,7 @@ export default function Clearance() {
                           >
                             Saya menyatakan bahwa data yang saya berikan adalah
                             benar dan saya telah memenuhi semua persyaratan yang
-                            ditetapkan oleh perpustakaan STIS. Saya bersedia
+                            ditetapkan oleh perpustakaan Polstat STIS. Saya bersedia
                             bertanggung jawab atas segala konsekuensi jika
                             terdapat kesalahan dalam data yang saya berikan.
                           </label>
@@ -687,7 +687,7 @@ export default function Clearance() {
                 <div>
                   <h4 className="text-2xl font-bold">SIMPus</h4>
                   <p className="text-white/80">
-                    Sistem Informasi Manajemen Perpustakaan STIS
+                    Sistem Informasi Manajemen Perpustakaan Polstat STIS
                   </p>
                 </div>
               </div>
@@ -756,7 +756,7 @@ export default function Clearance() {
 
           <div className="border-t border-white/20 mt-12 pt-8 text-center">
             <p className="text-white/60 text-sm">
-              © 2024 Perpustakaan STIS. Hak cipta dilindungi undang-undang.
+              © 2024 Perpustakaan Polstat STIS. Hak cipta dilindungi undang-undang.
             </p>
           </div>
         </div>

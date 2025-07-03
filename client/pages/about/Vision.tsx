@@ -168,7 +168,7 @@ export default function Vision() {
               Visi & <span className="text-stis-blue">Misi</span>
             </h1>
             <p className="text-lg sm:text-xl text-gray-600 leading-relaxed">
-              Roadmap strategis perpustakaan STIS dalam mencapai visi menjadi
+              Roadmap strategis perpustakaan Polstat STIS dalam mencapai visi menjadi
               perpustakaan terdepan yang mendukung keunggulan akademik dan
               penelitian
             </p>
@@ -187,7 +187,7 @@ export default function Vision() {
                 </div>
               </div>
               <h2 className="text-3xl font-bold text-gray-900 mb-6">
-                Visi Perpustakaan STIS
+                Visi Perpustakaan Polstat STIS
               </h2>
               <div className="bg-gradient-to-r from-stis-blue-light to-stis-gray-light rounded-2xl p-8 mb-8">
                 <p className="text-xl sm:text-2xl font-semibold text-gray-900 leading-relaxed">
@@ -236,11 +236,11 @@ export default function Vision() {
                 </div>
               </div>
               <h2 className="text-3xl font-bold text-gray-900 mb-6">
-                Misi Perpustakaan STIS
+                Misi Perpustakaan Polstat STIS
               </h2>
               <p className="text-lg text-gray-600 max-w-3xl mx-auto">
                 Langkah strategis yang akan dilakukan untuk mencapai visi
-                perpustakaan STIS
+                perpustakaan Polstat STIS
               </p>
             </div>
 
@@ -347,7 +347,7 @@ export default function Vision() {
               Bersama Mewujudkan Visi
             </h2>
             <p className="text-lg text-gray-600 mb-8">
-              Visi dan misi perpustakaan STIS akan tercapai dengan dukungan dan
+              Visi dan misi perpustakaan Polstat STIS akan tercapai dengan dukungan dan
               partisipasi aktif dari seluruh sivitas akademika. Mari
               bersama-sama membangun perpustakaan yang unggul.
             </p>
@@ -405,7 +405,7 @@ export default function Vision() {
                 <div>
                   <h4 className="text-2xl font-bold">SIMPus</h4>
                   <p className="text-white/80">
-                    Sistem Informasi Manajemen Perpustakaan STIS
+                    Sistem Informasi Manajemen Perpustakaan Polstat STIS
                   </p>
                 </div>
               </div>
@@ -474,7 +474,7 @@ export default function Vision() {
 
           <div className="border-t border-white/20 mt-12 pt-8 text-center">
             <p className="text-white/60 text-sm">
-              © 2024 Perpustakaan STIS. Hak cipta dilindungi undang-undang.
+              © 2024 Perpustakaan Polstat STIS. Hak cipta dilindungi undang-undang.
             </p>
           </div>
         </div>

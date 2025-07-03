@@ -118,7 +118,7 @@ export default function Index() {
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
               Berbagai Kebutuhan
-              <span className="text-stis-blue block">Perpustakaan STIS</span>
+              <span className="text-stis-blue block">Perpustakaan Polstat STIS</span>
             </h2>
             <p className="text-lg sm:text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
               Dapatkan akses mudah ke layanan perpustakaan digital, koleksi

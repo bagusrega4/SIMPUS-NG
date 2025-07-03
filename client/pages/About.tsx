@@ -41,7 +41,7 @@ export default function About() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
-              Tentang <span className="text-stis-blue">Perpustakaan STIS</span>
+              Tentang <span className="text-stis-blue">Perpustakaan Polstat STIS</span>
             </h1>
             <p className="text-lg sm:text-xl text-gray-600 leading-relaxed">
               Pusat pembelajaran dan informasi yang mendukung visi misi STIS
@@ -147,7 +147,7 @@ export default function About() {
                     Pendirian STIS
                   </h4>
                   <p className="text-gray-600">
-                    Perpustakaan STIS didirikan bersamaan dengan pendirian
+                    Perpustakaan Polstat STIS didirikan bersamaan dengan pendirian
                     institusi sebagai pusat pembelajaran statistika.
                   </p>
                 </div>
