@@ -388,7 +388,7 @@ export default function Collection() {
                   <FileText className="w-8 h-8 text-stis-blue" />
                 </div>
                 <h4 className="font-semibold text-gray-900 mb-2">
-                  Repository STIS
+                  Repository Polstat STIS
                 </h4>
                 <p className="text-sm text-gray-600">
                   Karya ilmiah mahasiswa dan dosen

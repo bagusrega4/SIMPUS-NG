@@ -111,7 +111,7 @@ export default function FAQ() {
       category: "digital",
       question: "Apakah bisa mengunduh e-book perpustakaan?",
       answer:
-        "Ketentuan download tergantung lisensi: 1) E-book open access: dapat diunduh penuh, 2) E-book berlangganan: hanya dapat dibaca online atau download sementara (24-48 jam), 3) Repository STIS: dapat diunduh penuh, 4) Database komersial: sesuai ketentuan penerbit (biasanya chapter/artikel tertentu). Selalu perhatikan copyright dan fair use.",
+        "Ketentuan download tergantung lisensi: 1) E-book open access: dapat diunduh penuh, 2) E-book berlangganan: hanya dapat dibaca online atau download sementara (24-48 jam), 3) Repository Polstat STIS: dapat diunduh penuh, 4) Database komersial: sesuai ketentuan penerbit (biasanya chapter/artikel tertentu). Selalu perhatikan copyright dan fair use.",
       tags: ["download", "e-book", "lisensi"],
       popularity: 71,
       helpful: 89,
