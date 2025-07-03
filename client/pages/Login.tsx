@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { BookOpen, Eye, EyeOff, Lock, Mail } from "lucide-react";
+import { BookOpen, Eye, EyeOff, Lock, Mail, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -12,9 +12,38 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [emailError, setEmailError] = useState("");
+
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return "Format email tidak valid";
+    }
+    if (!email.toLowerCase().endsWith("@stis.ac.id")) {
+      return "Hanya email STIS (@stis.ac.id) yang diizinkan";
+    }
+    return "";
+  };
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newEmail = e.target.value;
+    setEmail(newEmail);
+    if (newEmail) {
+      setEmailError(validateEmail(newEmail));
+    } else {
+      setEmailError("");
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    const emailValidation = validateEmail(email);
+    if (emailValidation) {
+      setEmailError(emailValidation);
+      return;
+    }
+
     setIsLoading(true);
 
     // Simulate login API call
@@ -39,7 +68,7 @@ export default function Login() {
             Masuk ke SIMPus
           </h2>
           <p className="mt-2 text-sm text-gray-600">
-            Sistem Informasi Manajemen Perpustakaan STIS
+            Masuk dengan akun Google STIS Anda
           </p>
         </div>
 
@@ -52,7 +81,7 @@ export default function Login() {
                 htmlFor="email"
                 className="text-sm font-medium text-gray-700"
               >
-                Email atau NIM
+                Email STIS
               </Label>
               <div className="mt-1 relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -60,14 +89,25 @@ export default function Login() {
                 </div>
                 <Input
                   id="email"
-                  type="text"
+                  type="email"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={handleEmailChange}
                   required
-                  className="pl-10 block w-full border-gray-300 rounded-lg focus:ring-stis-blue focus:border-stis-blue"
-                  placeholder="Masukkan email atau NIM Anda"
+                  className={`pl-10 block w-full rounded-lg focus:ring-stis-blue focus:border-stis-blue ${
+                    emailError ? "border-red-300" : "border-gray-300"
+                  }`}
+                  placeholder="nama@stis.ac.id"
                 />
               </div>
+              {emailError && (
+                <div className="mt-2 flex items-center text-sm text-red-600">
+                  <AlertCircle className="w-4 h-4 mr-1" />
+                  {emailError}
+                </div>
+              )}
+              <p className="mt-1 text-xs text-gray-500">
+                Gunakan email Google STIS Anda (@stis.ac.id)
+              </p>
             </div>
 
             {/* Password Field */}
@@ -162,12 +202,12 @@ export default function Login() {
           {/* Register Link */}
           <div className="mt-6 text-center">
             <p className="text-sm text-gray-600">
-              Belum memiliki akun?{" "}
+              Belum memiliki akses?{" "}
               <Link
-                to="/register"
+                to="/info/contact"
                 className="font-medium text-stis-blue hover:text-stis-cyan transition-colors"
               >
-                Daftar sekarang
+                Hubungi admin perpustakaan
               </Link>
             </p>
           </div>
@@ -176,7 +216,8 @@ export default function Login() {
         {/* Footer */}
         <div className="text-center">
           <p className="text-xs text-gray-500">
-            © 2024 STIS Library. Sistem ini hanya untuk civitas akademika STIS.
+            © 2024 STIS Library. Hanya untuk civitas akademika STIS dengan
+            email @stis.ac.id
           </p>
         </div>
       </div>
