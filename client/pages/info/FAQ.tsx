@@ -25,8 +25,26 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import Navigation from "@/components/Navigation";
+import HelpPopup from "@/components/HelpPopup";
 
 export default function FAQ() {
+  const helpItems = [
+    {
+      question: "Bagaimana cara mencari FAQ yang spesifik?",
+      answer:
+        "Gunakan kotak pencarian di atas atau filter berdasarkan kategori untuk menemukan pertanyaan yang Anda cari.",
+    },
+    {
+      question: "Bagaimana jika pertanyaan saya tidak ada di FAQ?",
+      answer:
+        "Gunakan form 'Ajukan Pertanyaan' di bawah atau hubungi langsung pustakawan melalui kontak yang tersedia.",
+    },
+    {
+      question: "Apakah FAQ ini diupdate secara berkala?",
+      answer:
+        "Ya, FAQ diperbarui berdasarkan pertanyaan yang sering diajukan pengguna dan perubahan kebijakan perpustakaan.",
+    },
+  ];
   const [searchQuery, setSearchQuery] = useState("");
   const [openFAQ, setOpenFAQ] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState("semua");
@@ -43,9 +61,9 @@ export default function FAQ() {
     {
       id: "1",
       category: "umum",
-      question: "Bagaimana cara menjadi anggota perpustakaan Polstat STIS?",
+      question: "Bagaimana cara menjadi anggota perpustakaan STIS?",
       answer:
-        "Untuk menjadi anggota perpustakaan Polstat STIS, Anda perlu: 1) Membawa kartu identitas (KTP/SIM/KTM), 2) Mengisi formulir pendaftaran anggota, 3) Menyerahkan pas foto 3x4 sebanyak 2 lembar, 4) Verifikasi data oleh petugas. Pendaftaran gratis untuk seluruh sivitas akademika STIS (mahasiswa, dosen, karyawan).",
+        "Untuk menjadi anggota perpustakaan STIS, Anda perlu: 1) Membawa kartu identitas (KTP/SIM/KTM), 2) Mengisi formulir pendaftaran anggota, 3) Menyerahkan pas foto 3x4 sebanyak 2 lembar, 4) Verifikasi data oleh petugas. Pendaftaran gratis untuk seluruh sivitas akademika STIS (mahasiswa, dosen, karyawan).",
       tags: ["registrasi", "anggota", "pendaftaran"],
       popularity: 95,
       helpful: 87,
@@ -56,7 +74,7 @@ export default function FAQ() {
       category: "umum",
       question: "Apa saja jam operasional perpustakaan?",
       answer:
-        "Perpustakaan Polstat STIS buka dengan jadwal: Senin-Jumat: 08:00-16:00 WIB, Sabtu: 08:00-12:00 WIB, Minggu dan hari libur nasional: Tutup. Layanan online (SIMPus, koleksi digital) tersedia 24/7. Untuk informasi perubahan jadwal khusus, silakan cek pengumuman di website atau media sosial perpustakaan.",
+        "Perpustakaan STIS buka dengan jadwal: Senin-Jumat: 08:00-16:00 WIB, Sabtu: 08:00-12:00 WIB, Minggu dan hari libur nasional: Tutup. Layanan online (SIMPus, koleksi digital) tersedia 24/7. Untuk informasi perubahan jadwal khusus, silakan cek pengumuman di website atau media sosial perpustakaan.",
       tags: ["jam buka", "operasional", "jadwal"],
       popularity: 92,
       helpful: 156,
@@ -111,7 +129,7 @@ export default function FAQ() {
       category: "digital",
       question: "Apakah bisa mengunduh e-book perpustakaan?",
       answer:
-        "Ketentuan download tergantung lisensi: 1) E-book open access: dapat diunduh penuh, 2) E-book berlangganan: hanya dapat dibaca online atau download sementara (24-48 jam), 3) Repository Polstat STIS: dapat diunduh penuh, 4) Database komersial: sesuai ketentuan penerbit (biasanya chapter/artikel tertentu). Selalu perhatikan copyright dan fair use.",
+        "Ketentuan download tergantung lisensi: 1) E-book open access: dapat diunduh penuh, 2) E-book berlangganan: hanya dapat dibaca online atau download sementara (24-48 jam), 3) Repository STIS: dapat diunduh penuh, 4) Database komersial: sesuai ketentuan penerbit (biasanya chapter/artikel tertentu). Selalu perhatikan copyright dan fair use.",
       tags: ["download", "e-book", "lisensi"],
       popularity: 71,
       helpful: 89,
@@ -231,7 +249,7 @@ export default function FAQ() {
             </h1>
             <p className="text-lg sm:text-xl text-gray-600 leading-relaxed">
               Temukan jawaban untuk pertanyaan yang sering diajukan tentang
-              layanan, fasilitas, dan peraturan Perpustakaan Polstat STIS
+              layanan, fasilitas, dan peraturan Perpustakaan STIS
             </p>
           </div>
         </div>
@@ -602,7 +620,7 @@ export default function FAQ() {
                 <div>
                   <h4 className="text-2xl font-bold">SIMPus</h4>
                   <p className="text-white/80">
-                    Sistem Informasi Manajemen Perpustakaan Polstat STIS
+                    Sistem Informasi Manajemen Perpustakaan STIS
                   </p>
                 </div>
               </div>
@@ -671,11 +689,14 @@ export default function FAQ() {
 
           <div className="border-t border-white/20 mt-12 pt-8 text-center">
             <p className="text-white/60 text-sm">
-              © 2024 Perpustakaan Polstat STIS. Hak cipta dilindungi undang-undang.
+              © 2024 Perpustakaan STIS. Hak cipta dilindungi undang-undang.
             </p>
           </div>
         </div>
       </footer>
+
+      {/* Help Popup */}
+      <HelpPopup pageHelp={helpItems} />
     </div>
   );
 }

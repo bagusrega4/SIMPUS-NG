@@ -23,12 +23,38 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import Navigation from "@/components/Navigation";
+import HelpPopup from "@/components/HelpPopup";
 
 export default function Books() {
+  const helpItems = [
+    {
+      question: "Bagaimana cara mencari buku di koleksi cetak?",
+      answer:
+        "Gunakan fitur pencarian dan filter kategori. Anda dapat mencari berdasarkan judul, penulis, ISBN, atau kata kunci.",
+    },
+    {
+      question: "Bagaimana cara meminjam buku?",
+      answer:
+        "Klik tombol 'Pinjam' pada buku yang tersedia, lalu datang ke perpustakaan dengan membawa kartu identitas untuk proses peminjaman.",
+    },
+    {
+      question: "Berapa lama masa peminjaman buku?",
+      answer:
+        "Mahasiswa: 7 hari, Dosen: 14 hari. Dapat diperpanjang jika tidak ada antrian pemesanan.",
+    },
+  ];
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("semua");
   const [selectedLanguage, setSelectedLanguage] = useState("semua");
+  const [selectedBook, setSelectedBook] = useState<any>(null);
 
   const categories = [
     { id: "semua", label: "Semua Kategori", count: 15234 },
@@ -190,7 +216,7 @@ export default function Books() {
             <p className="text-lg sm:text-xl text-gray-600 leading-relaxed">
               Temukan ribuan buku cetak berkualitas tinggi dalam bidang
               statistika, matematika, dan ilmu terkait yang tersedia di
-              perpustakaan Polstat STIS
+              perpustakaan STIS
             </p>
           </div>
         </div>
@@ -217,47 +243,12 @@ export default function Books() {
 
               {/* Filters */}
               <div className="flex gap-4 w-full lg:w-auto">
-                <Select
-                  value={selectedCategory}
-                  onValueChange={setSelectedCategory}
-                >
-                  <SelectTrigger className="w-full lg:w-48">
-                    <SelectValue placeholder="Pilih Kategori" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="semua">Semua Kategori</SelectItem>
-                    <SelectItem value="statistika">Statistika</SelectItem>
-                    <SelectItem value="matematika">Matematika</SelectItem>
-                    <SelectItem value="ekonometrika">Ekonometrika</SelectItem>
-                    <SelectItem value="komputasi statistik">
-                      Komputasi Statistik
-                    </SelectItem>
-                    <SelectItem value="metodologi penelitian">
-                      Metodologi Penelitian
-                    </SelectItem>
-                  </SelectContent>
-                </Select>
-
-                <Select
-                  value={selectedLanguage}
-                  onValueChange={setSelectedLanguage}
-                >
-                  <SelectTrigger className="w-full lg:w-36">
-                    <SelectValue placeholder="Bahasa" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="semua">Semua</SelectItem>
-                    <SelectItem value="indonesia">Indonesia</SelectItem>
-                    <SelectItem value="english">English</SelectItem>
-                  </SelectContent>
-                </Select>
-
                 <Button
                   variant="outline"
-                  className="border-stis-blue text-stis-blue hover:bg-stis-blue hover:text-white"
+                  className="border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white"
                 >
-                  <Filter className="w-4 h-4 mr-2" />
-                  Filter
+                  <Search className="w-4 h-4 mr-2" />
+                  Cari
                 </Button>
               </div>
             </div>
@@ -318,8 +309,8 @@ export default function Books() {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="terbaru">Terbaru</SelectItem>
-                  <SelectItem value="judul">Judul A-Z</SelectItem>
-                  <SelectItem value="penulis">Penulis A-Z</SelectItem>
+                  <SelectItem value="judul">Judul</SelectItem>
+                  <SelectItem value="penulis">Penulis</SelectItem>
                   <SelectItem value="rating">Rating Tertinggi</SelectItem>
                   <SelectItem value="tahun">Tahun Terbit</SelectItem>
                 </SelectContent>
@@ -406,8 +397,9 @@ export default function Books() {
                           <div className="flex flex-col gap-2 lg:w-32">
                             <Button
                               size="sm"
-                              className="bg-stis-blue hover:bg-stis-blue-dark"
+                              className="bg-blue-600 hover:bg-blue-700"
                               disabled={book.status === "Dipinjam"}
+                              onClick={() => setSelectedBook(book)}
                             >
                               <Eye className="w-4 h-4 mr-2" />
                               Detail
@@ -415,17 +407,10 @@ export default function Books() {
                             <Button
                               size="sm"
                               variant="outline"
-                              className="border-stis-blue text-stis-blue hover:bg-stis-blue hover:text-white"
+                              className="border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white"
                               disabled={book.status === "Dipinjam"}
                             >
                               Pinjam
-                            </Button>
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              className="border-stis-cyan text-stis-cyan hover:bg-stis-cyan hover:text-white"
-                            >
-                              Reservasi
                             </Button>
                           </div>
                         </div>
@@ -467,7 +452,7 @@ export default function Books() {
                 <div>
                   <h4 className="text-2xl font-bold">SIMPus</h4>
                   <p className="text-white/80">
-                    Sistem Informasi Manajemen Perpustakaan Polstat STIS
+                    Sistem Informasi Manajemen Perpustakaan STIS
                   </p>
                 </div>
               </div>
@@ -536,11 +521,126 @@ export default function Books() {
 
           <div className="border-t border-white/20 mt-12 pt-8 text-center">
             <p className="text-white/60 text-sm">
-              © 2024 Perpustakaan Polstat STIS. Hak cipta dilindungi undang-undang.
+              © 2024 Perpustakaan STIS. Hak cipta dilindungi undang-undang.
             </p>
           </div>
         </div>
       </footer>
+
+      {/* Book Detail Dialog */}
+      {selectedBook && (
+        <Dialog
+          open={!!selectedBook}
+          onOpenChange={() => setSelectedBook(null)}
+        >
+          <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle className="text-xl font-bold">
+                {selectedBook.title}
+              </DialogTitle>
+            </DialogHeader>
+            <div className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="md:col-span-1">
+                  <div className="aspect-[3/4] bg-gradient-to-br from-stis-blue-light to-stis-gray-light rounded-lg flex items-center justify-center">
+                    <BookOpen className="w-16 h-16 text-stis-blue/40" />
+                  </div>
+                </div>
+                <div className="md:col-span-2 space-y-4">
+                  <div>
+                    <h3 className="font-semibold text-gray-900 mb-2">
+                      Detail Buku
+                    </h3>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Penulis:</span>
+                        <span className="font-medium">
+                          {selectedBook.author}
+                        </span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Penerbit:</span>
+                        <span className="font-medium">
+                          {selectedBook.publisher}
+                        </span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Tahun:</span>
+                        <span className="font-medium">{selectedBook.year}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">ISBN:</span>
+                        <span className="font-medium">{selectedBook.isbn}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Halaman:</span>
+                        <span className="font-medium">
+                          {selectedBook.pages} halaman
+                        </span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Lokasi:</span>
+                        <span className="font-medium">
+                          {selectedBook.location}
+                        </span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Status:</span>
+                        <Badge
+                          variant={
+                            selectedBook.status === "Tersedia"
+                              ? "default"
+                              : "destructive"
+                          }
+                        >
+                          {selectedBook.status}
+                        </Badge>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Rating:</span>
+                        <div className="flex items-center gap-1">
+                          <Star className="w-4 h-4 text-yellow-400 fill-current" />
+                          <span className="font-medium">
+                            {selectedBook.rating}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <h3 className="font-semibold text-gray-900 mb-2">
+                      Deskripsi
+                    </h3>
+                    <p className="text-sm text-gray-600 leading-relaxed">
+                      {selectedBook.description}
+                    </p>
+                  </div>
+
+                  <div className="flex gap-3 pt-4">
+                    <Button
+                      className="flex-1 bg-emerald-600 hover:bg-emerald-700"
+                      disabled={selectedBook.status !== "Tersedia"}
+                    >
+                      Pinjam Buku
+                    </Button>
+                    <Button
+                      variant="outline"
+                      className="border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
+                      onClick={() => setSelectedBook(null)}
+                    >
+                      Tutup
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
+      )}
+
+      {/* Help Popup */}
+      <HelpPopup pageHelp={helpItems} />
     </div>
   );
 }

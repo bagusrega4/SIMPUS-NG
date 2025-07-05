@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Search,
   Filter,
@@ -12,6 +12,7 @@ import {
   Download,
   Eye,
   Star,
+  Lock,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -26,8 +27,69 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import Navigation from "@/components/Navigation";
+import HelpPopup from "@/components/HelpPopup";
 
 export default function ReadingHistory() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    // Check if user is logged in (simulated)
+    const checkAuthStatus = () => {
+      // In real app, check JWT token or session
+      const token = localStorage.getItem("authToken");
+      if (!token) {
+        setIsLoggedIn(false);
+        return;
+      }
+      setIsLoggedIn(true);
+    };
+
+    checkAuthStatus();
+  }, []);
+
+  if (!isLoggedIn) {
+    return (
+      <div className="min-h-screen bg-white">
+        <Navigation />
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-emerald-50 via-white to-teal-50 pt-16">
+          <div className="text-center max-w-md mx-auto px-4">
+            <div className="w-24 h-24 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-8">
+              <Lock className="w-12 h-12 text-emerald-600" />
+            </div>
+            <h1 className="text-2xl font-bold text-gray-900 mb-4">
+              Login Diperlukan
+            </h1>
+            <p className="text-gray-600 mb-8 leading-relaxed">
+              Silakan login terlebih dahulu untuk mengakses riwayat baca Anda.
+            </p>
+            <a href="/login">
+              <Button className="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-lg">
+                Login Sekarang
+              </Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  const helpItems = [
+    {
+      question: "Apa itu reading streak?",
+      answer:
+        "Jumlah hari berturut-turut Anda membaca buku. Semakin konsisten membaca, streak akan semakin tinggi.",
+    },
+    {
+      question: "Bagaimana cara melihat progress membaca?",
+      answer:
+        "Lihat di bagian 'Reading Goals' untuk melihat target dan pencapaian membaca Anda.",
+    },
+    {
+      question: "Bisakah memberikan rating pada buku?",
+      answer:
+        "Ya, Anda dapat memberikan rating dan review buku yang telah dibaca untuk membantu pengguna lain.",
+    },
+  ];
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedPeriod, setSelectedPeriod] = useState("semua");
   const [selectedCategory, setSelectedCategory] = useState("semua");
@@ -742,7 +804,7 @@ export default function ReadingHistory() {
                 <div>
                   <h4 className="text-2xl font-bold">SIMPus</h4>
                   <p className="text-white/80">
-                    Sistem Informasi Manajemen Perpustakaan Polstat STIS
+                    Sistem Informasi Manajemen Perpustakaan STIS
                   </p>
                 </div>
               </div>
@@ -811,11 +873,14 @@ export default function ReadingHistory() {
 
           <div className="border-t border-white/20 mt-12 pt-8 text-center">
             <p className="text-white/60 text-sm">
-              © 2024 Perpustakaan Polstat STIS. Hak cipta dilindungi undang-undang.
+              © 2024 Perpustakaan STIS. Hak cipta dilindungi undang-undang.
             </p>
           </div>
         </div>
       </footer>
+
+      {/* Help Popup */}
+      <HelpPopup pageHelp={helpItems} />
     </div>
   );
 }

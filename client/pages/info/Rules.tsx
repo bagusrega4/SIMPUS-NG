@@ -18,8 +18,26 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import Navigation from "@/components/Navigation";
+import HelpPopup from "@/components/HelpPopup";
 
 export default function Rules() {
+  const helpItems = [
+    {
+      question: "Apa sanksi jika melanggar peraturan perpustakaan?",
+      answer:
+        "Sanksi bervariasi mulai dari teguran, denda, penangguhan hak peminjaman, hingga pemberian surat peringatan sesuai tingkat pelanggaran.",
+    },
+    {
+      question: "Apakah boleh membawa makanan ke dalam perpustakaan?",
+      answer:
+        "Tidak diperbolehkan membawa makanan ke area baca. Gunakan area kantin yang telah disediakan untuk makan dan minum.",
+    },
+    {
+      question: "Bagaimana aturan penggunaan ponsel di perpustakaan?",
+      answer:
+        "Ponsel harus dalam mode silent/vibrate di area baca. Untuk menerima telepon, harap keluar ke area lobby atau luar ruangan.",
+    },
+  ];
   const [searchQuery, setSearchQuery] = useState("");
 
   const generalRules = [
@@ -227,7 +245,7 @@ export default function Rules() {
               Peraturan <span className="text-stis-blue">Perpustakaan</span>
             </h1>
             <p className="text-lg sm:text-xl text-gray-600 leading-relaxed">
-              Tata tertib dan peraturan yang berlaku di Perpustakaan Polstat STIS untuk
+              Tata tertib dan peraturan yang berlaku di Perpustakaan STIS untuk
               menciptakan lingkungan belajar yang kondusif dan nyaman bagi
               seluruh pengguna
             </p>
@@ -576,7 +594,7 @@ export default function Rules() {
                 <div>
                   <h4 className="text-2xl font-bold">SIMPus</h4>
                   <p className="text-white/80">
-                    Sistem Informasi Manajemen Perpustakaan Polstat STIS
+                    Sistem Informasi Manajemen Perpustakaan STIS
                   </p>
                 </div>
               </div>
@@ -645,11 +663,14 @@ export default function Rules() {
 
           <div className="border-t border-white/20 mt-12 pt-8 text-center">
             <p className="text-white/60 text-sm">
-              © 2024 Perpustakaan Polstat STIS. Hak cipta dilindungi undang-undang.
+              © 2024 Perpustakaan STIS. Hak cipta dilindungi undang-undang.
             </p>
           </div>
         </div>
       </footer>
+
+      {/* Help Popup */}
+      <HelpPopup pageHelp={helpItems} />
     </div>
   );
 }

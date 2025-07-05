@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
+import HelpPopup from "@/components/HelpPopup";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -14,6 +15,24 @@ export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
   const [emailError, setEmailError] = useState("");
+
+  const helpItems = [
+    {
+      question: "Bagaimana cara masuk ke SIMPus?",
+      answer:
+        "Gunakan email Polstat STIS Anda atau masuk langsung dengan akun Google Polstat STIS.",
+    },
+    {
+      question: "Saya lupa password, bagaimana?",
+      answer:
+        "Klik 'Lupa kata sandi?' atau hubungi admin perpustakaan untuk reset password.",
+    },
+    {
+      question: "Mengapa email saya tidak bisa digunakan?",
+      answer:
+        "Pastikan Anda menggunakan email dengan domain @stis.ac.id yang terdaftar di sistem.",
+    },
+  ];
 
   const validateEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -308,6 +327,9 @@ export default function Login() {
           </p>
         </div>
       </div>
+
+      {/* Help Popup */}
+      <HelpPopup pageHelp={helpItems} />
     </div>
   );
 }

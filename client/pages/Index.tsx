@@ -6,7 +6,8 @@ import {
   Monitor,
   RotateCcw,
   FileCheck,
-  Armchair,
+  Scale,
+  Database,
   ExternalLink,
   Calendar,
   ChevronDown,
@@ -25,42 +26,74 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import Navigation from "@/components/Navigation";
+import HelpPopup from "@/components/HelpPopup";
 
 export default function Index() {
   const [searchQuery, setSearchQuery] = useState("");
   const [openFAQ, setOpenFAQ] = useState<number | null>(null);
 
+  const helpItems = [
+    {
+      question: "Bagaimana cara mencari buku di SIMPus?",
+      answer:
+        "Gunakan kolom pencarian di atas untuk mencari buku berdasarkan judul, penulis, atau ISBN. Anda juga bisa menggunakan filter kategori.",
+    },
+    {
+      question: "Bagaimana cara mengakses layanan perpustakaan?",
+      answer:
+        "Klik pada kartu layanan di bawah untuk mengakses setiap fitur. Pastikan Anda sudah login dengan akun Polstat STIS.",
+    },
+    {
+      question: "Di mana saya bisa melihat pengumuman terbaru?",
+      answer:
+        "Pengumuman terbaru ditampilkan di bagian bawah halaman ini. Untuk pengumuman lengkap, kunjungi halaman Berita & Pengumuman.",
+    },
+  ];
+
+  const operationalHours = [
+    { day: "Senin - Kamis", hours: "08:00 - 16:00" },
+    { day: "Jumat", hours: "08:00 - 15:30" },
+    { day: "Sabtu - Minggu", hours: "Tutup" },
+    { day: "Hari Libur Nasional", hours: "Tutup" },
+  ];
+
   const services = [
     {
-      icon: BookOpen,
-      title: "Peminjaman Buku",
+      icon: Scale,
+      title: "Peraturan",
       description:
-        "Layanan peminjaman koleksi buku perpustakaan dengan sistem digital",
+        "Tata tertib dan peraturan perpustakaan untuk kenyamanan bersama",
+      href: "/info/rules",
     },
     {
       icon: FileText,
       title: "Koleksi Cetak",
       description: "Akses koleksi buku, jurnal, dan publikasi cetak",
+      href: "/collection/books",
     },
     {
       icon: Monitor,
-      title: "Koleksi Elektronik",
+      title: "Koleksi Digital",
       description: "E-book, e-journal, dan sumber daya digital",
+      href: "/collection/digital",
     },
     {
       icon: RotateCcw,
       title: "Layanan Sirkulasi",
       description: "Sistem manajemen peminjaman dan pengembalian",
+      href: "/services/circulation",
     },
     {
       icon: FileCheck,
       title: "Surat Bebas Perpustakaan",
       description: "Pengurusan surat keterangan bebas perpustakaan",
+      href: "/services/clearance",
     },
     {
-      icon: Armchair,
-      title: "Meja Baca",
-      description: "Fasilitas ruang baca yang nyaman dan kondusif",
+      icon: Database,
+      title: "Repository Polstat STIS",
+      description: "Karya ilmiah mahasiswa dan dosen Polstat STIS",
+      href: "/collection/repository",
     },
   ];
 
@@ -118,7 +151,9 @@ export default function Index() {
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
               Berbagai Kebutuhan
-              <span className="text-stis-blue block">Perpustakaan Polstat STIS</span>
+              <span className="text-stis-blue block">
+                Perpustakaan Polstat STIS
+              </span>
             </h2>
             <p className="text-lg sm:text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
               Dapatkan akses mudah ke layanan perpustakaan digital, koleksi
@@ -139,7 +174,7 @@ export default function Index() {
                 />
                 <Button
                   size="lg"
-                  className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-stis-blue hover:bg-stis-blue-dark rounded-lg"
+                  className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-emerald-600 hover:bg-emerald-700 rounded-lg"
                 >
                   Cari
                 </Button>
@@ -186,24 +221,66 @@ export default function Index() {
             {services.map((service, index) => {
               const IconComponent = service.icon;
               return (
-                <Card
-                  key={index}
-                  className="group hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border-0 shadow-md"
-                >
-                  <CardContent className="p-8 text-center">
-                    <div className="w-16 h-16 bg-stis-blue/10 rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:bg-stis-blue/20 transition-colors">
-                      <IconComponent className="w-8 h-8 text-stis-blue" />
-                    </div>
-                    <h4 className="text-xl font-semibold text-gray-900 mb-3">
-                      {service.title}
-                    </h4>
-                    <p className="text-gray-600 leading-relaxed">
-                      {service.description}
-                    </p>
-                  </CardContent>
-                </Card>
+                <a key={index} href={service.href}>
+                  <Card className="group hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border-0 shadow-md cursor-pointer">
+                    <CardContent className="p-8 text-center">
+                      <div className="w-16 h-16 bg-emerald-600/10 rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:bg-emerald-600/20 transition-colors">
+                        <IconComponent className="w-8 h-8 text-stis-blue" />
+                      </div>
+                      <h4 className="text-xl font-semibold text-gray-900 mb-3 group-hover:text-stis-blue transition-colors">
+                        {service.title}
+                      </h4>
+                      <p className="text-gray-600 leading-relaxed">
+                        {service.description}
+                      </p>
+                    </CardContent>
+                  </Card>
+                </a>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      {/* Operational Hours Section */}
+      <section className="py-16 bg-emerald-50">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-12">
+              <h3 className="text-3xl font-bold text-gray-900 mb-4">
+                Jam Operasional
+              </h3>
+              <p className="text-lg text-gray-600">
+                Jadwal layanan Perpustakaan Polstat STIS
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {operationalHours.map((schedule, index) => (
+                <Card key={index} className="bg-white border-0 shadow-md">
+                  <CardContent className="p-6">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <Clock className="w-5 h-5 text-stis-blue" />
+                        <span className="font-semibold text-gray-900">
+                          {schedule.day}
+                        </span>
+                      </div>
+                      <span className="text-stis-blue font-medium">
+                        {schedule.hours}
+                      </span>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+
+            <div className="text-center mt-8">
+              <p className="text-sm text-gray-600">
+                * Jam operasional dapat berubah sewaktu-waktu mengikuti
+                kebijakan kampus
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -245,7 +322,7 @@ export default function Index() {
                   </p>
                   <Button
                     variant="outline"
-                    className="border-stis-blue text-stis-blue hover:bg-stis-blue hover:text-white"
+                    className="border-stis-blue text-stis-blue hover:bg-emerald-600 hover:text-white"
                   >
                     Baca Selengkapnya
                     <ExternalLink className="w-4 h-4 ml-2" />
@@ -310,7 +387,7 @@ export default function Index() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-stis-blue text-white">
+      <footer className="bg-emerald-600 text-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Brand */}
@@ -387,7 +464,24 @@ export default function Index() {
             </div>
           </div>
 
-          <div className="border-t border-white/20 mt-12 pt-8 text-center">
+          {/* Map Section */}
+          <div className="mt-12 border-t border-white/20 pt-8">
+            <h5 className="text-lg font-semibold mb-6">Lokasi Polstat STIS</h5>
+            <div className="bg-white/10 rounded-lg p-4 mb-6">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.521260322283!2d106.8606999746484!3d-6.194605593769447!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5390917b759%3A0x6b45e67356080477!2sPoliteknik%20Statistika%20STIS!5e0!3m2!1sen!2sid!4v1692123456789!5m2!1sen!2sid"
+                width="100%"
+                height="200"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="rounded-lg"
+              ></iframe>
+            </div>
+          </div>
+
+          <div className="border-t border-white/20 mt-8 pt-8 text-center">
             <p className="text-white/60 text-sm">
               © 2024 Perpustakaan Polstat STIS. Hak cipta dilindungi
               undang-undang.
@@ -395,6 +489,9 @@ export default function Index() {
           </div>
         </div>
       </footer>
+
+      {/* Help Popup */}
+      <HelpPopup pageHelp={helpItems} />
     </div>
   );
 }

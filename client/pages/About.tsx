@@ -3,8 +3,26 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import HelpPopup from "@/components/HelpPopup";
 
 export default function About() {
+  const helpItems = [
+    {
+      question: "Apa visi dan misi perpustakaan Polstat STIS?",
+      answer:
+        "Visi: Menjadi perpustakaan terdepan dalam pendidikan tinggi statistika. Misi: Menyediakan sumber daya berkualitas dan layanan inovatif.",
+    },
+    {
+      question: "Siapa saja yang memimpin perpustakaan?",
+      answer:
+        "Tim profesional yang dipimpin oleh Kepala Perpustakaan dengan dukungan koordinator IT dan kepala layanan berpengalaman.",
+    },
+    {
+      question: "Sejak kapan perpustakaan STIS berdiri?",
+      answer:
+        "Perpustakaan didirikan bersamaan dengan STIS pada tahun 1958 dan terus berkembang hingga era digital saat ini.",
+    },
+  ];
   const stats = [
     { number: "50+", label: "Tahun Pengalaman", icon: Clock },
     { number: "15K+", label: "Koleksi Buku", icon: BookOpen },
@@ -41,7 +59,8 @@ export default function About() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
-              Tentang <span className="text-stis-blue">Perpustakaan Polstat STIS</span>
+              Tentang{" "}
+              <span className="text-stis-blue">Perpustakaan Polstat STIS</span>
             </h1>
             <p className="text-lg sm:text-xl text-gray-600 leading-relaxed">
               Pusat pembelajaran dan informasi yang mendukung visi misi STIS
@@ -60,7 +79,7 @@ export default function About() {
               const IconComponent = stat.icon;
               return (
                 <div key={index} className="text-center">
-                  <div className="w-16 h-16 bg-stis-blue/10 rounded-xl flex items-center justify-center mx-auto mb-4">
+                  <div className="w-16 h-16 bg-emerald-600/10 rounded-xl flex items-center justify-center mx-auto mb-4">
                     <IconComponent className="w-8 h-8 text-stis-blue" />
                   </div>
                   <div className="text-3xl font-bold text-stis-blue mb-2">
@@ -81,7 +100,7 @@ export default function About() {
             <Card className="border-0 shadow-lg">
               <CardContent className="p-8">
                 <div className="flex items-center mb-6">
-                  <div className="w-12 h-12 bg-stis-blue/10 rounded-lg flex items-center justify-center mr-4">
+                  <div className="w-12 h-12 bg-emerald-600/10 rounded-lg flex items-center justify-center mr-4">
                     <Target className="w-6 h-6 text-stis-blue" />
                   </div>
                   <h3 className="text-2xl font-bold text-gray-900">Visi</h3>
@@ -138,7 +157,7 @@ export default function About() {
             <div className="space-y-8">
               <div className="flex items-start">
                 <div className="flex-shrink-0">
-                  <div className="w-12 h-12 bg-stis-blue rounded-full flex items-center justify-center text-white font-bold">
+                  <div className="w-12 h-12 bg-emerald-600 rounded-full flex items-center justify-center text-white font-bold">
                     1958
                   </div>
                 </div>
@@ -147,8 +166,8 @@ export default function About() {
                     Pendirian STIS
                   </h4>
                   <p className="text-gray-600">
-                    Perpustakaan Polstat STIS didirikan bersamaan dengan pendirian
-                    institusi sebagai pusat pembelajaran statistika.
+                    Perpustakaan Polstat STIS didirikan bersamaan dengan
+                    pendirian institusi sebagai pusat pembelajaran statistika.
                   </p>
                 </div>
               </div>
@@ -172,7 +191,7 @@ export default function About() {
 
               <div className="flex items-start">
                 <div className="flex-shrink-0">
-                  <div className="w-12 h-12 bg-stis-blue rounded-full flex items-center justify-center text-white font-bold">
+                  <div className="w-12 h-12 bg-emerald-600 rounded-full flex items-center justify-center text-white font-bold">
                     2010
                   </div>
                 </div>
@@ -247,6 +266,9 @@ export default function About() {
       </section>
 
       <Footer />
+
+      {/* Help Popup */}
+      <HelpPopup pageHelp={helpItems} />
     </div>
   );
 }

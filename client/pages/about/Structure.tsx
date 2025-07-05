@@ -2,8 +2,26 @@ import { Users, Mail, Phone, Award, BookOpen } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Navigation from "@/components/Navigation";
+import HelpPopup from "@/components/HelpPopup";
 
 export default function Structure() {
+  const helpItems = [
+    {
+      question: "Siapa yang memimpin perpustakaan Polstat STIS?",
+      answer:
+        "Perpustakaan dipimpin oleh Kepala Perpustakaan dengan dibantu Wakil Kepala dan tim profesional di berbagai divisi.",
+    },
+    {
+      question: "Bagaimana struktur organisasi perpustakaan?",
+      answer:
+        "Terdapat 3 bagian utama: Layanan Teknis (pengolahan koleksi), Layanan Pengguna (sirkulasi & referensi), dan Teknologi Informasi.",
+    },
+    {
+      question: "Bagaimana cara menghubungi staff perpustakaan?",
+      answer:
+        "Anda dapat menghubungi staff melalui email atau telepon yang tercantum, atau langsung datang ke meja layanan.",
+    },
+  ];
   const leadership = [
     {
       name: "Dr. Maria Sari Dewi, M.Si",
@@ -363,7 +381,7 @@ export default function Structure() {
                 <div>
                   <h4 className="text-2xl font-bold">SIMPus</h4>
                   <p className="text-white/80">
-                    Sistem Informasi Manajemen Perpustakaan Polstat STIS
+                    Sistem Informasi Manajemen Perpustakaan STIS
                   </p>
                 </div>
               </div>
@@ -432,11 +450,14 @@ export default function Structure() {
 
           <div className="border-t border-white/20 mt-12 pt-8 text-center">
             <p className="text-white/60 text-sm">
-              © 2024 Perpustakaan Polstat STIS. Hak cipta dilindungi undang-undang.
+              © 2024 Perpustakaan STIS. Hak cipta dilindungi undang-undang.
             </p>
           </div>
         </div>
       </footer>
+
+      {/* Help Popup */}
+      <HelpPopup pageHelp={helpItems} />
     </div>
   );
 }

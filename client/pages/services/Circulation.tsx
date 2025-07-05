@@ -18,8 +18,26 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Navigation from "@/components/Navigation";
+import HelpPopup from "@/components/HelpPopup";
 
 export default function Circulation() {
+  const helpItems = [
+    {
+      question: "Bagaimana proses peminjaman buku?",
+      answer:
+        "1) Cari buku di katalog, 2) Datang ke perpustakaan dengan KTM/identitas, 3) Scan barcode buku dan kartu, 4) Selesai!",
+    },
+    {
+      question: "Apa yang harus dibawa saat meminjam?",
+      answer:
+        "Bawa kartu identitas (KTM untuk mahasiswa, ID card untuk dosen) dan pastikan tidak ada tunggakan denda.",
+    },
+    {
+      question: "Bagaimana cara menggunakan aplikasi mobile?",
+      answer:
+        "Download aplikasi SIMPus Mobile, login dengan akun STIS, dan gunakan untuk scan QR code, cek status peminjaman, dan layanan lainnya.",
+    },
+  ];
   const [activeStep, setActiveStep] = useState(0);
 
   const serviceHours = [
@@ -191,7 +209,7 @@ export default function Circulation() {
             </h1>
             <p className="text-lg sm:text-xl text-gray-600 leading-relaxed">
               Layanan peminjaman dan pengembalian buku dengan sistem digital
-              yang memudahkan akses koleksi perpustakaan Polstat STIS
+              yang memudahkan akses koleksi perpustakaan STIS
             </p>
           </div>
         </div>
@@ -258,7 +276,7 @@ export default function Circulation() {
                     Cara Meminjam Buku
                   </h3>
                   <p className="text-lg text-gray-600">
-                    Panduan lengkap proses peminjaman buku di perpustakaan Polstat STIS
+                    Panduan lengkap proses peminjaman buku di perpustakaan STIS
                   </p>
                 </div>
 
@@ -582,7 +600,7 @@ export default function Circulation() {
                 <div>
                   <h4 className="text-2xl font-bold">SIMPus</h4>
                   <p className="text-white/80">
-                    Sistem Informasi Manajemen Perpustakaan Polstat STIS
+                    Sistem Informasi Manajemen Perpustakaan STIS
                   </p>
                 </div>
               </div>
@@ -651,11 +669,14 @@ export default function Circulation() {
 
           <div className="border-t border-white/20 mt-12 pt-8 text-center">
             <p className="text-white/60 text-sm">
-              © 2024 Perpustakaan Polstat STIS. Hak cipta dilindungi undang-undang.
+              © 2024 Perpustakaan STIS. Hak cipta dilindungi undang-undang.
             </p>
           </div>
         </div>
       </footer>
+
+      {/* Help Popup */}
+      <HelpPopup pageHelp={helpItems} />
     </div>
   );
 }

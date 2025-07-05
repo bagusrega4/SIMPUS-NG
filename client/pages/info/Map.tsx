@@ -20,8 +20,26 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Navigation from "@/components/Navigation";
+import HelpPopup from "@/components/HelpPopup";
 
 export default function Map() {
+  const helpItems = [
+    {
+      question: "Bagaimana cara menggunakan denah interaktif?",
+      answer:
+        "Klik tombol lantai untuk melihat denah tiap lantai. Klik fasilitas untuk melihat detail lokasi dan fungsinya.",
+    },
+    {
+      question: "Di mana lokasi meja layanan?",
+      answer:
+        "Meja layanan utama berada di lantai 1 dekat pintu masuk. Ada juga meja informasi di lantai 2 untuk referensi khusus.",
+    },
+    {
+      question: "Apakah ada petunjuk arah di dalam perpustakaan?",
+      answer:
+        "Ya, terdapat signage dan petunjuk arah di setiap lantai. Staf perpustakaan juga siap membantu jika Anda tersesat.",
+    },
+  ];
   const [selectedFloor, setSelectedFloor] = useState("lantai-1");
   const [selectedFacility, setSelectedFacility] = useState<string | null>(null);
 
@@ -232,7 +250,7 @@ export default function Map() {
               Denah <span className="text-stis-blue">Perpustakaan</span>
             </h1>
             <p className="text-lg sm:text-xl text-gray-600 leading-relaxed">
-              Peta interaktif Perpustakaan Polstat STIS untuk membantu Anda menemukan
+              Peta interaktif Perpustakaan STIS untuk membantu Anda menemukan
               lokasi fasilitas, koleksi, dan layanan yang Anda butuhkan
             </p>
           </div>
@@ -686,7 +704,7 @@ export default function Map() {
                 <div>
                   <h4 className="text-2xl font-bold">SIMPus</h4>
                   <p className="text-white/80">
-                    Sistem Informasi Manajemen Perpustakaan Polstat STIS
+                    Sistem Informasi Manajemen Perpustakaan STIS
                   </p>
                 </div>
               </div>
@@ -755,11 +773,14 @@ export default function Map() {
 
           <div className="border-t border-white/20 mt-12 pt-8 text-center">
             <p className="text-white/60 text-sm">
-              © 2024 Perpustakaan Polstat STIS. Hak cipta dilindungi undang-undang.
+              © 2024 Perpustakaan STIS. Hak cipta dilindungi undang-undang.
             </p>
           </div>
         </div>
       </footer>
+
+      {/* Help Popup */}
+      <HelpPopup pageHelp={helpItems} />
     </div>
   );
 }

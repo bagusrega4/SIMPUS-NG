@@ -21,8 +21,26 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Label } from "@/components/ui/label";
 import Navigation from "@/components/Navigation";
+import HelpPopup from "@/components/HelpPopup";
 
 export default function Contact() {
+  const helpItems = [
+    {
+      question: "Kapan waktu terbaik untuk menghubungi perpustakaan?",
+      answer:
+        "Jam operasional: Senin-Kamis 08:00-16:00, Jumat 08:00-15:30. Untuk respon email biasanya dalam 24 jam di hari kerja.",
+    },
+    {
+      question: "Bagaimana cara menghubungi pustakawan spesialis?",
+      answer:
+        "Gunakan kontak khusus sesuai departemen atau datang langsung ke meja referensi untuk konsultasi.",
+    },
+    {
+      question: "Apakah bisa berkonsultasi penelitian secara online?",
+      answer:
+        "Ya, bisa melalui email atau video call. Jadwalkan appointment terlebih dahulu melalui kontak yang tersedia.",
+    },
+  ];
   const [formData, setFormData] = useState({
     nama: "",
     email: "",
@@ -57,7 +75,7 @@ export default function Contact() {
       title: "Alamat",
       details: [
         {
-          label: "Perpustakaan Polstat STIS",
+          label: "Perpustakaan STIS",
           value: "Lantai 2, Gedung Utama STIS",
         },
         {
@@ -151,7 +169,7 @@ export default function Contact() {
     {
       platform: "YouTube",
       icon: Youtube,
-      handle: "Perpustakaan Polstat STIS",
+      handle: "Perpustakaan STIS",
       url: "https://youtube.com/perpustakaanstis",
       color: "text-red-600",
       followers: "856",
@@ -599,7 +617,7 @@ export default function Contact() {
                           Alamat Lengkap
                         </h4>
                         <p className="text-gray-600 mb-4">
-                          Perpustakaan Polstat STIS
+                          Perpustakaan STIS
                           <br />
                           Lantai 2, Gedung Utama
                           <br />
@@ -788,7 +806,7 @@ export default function Contact() {
                 <div>
                   <h4 className="text-2xl font-bold">SIMPus</h4>
                   <p className="text-white/80">
-                    Sistem Informasi Manajemen Perpustakaan Polstat STIS
+                    Sistem Informasi Manajemen Perpustakaan STIS
                   </p>
                 </div>
               </div>
@@ -857,11 +875,14 @@ export default function Contact() {
 
           <div className="border-t border-white/20 mt-12 pt-8 text-center">
             <p className="text-white/60 text-sm">
-              © 2024 Perpustakaan Polstat STIS. Hak cipta dilindungi undang-undang.
+              © 2024 Perpustakaan STIS. Hak cipta dilindungi undang-undang.
             </p>
           </div>
         </div>
       </footer>
+
+      {/* Help Popup */}
+      <HelpPopup pageHelp={helpItems} />
     </div>
   );
 }

@@ -16,10 +16,29 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import HelpPopup from "@/components/HelpPopup";
 
 export default function Collection() {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState("semua");
+
+  const helpItems = [
+    {
+      question: "Bagaimana cara mencari koleksi tertentu?",
+      answer:
+        "Gunakan search bar di atas dan filter berdasarkan kategori. Anda juga bisa menggunakan tab untuk memilih jenis koleksi.",
+    },
+    {
+      question: "Apa perbedaan antara buku cetak dan e-book?",
+      answer:
+        "Buku cetak harus dipinjam fisik di perpustakaan, sedangkan e-book dapat diakses dan diunduh secara online.",
+    },
+    {
+      question: "Bagaimana cara mengakses database online?",
+      answer:
+        "Klik pada 'Database Online' di bagian akses cepat atau login dengan akun Polstat STIS untuk akses penuh.",
+    },
+  ];
 
   const categories = [
     { id: "semua", label: "Semua Koleksi", count: "15,847" },
@@ -131,7 +150,7 @@ export default function Collection() {
                 />
                 <Button
                   size="lg"
-                  className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-stis-blue hover:bg-stis-blue-dark rounded-lg"
+                  className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-emerald-600 hover:bg-emerald-700 rounded-lg"
                 >
                   Cari
                 </Button>
@@ -150,7 +169,7 @@ export default function Collection() {
                 key={category.id}
                 className={`cursor-pointer transition-all hover:shadow-lg ${
                   activeCategory === category.id
-                    ? "ring-2 ring-stis-blue bg-stis-blue-light"
+                    ? "ring-2 ring-stis-blue bg-emerald-600-light"
                     : ""
                 }`}
                 onClick={() => setActiveCategory(category.id)}
@@ -185,7 +204,7 @@ export default function Collection() {
                   </h3>
                   <Button
                     variant="outline"
-                    className="border-stis-blue text-stis-blue hover:bg-stis-blue hover:text-white"
+                    className="border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white"
                   >
                     <Filter className="w-4 h-4 mr-2" />
                     Filter
@@ -239,7 +258,7 @@ export default function Collection() {
                           <div className="flex gap-2">
                             <Button
                               size="sm"
-                              className="flex-1 bg-stis-blue hover:bg-stis-blue-dark text-xs"
+                              className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-xs"
                             >
                               <Eye className="w-3 h-3 mr-1" />
                               Lihat
@@ -247,7 +266,7 @@ export default function Collection() {
                             <Button
                               size="sm"
                               variant="outline"
-                              className="flex-1 border-stis-blue text-stis-blue hover:bg-stis-blue hover:text-white text-xs"
+                              className="flex-1 border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white text-xs"
                             >
                               <Download className="w-3 h-3 mr-1" />
                               Unduh
@@ -269,7 +288,7 @@ export default function Collection() {
                   </h3>
                   <Button
                     variant="outline"
-                    className="border-stis-blue text-stis-blue hover:bg-stis-blue hover:text-white"
+                    className="border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white"
                   >
                     Lihat Semua
                   </Button>
@@ -304,7 +323,7 @@ export default function Collection() {
                           <Button
                             size="sm"
                             variant="outline"
-                            className="border-stis-cyan text-stis-cyan hover:bg-stis-cyan hover:text-white"
+                            className="border-teal-600 text-teal-600 hover:bg-teal-600 hover:text-white"
                           >
                             Baca
                           </Button>
@@ -318,7 +337,7 @@ export default function Collection() {
 
             <TabsContent value="thesis">
               <div className="text-center py-16">
-                <div className="w-24 h-24 bg-stis-blue/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                <div className="w-24 h-24 bg-emerald-600/10 rounded-full flex items-center justify-center mx-auto mb-6">
                   <FileText className="w-12 h-12 text-stis-blue" />
                 </div>
                 <h3 className="text-2xl font-bold text-gray-900 mb-4">
@@ -331,7 +350,7 @@ export default function Collection() {
                 </p>
                 <Button
                   size="lg"
-                  className="bg-stis-blue hover:bg-stis-blue-dark"
+                  className="bg-emerald-600 hover:bg-emerald-700"
                 >
                   Jelajahi Repository
                 </Button>
@@ -356,7 +375,7 @@ export default function Collection() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             <Card className="hover:shadow-lg transition-shadow cursor-pointer border-0 shadow-md">
               <CardContent className="p-6 text-center">
-                <div className="w-16 h-16 bg-stis-blue/10 rounded-xl flex items-center justify-center mx-auto mb-4">
+                <div className="w-16 h-16 bg-emerald-600/10 rounded-xl flex items-center justify-center mx-auto mb-4">
                   <BookOpen className="w-8 h-8 text-stis-blue" />
                 </div>
                 <h4 className="font-semibold text-gray-900 mb-2">
@@ -384,7 +403,7 @@ export default function Collection() {
 
             <Card className="hover:shadow-lg transition-shadow cursor-pointer border-0 shadow-md">
               <CardContent className="p-6 text-center">
-                <div className="w-16 h-16 bg-stis-blue/10 rounded-xl flex items-center justify-center mx-auto mb-4">
+                <div className="w-16 h-16 bg-emerald-600/10 rounded-xl flex items-center justify-center mx-auto mb-4">
                   <FileText className="w-8 h-8 text-stis-blue" />
                 </div>
                 <h4 className="font-semibold text-gray-900 mb-2">
@@ -412,6 +431,9 @@ export default function Collection() {
       </section>
 
       <Footer />
+
+      {/* Help Popup */}
+      <HelpPopup pageHelp={helpItems} />
     </div>
   );
 }

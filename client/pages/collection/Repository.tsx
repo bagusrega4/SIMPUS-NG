@@ -25,17 +25,35 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import Navigation from "@/components/Navigation";
+import HelpPopup from "@/components/HelpPopup";
 
 export default function Repository() {
+  const helpItems = [
+    {
+      question: "Apa itu Repository Polstat STIS?",
+      answer:
+        "Kumpulan karya ilmiah civitas akademika Polstat STIS meliputi tugas akhir, skripsi, tesis, publikasi, dan laporan penelitian.",
+    },
+    {
+      question: "Bagaimana cara submit karya ke repository?",
+      answer:
+        "Hubungi pustakawan atau gunakan sistem submit online. Pastikan dokumen dalam format PDF dengan metadata lengkap.",
+    },
+    {
+      question: "Apakah semua karya bisa diakses publik?",
+      answer:
+        "Tergantung level akses yang ditetapkan. Ada yang open access, restricted, atau hanya untuk internal kampus.",
+    },
+  ];
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("semua");
   const [selectedYear, setSelectedYear] = useState("semua");
 
   const repositoryStats = [
-    { type: "Tugas Akhir", count: 3456, icon: GraduationCap },
-    { type: "Karya Ilmiah Dosen", count: 1234, icon: Award },
-    { type: "Publikasi", count: 567, icon: FileText },
-    { type: "Download/Bulan", count: 15678, icon: TrendingUp },
+    { type: "Tugas Akhir D3", count: 342, icon: GraduationCap },
+    { type: "Skripsi D4 Statistika", count: 298, icon: GraduationCap },
+    { type: "Skripsi D4 Komputasi Statistik", count: 216, icon: GraduationCap },
+    { type: "Karya Ilmiah Dosen", count: 300, icon: Award },
   ];
 
   const categories = [
@@ -47,7 +65,48 @@ export default function Repository() {
     { id: "laporan-penelitian", label: "Laporan Penelitian", count: 110 },
   ];
 
-  const theses = [
+  const tugasAkhirD3 = [
+    {
+      id: 1,
+      title: "Analisis Deskriptif Kemiskinan di Indonesia Tahun 2020-2023",
+      author: "Andi Setiawan",
+      nim: "D3112345",
+      supervisor: "Dr. Sari Nurjannah, M.Si",
+      year: 2023,
+      program: "D3 Statistika",
+      department: "Statistika",
+      pages: 65,
+      abstract:
+        "Tugas akhir ini menganalisis tingkat kemiskinan di Indonesia menggunakan data BPS periode 2020-2023 dengan metode analisis deskriptif dan visualisasi data untuk memahami pola sebaran kemiskinan antar provinsi.",
+      keywords: ["Kemiskinan", "Analisis Deskriptif", "BPS", "Indonesia"],
+      downloads: 234,
+      views: 567,
+      rating: 4.5,
+      file_size: "2.1 MB",
+      language: "Indonesia",
+    },
+    {
+      id: 2,
+      title: "Survei Kepuasan Mahasiswa Terhadap Fasilitas Kampus STIS",
+      author: "Lina Kartika",
+      nim: "D3112346",
+      supervisor: "Prof. Dr. Bambang Suryanto, M.Stat",
+      year: 2023,
+      program: "D3 Statistika",
+      department: "Statistika",
+      pages: 58,
+      abstract:
+        "Penelitian ini menggunakan metode survei untuk mengukur tingkat kepuasan mahasiswa STIS terhadap fasilitas kampus dengan teknik sampling dan analisis data kuantitatif sederhana.",
+      keywords: ["Survei", "Kepuasan Mahasiswa", "Fasilitas", "STIS"],
+      downloads: 189,
+      views: 423,
+      rating: 4.3,
+      file_size: "1.8 MB",
+      language: "Indonesia",
+    },
+  ];
+
+  const skripsiD4ST = [
     {
       id: 1,
       title:
@@ -88,8 +147,11 @@ export default function Repository() {
       file_size: "2.8 MB",
       language: "Indonesia",
     },
+  ];
+
+  const skripsiD4KS = [
     {
-      id: 3,
+      id: 1,
       title:
         "Penerapan Data Mining untuk Segmentasi Pelanggan E-commerce Menggunakan Clustering Algorithm",
       author: "Maya Puspita Sari",
@@ -106,6 +168,31 @@ export default function Repository() {
       views: 1567,
       rating: 4.7,
       file_size: "4.1 MB",
+      language: "Indonesia",
+    },
+    {
+      id: 2,
+      title:
+        "Pengembangan Sistem Informasi Perpustakaan Berbasis Web dengan Framework React",
+      author: "Doni Pratama",
+      nim: "1611234570",
+      supervisor: "Dr. Ir. Sari Widyastuti, M.Kom",
+      year: 2023,
+      program: "D4 Komputasi Statistik",
+      department: "Komputasi Statistik",
+      pages: 112,
+      abstract:
+        "Skripsi ini membahas pengembangan sistem informasi perpustakaan digital menggunakan teknologi web modern dengan React.js sebagai frontend dan Node.js sebagai backend untuk meningkatkan efisiensi pengelolaan koleksi.",
+      keywords: [
+        "Sistem Informasi",
+        "React",
+        "Web Development",
+        "Perpustakaan",
+      ],
+      downloads: 543,
+      views: 1289,
+      rating: 4.6,
+      file_size: "5.2 MB",
       language: "Indonesia",
     },
   ];
@@ -149,18 +236,24 @@ export default function Repository() {
     },
   ];
 
-  const filteredTheses = theses.filter((thesis) => {
-    const matchesSearch =
-      thesis.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      thesis.author.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      thesis.keywords.some((keyword) =>
-        keyword.toLowerCase().includes(searchQuery.toLowerCase()),
-      );
-    const matchesYear =
-      selectedYear === "semua" || thesis.year.toString() === selectedYear;
+  const getFilteredData = (data) => {
+    return data.filter((item) => {
+      const matchesSearch =
+        item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.author.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (item.authors &&
+          item.authors.some((author) =>
+            author.toLowerCase().includes(searchQuery.toLowerCase()),
+          )) ||
+        item.keywords.some((keyword) =>
+          keyword.toLowerCase().includes(searchQuery.toLowerCase()),
+        );
+      const matchesYear =
+        selectedYear === "semua" || item.year.toString() === selectedYear;
 
-    return matchesSearch && matchesYear;
-  });
+      return matchesSearch && matchesYear;
+    });
+  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -178,7 +271,7 @@ export default function Repository() {
             </h1>
             <p className="text-lg sm:text-xl text-gray-600 leading-relaxed">
               Repositori institusi yang menyimpan dan menyediakan akses terbuka
-              terhadap karya ilmiah civitas akademika Polstat STIS, termasuk tugas
+              terhadap karya ilmiah civitas akademika STIS, termasuk tugas
               akhir, penelitian, dan publikasi
             </p>
           </div>
@@ -212,7 +305,7 @@ export default function Repository() {
       </section>
 
       {/* Search & Filter */}
-      <section className="py-8 bg-stis-gray-light border-b border-gray-200">
+      <section className="py-8 bg-white border-b border-gray-200">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
             <div className="flex flex-col lg:flex-row gap-6 items-center">
@@ -232,86 +325,14 @@ export default function Repository() {
 
               {/* Filters */}
               <div className="flex gap-4 w-full lg:w-auto">
-                <Select
-                  value={selectedCategory}
-                  onValueChange={setSelectedCategory}
-                >
-                  <SelectTrigger className="w-full lg:w-48">
-                    <SelectValue placeholder="Pilih Kategori" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="semua">Semua Kategori</SelectItem>
-                    <SelectItem value="tugas-akhir">Tugas Akhir D4</SelectItem>
-                    <SelectItem value="penelitian-dosen">
-                      Penelitian Dosen
-                    </SelectItem>
-                    <SelectItem value="publikasi-jurnal">
-                      Publikasi Jurnal
-                    </SelectItem>
-                    <SelectItem value="prosiding">Prosiding Seminar</SelectItem>
-                  </SelectContent>
-                </Select>
-
-                <Select value={selectedYear} onValueChange={setSelectedYear}>
-                  <SelectTrigger className="w-full lg:w-32">
-                    <SelectValue placeholder="Tahun" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="semua">Semua</SelectItem>
-                    <SelectItem value="2023">2023</SelectItem>
-                    <SelectItem value="2022">2022</SelectItem>
-                    <SelectItem value="2021">2021</SelectItem>
-                    <SelectItem value="2020">2020</SelectItem>
-                  </SelectContent>
-                </Select>
-
                 <Button
                   variant="outline"
-                  className="border-stis-blue text-stis-blue hover:bg-stis-blue hover:text-white"
+                  className="border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white"
                 >
-                  <Filter className="w-4 h-4 mr-2" />
-                  Filter
+                  <Search className="w-4 h-4 mr-2" />
+                  Cari
                 </Button>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Categories Overview */}
-      <section className="py-12 bg-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                Kategori Repository
-              </h2>
-              <p className="text-gray-600">
-                Jelajahi karya ilmiah berdasarkan kategori
-              </p>
-            </div>
-
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-              {categories.map((category) => (
-                <Card
-                  key={category.id}
-                  className={`cursor-pointer transition-all hover:shadow-lg ${
-                    selectedCategory === category.id
-                      ? "ring-2 ring-stis-blue bg-stis-blue-light"
-                      : ""
-                  }`}
-                  onClick={() => setSelectedCategory(category.id)}
-                >
-                  <CardContent className="p-4 text-center">
-                    <div className="text-lg font-bold text-stis-blue mb-1">
-                      {category.count}
-                    </div>
-                    <div className="text-xs text-gray-600">
-                      {category.label}
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
             </div>
           </div>
         </div>
@@ -321,19 +342,27 @@ export default function Repository() {
       <section className="py-16 bg-stis-gray-light">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
-            <Tabs defaultValue="theses" className="w-full">
-              <TabsList className="grid w-full grid-cols-3 max-w-md mx-auto mb-12">
-                <TabsTrigger value="theses">Tugas Akhir</TabsTrigger>
-                <TabsTrigger value="publications">Publikasi</TabsTrigger>
-                <TabsTrigger value="research">Penelitian</TabsTrigger>
+            <Tabs defaultValue="tugas-akhir-d3" className="w-full">
+              <TabsList className="grid w-full grid-cols-4 max-w-4xl mx-auto mb-12">
+                <TabsTrigger value="tugas-akhir-d3">Tugas Akhir D3</TabsTrigger>
+                <TabsTrigger value="skripsi-d4-st">
+                  Skripsi D4 Statistika
+                </TabsTrigger>
+                <TabsTrigger value="skripsi-d4-ks">
+                  Skripsi D4 Komputasi Statistik
+                </TabsTrigger>
+                <TabsTrigger value="karya-ilmiah-dosen">
+                  Karya Ilmiah Dosen
+                </TabsTrigger>
               </TabsList>
 
-              {/* Theses Tab */}
-              <TabsContent value="theses">
+              {/* Tugas Akhir D3 Tab */}
+              <TabsContent value="tugas-akhir-d3">
                 <div className="mb-8">
                   <div className="flex items-center justify-between mb-6">
                     <h3 className="text-2xl font-bold text-gray-900">
-                      Tugas Akhir Terbaru ({filteredTheses.length})
+                      Tugas Akhir D3 Terbaru (
+                      {getFilteredData(tugasAkhirD3).length})
                     </h3>
                     <Select defaultValue="terbaru">
                       <SelectTrigger className="w-48">
@@ -349,7 +378,7 @@ export default function Repository() {
                   </div>
 
                   <div className="space-y-6">
-                    {filteredTheses.map((thesis) => (
+                    {getFilteredData(tugasAkhirD3).map((thesis) => (
                       <Card
                         key={thesis.id}
                         className="border-0 shadow-lg hover:shadow-xl transition-shadow"
@@ -477,18 +506,318 @@ export default function Repository() {
                 </div>
               </TabsContent>
 
-              {/* Publications Tab */}
-              <TabsContent value="publications">
+              {/* Skripsi D4 ST Tab */}
+              <TabsContent value="skripsi-d4-st">
                 <div className="mb-8">
                   <div className="flex items-center justify-between mb-6">
                     <h3 className="text-2xl font-bold text-gray-900">
-                      Publikasi Dosen & Peneliti
+                      Skripsi D4 Statistika Terbaru (
+                      {getFilteredData(skripsiD4ST).length})
+                    </h3>
+                    <Select defaultValue="terbaru">
+                      <SelectTrigger className="w-48">
+                        <SelectValue placeholder="Urutkan" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="terbaru">Terbaru</SelectItem>
+                        <SelectItem value="populer">Paling Populer</SelectItem>
+                        <SelectItem value="rating">Rating Tertinggi</SelectItem>
+                        <SelectItem value="judul">Judul A-Z</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div className="space-y-6">
+                    {getFilteredData(skripsiD4ST).map((thesis) => (
+                      <Card
+                        key={thesis.id}
+                        className="border-0 shadow-lg hover:shadow-xl transition-shadow"
+                      >
+                        <CardContent className="p-6">
+                          <div className="flex flex-col lg:flex-row gap-6">
+                            {/* Document Icon */}
+                            <div className="w-full lg:w-24 h-32 lg:h-32 bg-gradient-to-br from-stis-blue-light to-stis-gray-light rounded-lg flex items-center justify-center flex-shrink-0">
+                              <FileText className="w-12 h-12 text-stis-blue/40" />
+                            </div>
+
+                            {/* Thesis Details */}
+                            <div className="flex-1">
+                              <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
+                                <div className="flex-1">
+                                  <div className="flex items-center gap-2 mb-2">
+                                    <Badge
+                                      variant="secondary"
+                                      className="text-xs"
+                                    >
+                                      {thesis.program}
+                                    </Badge>
+                                    <Badge
+                                      variant="outline"
+                                      className="text-xs"
+                                    >
+                                      {thesis.year}
+                                    </Badge>
+                                    <Badge
+                                      variant="outline"
+                                      className="text-xs"
+                                    >
+                                      {thesis.language}
+                                    </Badge>
+                                  </div>
+
+                                  <h3 className="text-lg font-semibold text-gray-900 mb-2 hover:text-stis-blue transition-colors cursor-pointer">
+                                    {thesis.title}
+                                  </h3>
+
+                                  <div className="space-y-1 text-sm text-gray-600 mb-3">
+                                    <div className="flex items-center gap-2">
+                                      <User className="w-4 h-4" />
+                                      <span>
+                                        {thesis.author} ({thesis.nim})
+                                      </span>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                      <GraduationCap className="w-4 h-4" />
+                                      <span>
+                                        Pembimbing: {thesis.supervisor}
+                                      </span>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                      <Calendar className="w-4 h-4" />
+                                      <span>
+                                        {thesis.department} • {thesis.pages}{" "}
+                                        halaman • {thesis.file_size}
+                                      </span>
+                                    </div>
+                                  </div>
+
+                                  <p className="text-gray-600 text-sm leading-relaxed mb-3">
+                                    {thesis.abstract}
+                                  </p>
+
+                                  <div className="mb-3">
+                                    <span className="text-xs font-medium text-gray-700 mr-2">
+                                      Keywords:
+                                    </span>
+                                    <div className="inline-flex flex-wrap gap-1">
+                                      {thesis.keywords.map((keyword, idx) => (
+                                        <Badge
+                                          key={idx}
+                                          variant="outline"
+                                          className="text-xs"
+                                        >
+                                          {keyword}
+                                        </Badge>
+                                      ))}
+                                    </div>
+                                  </div>
+
+                                  <div className="flex items-center gap-4 text-xs text-gray-500">
+                                    <div className="flex items-center gap-1">
+                                      <Star className="w-3 h-3 text-yellow-400 fill-current" />
+                                      <span>{thesis.rating}</span>
+                                    </div>
+                                    <div className="flex items-center gap-1">
+                                      <Eye className="w-3 h-3" />
+                                      <span>{thesis.views} views</span>
+                                    </div>
+                                    <div className="flex items-center gap-1">
+                                      <Download className="w-3 h-3" />
+                                      <span>{thesis.downloads} downloads</span>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                {/* Action Buttons */}
+                                <div className="flex flex-col gap-2 lg:w-32">
+                                  <Button
+                                    size="sm"
+                                    className="bg-stis-blue hover:bg-stis-blue-dark"
+                                  >
+                                    <Eye className="w-4 h-4 mr-2" />
+                                    Baca
+                                  </Button>
+                                  <Button
+                                    size="sm"
+                                    variant="outline"
+                                    className="border-stis-cyan text-stis-cyan hover:bg-stis-cyan hover:text-white"
+                                  >
+                                    <Download className="w-4 h-4 mr-2" />
+                                    Unduh
+                                  </Button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                </div>
+              </TabsContent>
+
+              {/* Skripsi D4 KS Tab */}
+              <TabsContent value="skripsi-d4-ks">
+                <div className="mb-8">
+                  <div className="flex items-center justify-between mb-6">
+                    <h3 className="text-2xl font-bold text-gray-900">
+                      Skripsi D4 Komputasi Statistik Terbaru (
+                      {getFilteredData(skripsiD4KS).length})
+                    </h3>
+                    <Select defaultValue="terbaru">
+                      <SelectTrigger className="w-48">
+                        <SelectValue placeholder="Urutkan" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="terbaru">Terbaru</SelectItem>
+                        <SelectItem value="populer">Paling Populer</SelectItem>
+                        <SelectItem value="rating">Rating Tertinggi</SelectItem>
+                        <SelectItem value="judul">Judul A-Z</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div className="space-y-6">
+                    {getFilteredData(skripsiD4KS).map((thesis) => (
+                      <Card
+                        key={thesis.id}
+                        className="border-0 shadow-lg hover:shadow-xl transition-shadow"
+                      >
+                        <CardContent className="p-6">
+                          <div className="flex flex-col lg:flex-row gap-6">
+                            {/* Document Icon */}
+                            <div className="w-full lg:w-24 h-32 lg:h-32 bg-gradient-to-br from-stis-blue-light to-stis-gray-light rounded-lg flex items-center justify-center flex-shrink-0">
+                              <FileText className="w-12 h-12 text-stis-blue/40" />
+                            </div>
+
+                            {/* Thesis Details */}
+                            <div className="flex-1">
+                              <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
+                                <div className="flex-1">
+                                  <div className="flex items-center gap-2 mb-2">
+                                    <Badge
+                                      variant="secondary"
+                                      className="text-xs"
+                                    >
+                                      {thesis.program}
+                                    </Badge>
+                                    <Badge
+                                      variant="outline"
+                                      className="text-xs"
+                                    >
+                                      {thesis.year}
+                                    </Badge>
+                                    <Badge
+                                      variant="outline"
+                                      className="text-xs"
+                                    >
+                                      {thesis.language}
+                                    </Badge>
+                                  </div>
+
+                                  <h3 className="text-lg font-semibold text-gray-900 mb-2 hover:text-stis-blue transition-colors cursor-pointer">
+                                    {thesis.title}
+                                  </h3>
+
+                                  <div className="space-y-1 text-sm text-gray-600 mb-3">
+                                    <div className="flex items-center gap-2">
+                                      <User className="w-4 h-4" />
+                                      <span>
+                                        {thesis.author} ({thesis.nim})
+                                      </span>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                      <GraduationCap className="w-4 h-4" />
+                                      <span>
+                                        Pembimbing: {thesis.supervisor}
+                                      </span>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                      <Calendar className="w-4 h-4" />
+                                      <span>
+                                        {thesis.department} • {thesis.pages}{" "}
+                                        halaman • {thesis.file_size}
+                                      </span>
+                                    </div>
+                                  </div>
+
+                                  <p className="text-gray-600 text-sm leading-relaxed mb-3">
+                                    {thesis.abstract}
+                                  </p>
+
+                                  <div className="mb-3">
+                                    <span className="text-xs font-medium text-gray-700 mr-2">
+                                      Keywords:
+                                    </span>
+                                    <div className="inline-flex flex-wrap gap-1">
+                                      {thesis.keywords.map((keyword, idx) => (
+                                        <Badge
+                                          key={idx}
+                                          variant="outline"
+                                          className="text-xs"
+                                        >
+                                          {keyword}
+                                        </Badge>
+                                      ))}
+                                    </div>
+                                  </div>
+
+                                  <div className="flex items-center gap-4 text-xs text-gray-500">
+                                    <div className="flex items-center gap-1">
+                                      <Star className="w-3 h-3 text-yellow-400 fill-current" />
+                                      <span>{thesis.rating}</span>
+                                    </div>
+                                    <div className="flex items-center gap-1">
+                                      <Eye className="w-3 h-3" />
+                                      <span>{thesis.views} views</span>
+                                    </div>
+                                    <div className="flex items-center gap-1">
+                                      <Download className="w-3 h-3" />
+                                      <span>{thesis.downloads} downloads</span>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                {/* Action Buttons */}
+                                <div className="flex flex-col gap-2 lg:w-32">
+                                  <Button
+                                    size="sm"
+                                    className="bg-stis-blue hover:bg-stis-blue-dark"
+                                  >
+                                    <Eye className="w-4 h-4 mr-2" />
+                                    Baca
+                                  </Button>
+                                  <Button
+                                    size="sm"
+                                    variant="outline"
+                                    className="border-stis-cyan text-stis-cyan hover:bg-stis-cyan hover:text-white"
+                                  >
+                                    <Download className="w-4 h-4 mr-2" />
+                                    Unduh
+                                  </Button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                </div>
+              </TabsContent>
+
+              {/* Karya Ilmiah Dosen Tab */}
+              <TabsContent value="karya-ilmiah-dosen">
+                <div className="mb-8">
+                  <div className="flex items-center justify-between mb-6">
+                    <h3 className="text-2xl font-bold text-gray-900">
+                      Karya Ilmiah Dosen & Peneliti
                     </h3>
                     <Button
                       variant="outline"
                       className="border-stis-blue text-stis-blue hover:bg-stis-blue hover:text-white"
                     >
-                      Lihat Semua Publikasi
+                      Lihat Semua Karya Ilmiah
                     </Button>
                   </div>
 
@@ -601,29 +930,6 @@ export default function Repository() {
                   </div>
                 </div>
               </TabsContent>
-
-              {/* Research Tab */}
-              <TabsContent value="research">
-                <div className="text-center py-16">
-                  <div className="w-24 h-24 bg-stis-blue/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <FileText className="w-12 h-12 text-stis-blue" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                    Laporan Penelitian
-                  </h3>
-                  <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
-                    Koleksi laporan penelitian yang dilakukan oleh dosen dan
-                    peneliti STIS dalam berbagai bidang statistika dan ilmu
-                    terkait.
-                  </p>
-                  <Button
-                    size="lg"
-                    className="bg-stis-blue hover:bg-stis-blue-dark"
-                  >
-                    Jelajahi Penelitian
-                  </Button>
-                </div>
-              </TabsContent>
             </Tabs>
           </div>
         </div>
@@ -642,7 +948,7 @@ export default function Repository() {
                 <div>
                   <h4 className="text-2xl font-bold">SIMPus</h4>
                   <p className="text-white/80">
-                    Sistem Informasi Manajemen Perpustakaan Polstat STIS
+                    Sistem Informasi Manajemen Perpustakaan STIS
                   </p>
                 </div>
               </div>
@@ -711,11 +1017,14 @@ export default function Repository() {
 
           <div className="border-t border-white/20 mt-12 pt-8 text-center">
             <p className="text-white/60 text-sm">
-              © 2024 Perpustakaan Polstat STIS. Hak cipta dilindungi undang-undang.
+              © 2024 Perpustakaan STIS. Hak cipta dilindungi undang-undang.
             </p>
           </div>
         </div>
       </footer>
+
+      {/* Help Popup */}
+      <HelpPopup pageHelp={helpItems} />
     </div>
   );
 }

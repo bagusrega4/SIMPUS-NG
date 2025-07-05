@@ -26,10 +26,29 @@ import {
 } from "@/components/ui/collapsible";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import HelpPopup from "@/components/HelpPopup";
 
 export default function Help() {
   const [searchQuery, setSearchQuery] = useState("");
   const [openFAQ, setOpenFAQ] = useState<number | null>(null);
+
+  const helpItems = [
+    {
+      question: "Bagaimana cara menggunakan halaman bantuan ini?",
+      answer:
+        "Gunakan tab untuk navigasi antara FAQ, Tutorial, dan Kontak. Gunakan pencarian untuk menemukan topik spesifik.",
+    },
+    {
+      question: "Bagaimana cara mengunduh tutorial?",
+      answer:
+        "Klik tombol 'Tonton' untuk video atau 'Unduh' untuk file PDF di bagian tutorial.",
+    },
+    {
+      question: "Tidak menemukan jawaban yang dicari?",
+      answer:
+        "Gunakan form kontak di tab 'Kontak' atau hubungi langsung melalui telepon/email yang tersedia.",
+    },
+  ];
 
   const quickHelp = [
     {
@@ -187,7 +206,7 @@ export default function Help() {
                 />
                 <Button
                   size="lg"
-                  className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-stis-blue hover:bg-stis-blue-dark rounded-lg"
+                  className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-emerald-600 hover:bg-emerald-700 rounded-lg"
                 >
                   Cari
                 </Button>
@@ -218,7 +237,7 @@ export default function Help() {
                   className="group hover:shadow-lg transition-all duration-300 cursor-pointer border-0 shadow-md"
                 >
                   <CardContent className="p-6 text-center">
-                    <div className="w-16 h-16 bg-stis-blue/10 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:bg-stis-blue/20 transition-colors">
+                    <div className="w-16 h-16 bg-emerald-600/10 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:bg-emerald-600/20 transition-colors">
                       <IconComponent className="w-8 h-8 text-stis-blue" />
                     </div>
                     <Badge variant="secondary" className="mb-3">
@@ -260,7 +279,7 @@ export default function Help() {
                 {faqs.map((category, categoryIndex) => (
                   <div key={categoryIndex} className="mb-8">
                     <h4 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                      <div className="w-2 h-2 bg-stis-blue rounded-full mr-3"></div>
+                      <div className="w-2 h-2 bg-emerald-600 rounded-full mr-3"></div>
                       {category.category}
                     </h4>
                     <div className="space-y-3">
@@ -352,7 +371,7 @@ export default function Help() {
                         </p>
                         <Button
                           size="sm"
-                          className="w-full bg-stis-cyan hover:bg-stis-cyan/90"
+                          className="w-full bg-teal-600 hover:bg-teal-700"
                         >
                           <Download className="w-4 h-4 mr-2" />
                           {tutorial.type === "video" ? "Tonton" : "Unduh"}
@@ -384,7 +403,7 @@ export default function Help() {
                         className="hover:shadow-lg transition-shadow cursor-pointer border-0 shadow-md"
                       >
                         <CardContent className="p-6 text-center">
-                          <div className="w-16 h-16 bg-stis-blue/10 rounded-xl flex items-center justify-center mx-auto mb-4">
+                          <div className="w-16 h-16 bg-emerald-600/10 rounded-xl flex items-center justify-center mx-auto mb-4">
                             <IconComponent className="w-8 h-8 text-stis-blue" />
                           </div>
                           <h4 className="font-semibold text-gray-900 mb-2">
@@ -441,7 +460,7 @@ export default function Help() {
                       </div>
                       <Button
                         size="lg"
-                        className="w-full bg-stis-blue hover:bg-stis-blue-dark"
+                        className="w-full bg-emerald-600 hover:bg-emerald-700"
                       >
                         Kirim Pesan
                       </Button>
@@ -455,6 +474,9 @@ export default function Help() {
       </section>
 
       <Footer />
+
+      {/* Help Popup */}
+      <HelpPopup pageHelp={helpItems} />
     </div>
   );
 }

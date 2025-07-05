@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { BookOpen, Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useLocation } from "react-router-dom";
 
 interface DropdownItem {
   label: string;
@@ -18,37 +19,24 @@ export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const location = useLocation();
+
+  const isActiveRoute = (href?: string, dropdown?: DropdownItem[]) => {
+    if (href) {
+      return location.pathname === href;
+    }
+    if (dropdown) {
+      return dropdown.some((item) => location.pathname === item.href);
+    }
+    return false;
+  };
 
   const navItems: NavItem[] = [
     {
       label: "Beranda",
       href: "/",
     },
-    {
-      label: "Tentang Kami",
-      dropdown: [
-        {
-          label: "Profil Perpustakaan",
-          href: "/about/profile",
-          description: "Sejarah dan visi misi perpustakaan",
-        },
-        {
-          label: "Struktur Organisasi",
-          href: "/about/structure",
-          description: "Susunan organisasi dan staff",
-        },
-        {
-          label: "Visi & Misi",
-          href: "/about/vision",
-          description: "Visi, misi, dan tujuan perpustakaan",
-        },
-        {
-          label: "Fasilitas",
-          href: "/about/facilities",
-          description: "Fasilitas dan layanan perpustakaan",
-        },
-      ],
-    },
+
     {
       label: "Koleksi",
       dropdown: [
@@ -63,7 +51,7 @@ export default function Navigation() {
           description: "E-book, e-journal, dan repository",
         },
         {
-          label: "Repository STIS",
+          label: "Repository Polstat STIS",
           href: "/collection/repository",
           description: "Karya ilmiah mahasiswa dan dosen",
         },
@@ -124,6 +112,31 @@ export default function Navigation() {
         },
       ],
     },
+    {
+      label: "Tentang Kami",
+      dropdown: [
+        {
+          label: "Profil Perpustakaan",
+          href: "/about/profile",
+          description: "Sejarah dan visi misi perpustakaan",
+        },
+        {
+          label: "Struktur Organisasi",
+          href: "/about/structure",
+          description: "Susunan organisasi dan staff",
+        },
+        {
+          label: "Visi & Misi",
+          href: "/about/vision",
+          description: "Visi, misi, dan tujuan perpustakaan",
+        },
+        {
+          label: "Fasilitas",
+          href: "/about/facilities",
+          description: "Fasilitas dan layanan perpustakaan",
+        },
+      ],
+    },
   ];
 
   // Close dropdown when clicking outside
@@ -170,7 +183,11 @@ export default function Navigation() {
                 {item.dropdown ? (
                   <button
                     onClick={() => handleDropdownToggle(item.label)}
-                    className="flex items-center space-x-1 px-4 py-2 text-gray-700 hover:text-stis-blue transition-colors font-medium rounded-lg hover:bg-gray-50"
+                    className={`flex items-center space-x-1 px-4 py-2 transition-colors font-medium rounded-lg hover:bg-gray-50 ${
+                      isActiveRoute(undefined, item.dropdown)
+                        ? "text-stis-blue bg-emerald-50"
+                        : "text-gray-700 hover:text-stis-blue"
+                    }`}
                   >
                     <span>{item.label}</span>
                     <ChevronDown
@@ -182,7 +199,11 @@ export default function Navigation() {
                 ) : (
                   <a
                     href={item.href}
-                    className="px-4 py-2 text-gray-700 hover:text-stis-blue transition-colors font-medium rounded-lg hover:bg-gray-50"
+                    className={`px-4 py-2 transition-colors font-medium rounded-lg hover:bg-gray-50 ${
+                      isActiveRoute(item.href)
+                        ? "text-stis-blue bg-emerald-50"
+                        : "text-gray-700 hover:text-stis-blue"
+                    }`}
                   >
                     {item.label}
                   </a>
