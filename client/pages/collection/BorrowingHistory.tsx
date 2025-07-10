@@ -26,26 +26,12 @@ import {
 } from "@/components/ui/select";
 import Navigation from "@/components/Navigation";
 import HelpPopup from "@/components/HelpPopup";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function BorrowingHistory() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { isAuthenticated } = useAuth();
 
-  useEffect(() => {
-    // Check if user is logged in (simulated)
-    const checkAuthStatus = () => {
-      // In real app, check JWT token or session
-      const token = localStorage.getItem("authToken");
-      if (!token) {
-        setIsLoggedIn(false);
-        return;
-      }
-      setIsLoggedIn(true);
-    };
-
-    checkAuthStatus();
-  }, []);
-
-  if (!isLoggedIn) {
+  if (!isAuthenticated) {
     return (
       <div className="min-h-screen bg-white">
         <Navigation />
@@ -71,7 +57,6 @@ export default function BorrowingHistory() {
       </div>
     );
   }
-
   const helpItems = [
     {
       question: "Bagaimana cara memperpanjang peminjaman?",

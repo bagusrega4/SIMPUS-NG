@@ -119,4 +119,11 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  /* Red asterisk for required fields */
+  .required-asterisk::after {
+    content: " *";
+    color: #dc2626; /* red-600 */
+    font-weight: 500;
+  }
 }

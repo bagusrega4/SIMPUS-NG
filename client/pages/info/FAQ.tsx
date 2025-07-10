@@ -493,9 +493,11 @@ export default function FAQ() {
                               onClick={() => {
                                 setOpenFAQ(faq.id);
                                 // Switch to all-faqs tab
-                                document
-                                  .querySelector('[value="all-faqs"]')
-                                  ?.click();
+                                (
+                                  document.querySelector(
+                                    '[value="all-faqs"]',
+                                  ) as HTMLElement
+                                )?.click();
                               }}
                             >
                               Baca Selengkapnya

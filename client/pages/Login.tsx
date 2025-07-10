@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BookOpen, Eye, EyeOff, Lock, Mail, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import HelpPopup from "@/components/HelpPopup";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -15,6 +16,15 @@ export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
   const [emailError, setEmailError] = useState("");
+  const [loginError, setLoginError] = useState("");
+  const navigate = useNavigate();
+  const { login } = useAuth();
+
+  // Test credentials
+  const TEST_CREDENTIALS = {
+    email: "222212455@stis.ac.id",
+    password: "FlapaBird123",
+  };
 
   const helpItems = [
     {
@@ -48,11 +58,17 @@ export default function Login() {
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newEmail = e.target.value;
     setEmail(newEmail);
+    setLoginError(""); // Clear login error when email changes
     if (newEmail) {
       setEmailError(validateEmail(newEmail));
     } else {
       setEmailError("");
     }
+  };
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+    setLoginError(""); // Clear login error when password changes
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -65,12 +81,32 @@ export default function Login() {
     }
 
     setIsLoading(true);
+    setLoginError("");
 
-    // Simulate login API call
+    // Simulate login API call with credential validation
     setTimeout(() => {
       setIsLoading(false);
-      // Handle login logic here
-      console.log("Login attempt:", { email, password, rememberMe });
+
+      // Check if credentials match test credentials
+      if (
+        email === TEST_CREDENTIALS.email &&
+        password === TEST_CREDENTIALS.password
+      ) {
+        // Successful login
+        console.log("Login successful:", { email, password, rememberMe });
+
+        // Login using auth context
+        login(email);
+
+        // Navigate to home/dashboard page
+        navigate("/");
+      } else {
+        // Failed login - clear all input fields
+        setEmail("");
+        setPassword("");
+        setRememberMe(false);
+        setLoginError("Email atau kata sandi salah. Silakan coba lagi.");
+      }
     }, 1000);
   };
 
@@ -114,7 +150,12 @@ export default function Login() {
 
       // Handle successful Google login
       console.log("Google login successful:", payload);
-      // Redirect to dashboard or handle authentication
+
+      // Login using auth context
+      login(payload.email, payload.name);
+
+      // Navigate to home page after successful Google login
+      navigate("/");
     } catch (error) {
       console.error("Error processing Google response:", error);
       alert("Terjadi kesalahan saat masuk dengan Google");
@@ -142,6 +183,16 @@ export default function Login() {
         {/* Login Form */}
         <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-8">
           <form className="space-y-6" onSubmit={handleSubmit}>
+            {/* Login Error Message */}
+            {loginError && (
+              <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+                <div className="flex items-center">
+                  <AlertCircle className="w-5 h-5 text-red-600 mr-2" />
+                  <p className="text-sm text-red-700">{loginError}</p>
+                </div>
+              </div>
+            )}
+
             {/* Email Field */}
             <div>
               <Label
@@ -193,7 +244,7 @@ export default function Login() {
                   id="password"
                   type={showPassword ? "text" : "password"}
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={handlePasswordChange}
                   required
                   className="pl-10 pr-10 block w-full border-gray-300 rounded-lg focus:ring-stis-blue focus:border-stis-blue"
                   placeholder="Masukkan kata sandi Anda"

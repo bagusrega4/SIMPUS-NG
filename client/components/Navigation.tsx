@@ -1,7 +1,8 @@
 import { useState, useRef, useEffect } from "react";
-import { BookOpen, Menu, X, ChevronDown } from "lucide-react";
+import { BookOpen, Menu, X, ChevronDown, User, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface DropdownItem {
   label: string;
@@ -18,8 +19,12 @@ interface NavItem {
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const profileRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
+  const navigate = useNavigate();
+  const { isAuthenticated, logout, user } = useAuth();
 
   const isActiveRoute = (href?: string, dropdown?: DropdownItem[]) => {
     if (href) {
@@ -55,16 +60,20 @@ export default function Navigation() {
           href: "/collection/repository",
           description: "Karya ilmiah mahasiswa dan dosen",
         },
-        {
-          label: "Riwayat Pinjaman",
-          href: "/collection/borrowing-history",
-          description: "Histori peminjaman buku Anda",
-        },
-        {
-          label: "Riwayat Baca",
-          href: "/collection/reading-history",
-          description: "Riwayat aktivitas membaca Anda",
-        },
+        ...(isAuthenticated
+          ? [
+              {
+                label: "Riwayat Pinjaman",
+                href: "/collection/borrowing-history",
+                description: "Histori peminjaman buku Anda",
+              },
+              {
+                label: "Riwayat Baca",
+                href: "/collection/reading-history",
+                description: "Riwayat aktivitas membaca Anda",
+              },
+            ]
+          : []),
       ],
     },
     {
@@ -73,7 +82,7 @@ export default function Navigation() {
         {
           label: "Sirkulasi",
           href: "/services/circulation",
-          description: "Peminjaman dan pengembalian buku",
+          description: "Proses peminjaman buku perpustakaan",
         },
         {
           label: "Bebas Perpustakaan",
@@ -148,6 +157,12 @@ export default function Navigation() {
       ) {
         setActiveDropdown(null);
       }
+      if (
+        profileRef.current &&
+        !profileRef.current.contains(event.target as Node)
+      ) {
+        setIsProfileOpen(false);
+      }
     };
 
     document.addEventListener("mousedown", handleClickOutside);
@@ -156,6 +171,30 @@ export default function Navigation() {
 
   const handleDropdownToggle = (label: string) => {
     setActiveDropdown(activeDropdown === label ? null : label);
+  };
+
+  const handleAuthAction = () => {
+    if (isAuthenticated) {
+      logout();
+      navigate("/");
+    } else {
+      navigate("/login");
+    }
+  };
+
+  const handleProfileClick = () => {
+    setIsProfileOpen(!isProfileOpen);
+  };
+
+  const handleProfileNavigation = (path: string) => {
+    navigate(path);
+    setIsProfileOpen(false);
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+    setIsProfileOpen(false);
   };
 
   return (
@@ -234,13 +273,57 @@ export default function Navigation() {
             ))}
           </nav>
 
-          {/* Login Button & Mobile Menu */}
+          {/* Profile/Login Button & Mobile Menu */}
           <div className="flex items-center space-x-4">
-            <a href="/login">
-              <Button className="hidden sm:flex bg-stis-blue hover:bg-stis-blue-dark">
+            {isAuthenticated ? (
+              <div className="hidden sm:block relative" ref={profileRef}>
+                <button
+                  onClick={handleProfileClick}
+                  className="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-50 transition-colors"
+                >
+                  <div className="w-8 h-8 bg-gradient-to-br from-stis-blue to-stis-cyan rounded-full flex items-center justify-center overflow-hidden">
+                    {user?.profilePhoto ? (
+                      <img
+                        src={user.profilePhoto}
+                        alt="Profile"
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <User className="w-4 h-4 text-white" />
+                    )}
+                  </div>
+                  <ChevronDown className="w-4 h-4 text-gray-600" />
+                </button>
+
+                {/* Profile Dropdown */}
+                {isProfileOpen && (
+                  <div className="absolute right-0 top-full mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-200 py-2 z-50">
+                    <button
+                      onClick={() => handleProfileNavigation("/profile")}
+                      className="w-full px-4 py-3 text-left hover:bg-gray-50 transition-colors flex items-center"
+                    >
+                      <User className="w-4 h-4 mr-2 text-gray-600" />
+                      <span className="text-gray-700">Profile</span>
+                    </button>
+                    <hr className="my-1" />
+                    <button
+                      onClick={handleLogout}
+                      className="w-full px-4 py-3 text-left hover:bg-gray-50 transition-colors flex items-center"
+                    >
+                      <LogOut className="w-4 h-4 mr-2 text-red-600" />
+                      <span className="text-red-600">Keluar</span>
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Button
+                onClick={handleAuthAction}
+                className="hidden sm:flex bg-stis-blue hover:bg-stis-blue-dark"
+              >
                 Masuk
               </Button>
-            </a>
+            )}
 
             {/* Mobile Menu Button */}
             <button
@@ -303,11 +386,48 @@ export default function Navigation() {
                 </div>
               ))}
               <div className="px-4 pt-4">
-                <a href="/login" className="block">
-                  <Button className="w-full bg-stis-blue hover:bg-stis-blue-dark">
+                {isAuthenticated ? (
+                  <div className="space-y-2">
+                    <Button
+                      onClick={() => {
+                        handleProfileNavigation("/profile");
+                        setIsMenuOpen(false);
+                      }}
+                      variant="outline"
+                      className="w-full border-stis-blue text-stis-blue hover:bg-stis-blue hover:text-white"
+                    >
+                      <div className="w-4 h-4 mr-2 rounded-full overflow-hidden flex items-center justify-center bg-gradient-to-br from-stis-blue to-stis-cyan">
+                        {user?.profilePhoto ? (
+                          <img
+                            src={user.profilePhoto}
+                            alt="Profile"
+                            className="w-full h-full object-cover"
+                          />
+                        ) : (
+                          <User className="w-3 h-3 text-white" />
+                        )}
+                      </div>
+                      Profile
+                    </Button>
+                    <Button
+                      onClick={() => {
+                        handleLogout();
+                        setIsMenuOpen(false);
+                      }}
+                      className="w-full bg-red-600 hover:bg-red-700"
+                    >
+                      <LogOut className="w-4 h-4 mr-2" />
+                      Keluar
+                    </Button>
+                  </div>
+                ) : (
+                  <Button
+                    onClick={handleAuthAction}
+                    className="w-full bg-stis-blue hover:bg-stis-blue-dark"
+                  >
                     Masuk
                   </Button>
-                </a>
+                )}
               </div>
             </nav>
           </div>

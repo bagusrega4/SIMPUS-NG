@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Search,
   Filter,
@@ -32,8 +33,11 @@ import {
 } from "@/components/ui/dialog";
 import Navigation from "@/components/Navigation";
 import HelpPopup from "@/components/HelpPopup";
+import { useBorrowedBooks } from "@/contexts/BorrowedBooksContext";
 
 export default function Books() {
+  const navigate = useNavigate();
+  const { isBookBorrowed } = useBorrowedBooks();
   const helpItems = [
     {
       question: "Bagaimana cara mencari buku di koleksi cetak?",
@@ -199,6 +203,17 @@ export default function Books() {
     return matchesSearch && matchesCategory && matchesLanguage;
   });
 
+  const handleBorrowBook = (book: any) => {
+    const params = new URLSearchParams({
+      id: book.id.toString(),
+      title: book.title,
+      author: book.authors.join(", "),
+      isbn: book.isbn,
+      callNumber: book.call_number,
+    });
+    navigate(`/borrow-book?${params.toString()}`);
+  };
+
   return (
     <div className="min-h-screen bg-white">
       <Navigation />
@@ -343,13 +358,16 @@ export default function Books() {
                               </Badge>
                               <Badge
                                 variant={
-                                  book.status === "Tersedia"
+                                  book.status === "Tersedia" &&
+                                  !isBookBorrowed(book.id.toString())
                                     ? "default"
                                     : "destructive"
                                 }
                                 className="text-xs"
                               >
-                                {book.status}
+                                {isBookBorrowed(book.id.toString())
+                                  ? "Dipinjam"
+                                  : book.status}
                               </Badge>
                             </div>
 
@@ -398,7 +416,10 @@ export default function Books() {
                             <Button
                               size="sm"
                               className="bg-blue-600 hover:bg-blue-700"
-                              disabled={book.status === "Dipinjam"}
+                              disabled={
+                                book.status === "Dipinjam" ||
+                                isBookBorrowed(book.id.toString())
+                              }
                               onClick={() => setSelectedBook(book)}
                             >
                               <Eye className="w-4 h-4 mr-2" />
@@ -408,9 +429,15 @@ export default function Books() {
                               size="sm"
                               variant="outline"
                               className="border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white"
-                              disabled={book.status === "Dipinjam"}
+                              disabled={
+                                book.status === "Dipinjam" ||
+                                isBookBorrowed(book.id.toString())
+                              }
+                              onClick={() => handleBorrowBook(book)}
                             >
-                              Pinjam
+                              {isBookBorrowed(book.id.toString())
+                                ? "Dipinjam"
+                                : "Pinjam"}
                             </Button>
                           </div>
                         </div>
@@ -588,12 +615,15 @@ export default function Books() {
                         <span className="text-gray-600">Status:</span>
                         <Badge
                           variant={
-                            selectedBook.status === "Tersedia"
+                            selectedBook.status === "Tersedia" &&
+                            !isBookBorrowed(selectedBook.id.toString())
                               ? "default"
                               : "destructive"
                           }
                         >
-                          {selectedBook.status}
+                          {isBookBorrowed(selectedBook.id.toString())
+                            ? "Dipinjam"
+                            : selectedBook.status}
                         </Badge>
                       </div>
                       <div className="flex justify-between">
@@ -620,9 +650,18 @@ export default function Books() {
                   <div className="flex gap-3 pt-4">
                     <Button
                       className="flex-1 bg-emerald-600 hover:bg-emerald-700"
-                      disabled={selectedBook.status !== "Tersedia"}
+                      disabled={
+                        selectedBook.status !== "Tersedia" ||
+                        isBookBorrowed(selectedBook.id.toString())
+                      }
+                      onClick={() => {
+                        handleBorrowBook(selectedBook);
+                        setSelectedBook(null);
+                      }}
                     >
-                      Pinjam Buku
+                      {isBookBorrowed(selectedBook.id.toString())
+                        ? "Buku Dipinjam"
+                        : "Pinjam Buku"}
                     </Button>
                     <Button
                       variant="outline"
