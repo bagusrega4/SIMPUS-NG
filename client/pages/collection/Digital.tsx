@@ -161,7 +161,7 @@ export default function Digital() {
               />
               <Button
                 size="lg"
-                className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-blue-600 hover:bg-blue-700 rounded-lg"
+                className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-emerald-600 hover:bg-emerald-700 rounded-lg"
               >
                 Cari
               </Button>
