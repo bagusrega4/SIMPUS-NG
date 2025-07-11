@@ -480,6 +480,14 @@ export default function ReadingHistory() {
 
                 <Button
                   variant="outline"
+                  className="border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white"
+                >
+                  <Search className="w-4 h-4 mr-2" />
+                  Cari
+                </Button>
+
+                <Button
+                  variant="outline"
                   className="border-stis-blue text-stis-blue hover:bg-stis-blue hover:text-white"
                 >
                   <Download className="w-4 h-4 mr-2" />
