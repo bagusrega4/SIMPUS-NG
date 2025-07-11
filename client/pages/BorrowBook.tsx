@@ -206,11 +206,8 @@ export default function BorrowBook() {
       return;
     }
 
-    // Simulate API call
+    // Simulate API call with shorter delay
     setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSuccess(true);
-
       // Add book to borrowed books list
       addBorrowedBook({
         id: bookId,
@@ -227,7 +224,13 @@ export default function BorrowBook() {
         user: user?.email,
         borrowData,
       });
-    }, 2000);
+
+      setIsSubmitting(false);
+      setIsSuccess(true);
+
+      // Immediate redirect to collection after success
+      navigate("/collection/books");
+    }, 1000);
   };
 
   if (isSuccess) {
