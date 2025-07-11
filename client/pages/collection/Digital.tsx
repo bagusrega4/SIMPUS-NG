@@ -360,24 +360,34 @@ export default function Digital() {
       </div>
 
       {/* Search Bar */}
-      <section className="py-8 bg-stis-gray-light border-b border-gray-200">
+      <section className="py-8 bg-white border-b border-gray-200">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto">
-            <div className="relative">
-              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-              <Input
-                type="text"
-                placeholder="Cari e-book, jurnal, atau topik tertentu..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-12 pr-24 py-4 text-lg rounded-xl border-2 border-gray-200 focus:border-stis-blue"
-              />
-              <Button
-                size="lg"
-                className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-emerald-600 hover:bg-emerald-700 rounded-lg"
-              >
-                Cari
-              </Button>
+          <div className="max-w-6xl mx-auto">
+            <div className="flex flex-col lg:flex-row gap-6 items-center">
+              {/* Search */}
+              <div className="flex-1 w-full lg:w-auto">
+                <div className="relative">
+                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                  <Input
+                    type="text"
+                    placeholder="Cari e-book, jurnal, atau topik tertentu..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="pl-12 py-3 text-base rounded-xl border-2 border-gray-200 focus:border-stis-blue"
+                  />
+                </div>
+              </div>
+
+              {/* Search Button */}
+              <div className="flex gap-4 w-full lg:w-auto">
+                <Button
+                  variant="outline"
+                  className="border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white"
+                >
+                  <Search className="w-4 h-4 mr-2" />
+                  Cari
+                </Button>
+              </div>
             </div>
           </div>
         </div>
