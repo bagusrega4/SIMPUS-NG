@@ -161,7 +161,7 @@ export default function Index() {
               modern
             </p>
 
-                        {/* Search Box */}
+            {/* Search Box */}
             <div className="max-w-6xl mx-auto">
               <div className="flex flex-col lg:flex-row gap-6 items-center">
                 {/* Search */}
@@ -188,7 +188,6 @@ export default function Index() {
                     Cari
                   </Button>
                 </div>
-              </div>
               </div>
             </div>
 
