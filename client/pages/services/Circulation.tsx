@@ -13,7 +13,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
 import Navigation from "@/components/Navigation";
 import HelpPopup from "@/components/HelpPopup";
 
@@ -78,15 +78,6 @@ export default function Circulation() {
     },
   ];
 
-  const borrowingRules = [
-    "Mahasiswa dapat meminjam maksimal 3 buku",
-    "Masa peminjaman standar adalah 14 hari",
-    "Buku dapat diperpanjang maksimal 2 kali",
-    "Denda keterlambatan Rp 1.000 per hari per buku",
-    "Wajib membawa kartu identitas saat pengambilan",
-    "Buku tidak boleh dipinjamkan ke orang lain",
-  ];
-
   return (
     <div className="min-h-screen bg-white">
       <Navigation />
@@ -126,19 +117,21 @@ export default function Circulation() {
               {serviceHours.map((schedule, index) => (
                 <Card
                   key={index}
-                  className={`border-0 shadow-lg text-center ${
+                  className={`border-0 shadow-lg text-center h-full flex flex-col ${
                     schedule.status === "Buka"
                       ? "bg-green-50 border-green-200"
                       : "bg-red-50 border-red-200"
                   }`}
                 >
-                  <CardContent className="p-6">
-                    <h3 className="font-semibold text-gray-900 mb-2">
-                      {schedule.day}
-                    </h3>
-                    <p className="text-sm text-gray-600 mb-3">
-                      {schedule.hours}
-                    </p>
+                  <CardContent className="p-6 flex flex-col h-full justify-between">
+                    <div>
+                      <h3 className="font-semibold text-gray-900 mb-2">
+                        {schedule.day}
+                      </h3>
+                      <p className="text-sm text-gray-600 mb-3">
+                        {schedule.hours}
+                      </p>
+                    </div>
                     <Badge
                       className={
                         schedule.status === "Buka"
@@ -160,187 +153,186 @@ export default function Circulation() {
       <section className="py-16 bg-stis-gray-light">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
-            <Tabs defaultValue="process" className="w-full">
-              <TabsList className="grid w-full grid-cols-2 max-w-lg mx-auto mb-12">
-                <TabsTrigger value="process">Proses Peminjaman</TabsTrigger>
-                <TabsTrigger value="rules">Peraturan</TabsTrigger>
-              </TabsList>
+            {/* Process Steps */}
+            <div className="text-center mb-12">
+              <h3 className="text-3xl font-bold text-gray-900 mb-4">
+                Langkah-langkah Peminjaman
+              </h3>
+              <p className="text-lg text-gray-600">
+                Ikuti 4 langkah mudah untuk meminjam buku
+              </p>
+            </div>
 
-              {/* Borrowing Process Tab */}
-              <TabsContent value="process">
-                <div className="text-center mb-12">
-                  <h3 className="text-3xl font-bold text-gray-900 mb-4">
-                    Langkah-langkah Peminjaman
-                  </h3>
-                  <p className="text-lg text-gray-600">
-                    Ikuti 4 langkah mudah untuk meminjam buku
-                  </p>
-                </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {borrowingSteps.map((step, index) => {
+                const IconComponent = step.icon;
+                return (
+                  <Card
+                    key={index}
+                    className="border-0 shadow-lg hover:shadow-xl transition-shadow text-center relative h-full flex flex-col"
+                  >
+                    <CardContent className="p-8 flex flex-col h-full">
+                      <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                        <div className="w-8 h-8 bg-stis-blue rounded-full flex items-center justify-center text-white font-bold text-sm">
+                          {step.step}
+                        </div>
+                      </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                  {borrowingSteps.map((step, index) => {
-                    const IconComponent = step.icon;
-                    return (
-                      <Card
-                        key={index}
-                        className="border-0 shadow-lg hover:shadow-xl transition-shadow text-center relative"
-                      >
-                        <CardContent className="p-8">
-                          <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                            <div className="w-8 h-8 bg-stis-blue rounded-full flex items-center justify-center text-white font-bold text-sm">
-                              {step.step}
-                            </div>
-                          </div>
+                      <div className="w-16 h-16 bg-stis-blue/10 rounded-xl flex items-center justify-center mx-auto mb-6 mt-4">
+                        <IconComponent className="w-8 h-8 text-stis-blue" />
+                      </div>
 
-                          <div className="w-16 h-16 bg-stis-blue/10 rounded-xl flex items-center justify-center mx-auto mb-6 mt-4">
-                            <IconComponent className="w-8 h-8 text-stis-blue" />
-                          </div>
+                      <h4 className="text-xl font-semibold text-gray-900 mb-3">
+                        {step.title}
+                      </h4>
+                      <p className="text-gray-600 mb-6 leading-relaxed flex-grow">
+                        {step.description}
+                      </p>
 
-                          <h4 className="text-xl font-semibold text-gray-900 mb-3">
-                            {step.title}
-                          </h4>
-                          <p className="text-gray-600 mb-6 leading-relaxed">
-                            {step.description}
-                          </p>
+                      <div className="mt-auto">
+                        {step.link ? (
+                          <Button
+                            onClick={() => navigate(step.link)}
+                            className="w-full bg-stis-blue hover:bg-stis-blue-dark"
+                          >
+                            {step.action}
+                            <ArrowRight className="w-4 h-4 ml-2" />
+                          </Button>
+                        ) : (
+                          <Button
+                            variant="outline"
+                            className="w-full border-stis-blue text-stis-blue hover:bg-stis-blue hover:text-white"
+                          >
+                            {step.action}
+                          </Button>
+                        )}
+                      </div>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div>
 
-                          {step.link ? (
-                            <Button
-                              onClick={() => navigate(step.link)}
-                              className="w-full bg-stis-blue hover:bg-stis-blue-dark"
-                            >
-                              {step.action}
-                              <ArrowRight className="w-4 h-4 ml-2" />
-                            </Button>
-                          ) : (
-                            <Button
-                              variant="outline"
-                              className="w-full border-stis-blue text-stis-blue hover:bg-stis-blue hover:text-white"
-                            >
-                              {step.action}
-                            </Button>
-                          )}
-                        </CardContent>
-                      </Card>
-                    );
-                  })}
-                </div>
+            {/* Quick Actions */}
+            <div className="mt-16 text-center">
+              <h4 className="text-2xl font-bold text-gray-900 mb-8">
+                Mulai Peminjaman
+              </h4>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
+                <Button
+                  onClick={() => navigate("/collection/books")}
+                  className="flex-1 bg-stis-blue hover:bg-stis-blue-dark"
+                  size="lg"
+                >
+                  <BookOpen className="w-5 h-5 mr-2" />
+                  Cari Buku
+                </Button>
+                <Button
+                  onClick={() => navigate("/collection/borrowing-history")}
+                  variant="outline"
+                  className="flex-1 border-stis-blue text-stis-blue hover:bg-stis-blue hover:text-white"
+                  size="lg"
+                >
+                  <Clock className="w-5 h-5 mr-2" />
+                  Lihat Riwayat
+                </Button>
+              </div>
+            </div>
 
-                {/* Quick Actions */}
-                <div className="mt-16 text-center">
-                  <h4 className="text-2xl font-bold text-gray-900 mb-8">
-                    Mulai Peminjaman
-                  </h4>
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
-                    <Button
-                      onClick={() => navigate("/collection/books")}
-                      className="flex-1 bg-stis-blue hover:bg-stis-blue-dark"
-                      size="lg"
-                    >
-                      <BookOpen className="w-5 h-5 mr-2" />
-                      Cari Buku
-                    </Button>
-                    <Button
-                      onClick={() => navigate("/collection/borrowing-history")}
-                      variant="outline"
-                      className="flex-1 border-stis-blue text-stis-blue hover:bg-stis-blue hover:text-white"
-                      size="lg"
-                    >
-                      <Clock className="w-5 h-5 mr-2" />
-                      Lihat Riwayat
-                    </Button>
+            {/* Quick Reference - Peraturan Singkat */}
+            <div className="mt-16">
+              <Card className="border-0 shadow-lg max-w-4xl mx-auto">
+                <CardContent className="p-8">
+                  <div className="text-center mb-6">
+                    <h4 className="text-2xl font-bold text-gray-900 mb-2">
+                      Ketentuan Peminjaman
+                    </h4>
+                    <p className="text-gray-600">
+                      Peraturan penting yang perlu diketahui sebelum meminjam
+                      buku
+                    </p>
                   </div>
-                </div>
-              </TabsContent>
 
-              {/* Rules Tab */}
-              <TabsContent value="rules">
-                <div className="text-center mb-12">
-                  <h3 className="text-3xl font-bold text-gray-900 mb-4">
-                    Peraturan Peminjaman
-                  </h3>
-                  <p className="text-lg text-gray-600">
-                    Ketentuan yang berlaku untuk peminjaman buku
-                  </p>
-                </div>
-
-                <Card className="border-0 shadow-lg max-w-4xl mx-auto">
-                  <CardContent className="p-8">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                      <div>
-                        <h4 className="text-xl font-semibold text-gray-900 mb-6 flex items-center">
-                          <BookOpen className="w-5 h-5 text-stis-blue mr-2" />
-                          Ketentuan Umum
-                        </h4>
-                        <div className="space-y-3">
-                          {borrowingRules.map((rule, index) => (
-                            <div
-                              key={index}
-                              className="flex items-start text-sm text-gray-600"
-                            >
-                              <CheckCircle className="w-4 h-4 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
-                              {rule}
-                            </div>
-                          ))}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                      <h5 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                        <BookOpen className="w-5 h-5 text-stis-blue mr-2" />
+                        Ketentuan Umum
+                      </h5>
+                      <div className="space-y-3">
+                        <div className="flex items-start text-sm text-gray-600">
+                          <CheckCircle className="w-4 h-4 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                          Mahasiswa dapat meminjam maksimal 3 buku
                         </div>
-                      </div>
-
-                      <div>
-                        <h4 className="text-xl font-semibold text-gray-900 mb-6 flex items-center">
-                          <User className="w-5 h-5 text-stis-blue mr-2" />
-                          Persyaratan
-                        </h4>
-                        <div className="space-y-4">
-                          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                            <h5 className="font-semibold text-blue-900 mb-2">
-                              Mahasiswa:
-                            </h5>
-                            <ul className="space-y-1 text-sm text-blue-700">
-                              <li>• Kartu Tanda Mahasiswa (KTM) aktif</li>
-                              <li>• Tidak ada tunggakan denda</li>
-                              <li>• Status mahasiswa aktif</li>
-                            </ul>
-                          </div>
-                          <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-                            <h5 className="font-semibold text-green-900 mb-2">
-                              Dosen & Staff:
-                            </h5>
-                            <ul className="space-y-1 text-sm text-green-700">
-                              <li>• ID Card pegawai STIS</li>
-                              <li>• Kuota peminjaman lebih besar</li>
-                              <li>• Periode peminjaman lebih lama</li>
-                            </ul>
-                          </div>
+                        <div className="flex items-start text-sm text-gray-600">
+                          <CheckCircle className="w-4 h-4 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                          Masa peminjaman standar adalah 14 hari
+                        </div>
+                        <div className="flex items-start text-sm text-gray-600">
+                          <CheckCircle className="w-4 h-4 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                          Buku dapat diperpanjang maksimal 2 kali
+                        </div>
+                        <div className="flex items-start text-sm text-gray-600">
+                          <CheckCircle className="w-4 h-4 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                          Denda keterlambatan Rp 1.000 per hari per buku
                         </div>
                       </div>
                     </div>
 
-                    <div className="mt-8 pt-6 border-t border-gray-200">
-                      <div className="text-center">
-                        <h5 className="font-semibold text-gray-900 mb-4">
-                          Butuh bantuan atau memiliki pertanyaan?
-                        </h5>
-                        <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                          <Button
-                            onClick={() => navigate("/info/contact")}
-                            variant="outline"
-                            className="border-stis-blue text-stis-blue hover:bg-stis-blue hover:text-white"
-                          >
-                            Hubungi Perpustakaan
-                          </Button>
-                          <Button
-                            onClick={() => navigate("/info/faq")}
-                            variant="outline"
-                            className="border-gray-300"
-                          >
-                            Lihat FAQ
-                          </Button>
-                        </div>
+                    <div>
+                      <h5 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                        <User className="w-5 h-5 text-stis-blue mr-2" />
+                        Persyaratan
+                      </h5>
+                      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                        <h6 className="font-semibold text-blue-900 mb-2">
+                          Mahasiswa:
+                        </h6>
+                        <ul className="space-y-1 text-sm text-blue-700">
+                          <li>• Kartu Tanda Mahasiswa (KTM) aktif</li>
+                          <li>• Tidak ada tunggakan denda</li>
+                          <li>• Status mahasiswa aktif</li>
+                        </ul>
+                      </div>
+                      <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                        <h6 className="font-semibold text-green-900 mb-2">
+                          Dosen & Staff:
+                        </h6>
+                        <ul className="space-y-1 text-sm text-green-700">
+                          <li>• ID Card pegawai STIS</li>
+                          <li>• Kuota peminjaman lebih besar</li>
+                          <li>• Periode peminjaman lebih lama</li>
+                        </ul>
                       </div>
                     </div>
-                  </CardContent>
-                </Card>
-              </TabsContent>
-            </Tabs>
+                  </div>
+
+                  <div className="mt-8 pt-6 border-t border-gray-200">
+                    <div className="text-center">
+                      <p className="text-sm text-gray-600 mb-4">
+                        Untuk informasi peraturan lengkap, silakan kunjungi
+                        halaman Peraturan Perpustakaan
+                      </p>
+                      <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                        <Button
+                          onClick={() => navigate("/info/rules")}
+                          className="bg-stis-blue hover:bg-stis-blue-dark"
+                        >
+                          Lihat Peraturan Lengkap
+                        </Button>
+                        <Button
+                          onClick={() => navigate("/info/contact")}
+                          variant="outline"
+                          className="border-stis-blue text-stis-blue hover:bg-stis-blue hover:text-white"
+                        >
+                          Hubungi Perpustakaan
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
           </div>
         </div>
       </section>

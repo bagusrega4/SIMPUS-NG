@@ -225,9 +225,9 @@ export default function Collection() {
                   {filteredBooks.map((book, index) => (
                     <Card
                       key={index}
-                      className="group hover:shadow-lg transition-all duration-300 border-0 shadow-md"
+                      className="group hover:shadow-lg transition-all duration-300 border-0 shadow-md h-full flex flex-col"
                     >
-                      <CardContent className="p-0">
+                      <CardContent className="p-0 h-full flex flex-col">
                         <div className="aspect-[3/4] bg-gradient-to-br from-stis-blue-light to-stis-gray-light rounded-t-lg flex items-center justify-center mb-4">
                           {book.type === "ebook" ? (
                             <Monitor className="w-16 h-16 text-stis-blue/40" />
@@ -235,7 +235,7 @@ export default function Collection() {
                             <BookOpen className="w-16 h-16 text-stis-blue/40" />
                           )}
                         </div>
-                        <div className="p-4">
+                        <div className="p-4 flex flex-col flex-grow">
                           <div className="flex items-center gap-2 mb-2">
                             <Badge variant="secondary" className="text-xs">
                               {book.category}
@@ -265,7 +265,7 @@ export default function Collection() {
                             </div>
                           </div>
 
-                          <div className="flex gap-2">
+                          <div className="flex gap-2 mt-auto">
                             <Button
                               size="sm"
                               className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-xs"

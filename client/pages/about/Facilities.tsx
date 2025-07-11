@@ -193,14 +193,14 @@ export default function Facilities() {
                 return (
                   <Card
                     key={index}
-                    className="border-0 shadow-lg hover:shadow-xl transition-shadow"
+                    className="border-0 shadow-lg hover:shadow-xl transition-shadow h-full flex flex-col"
                   >
-                    <CardContent className="p-0">
+                    <CardContent className="p-0 h-full flex flex-col">
                       <div className="aspect-video bg-gradient-to-br from-stis-blue-light to-stis-gray-light rounded-t-lg flex items-center justify-center">
                         <IconComponent className="w-16 h-16 text-stis-blue/40" />
                       </div>
 
-                      <div className="p-6">
+                      <div className="p-6 flex flex-col flex-grow">
                         <div className="flex items-center justify-between mb-4">
                           <h3 className="text-xl font-semibold text-gray-900">
                             {facility.title}
@@ -210,11 +210,11 @@ export default function Facilities() {
                           </Badge>
                         </div>
 
-                        <p className="text-gray-600 mb-4 leading-relaxed">
+                        <p className="text-gray-600 mb-4 leading-relaxed flex-grow">
                           {facility.description}
                         </p>
 
-                        <div className="flex flex-wrap gap-2">
+                        <div className="flex flex-wrap gap-2 mt-auto">
                           {facility.features.map((feature, idx) => (
                             <Badge
                               key={idx}
@@ -254,16 +254,16 @@ export default function Facilities() {
                 return (
                   <Card
                     key={index}
-                    className="border-0 shadow-md hover:shadow-lg transition-shadow text-center"
+                    className="border-0 shadow-md hover:shadow-lg transition-shadow text-center h-full"
                   >
-                    <CardContent className="p-6">
+                    <CardContent className="p-6 h-full flex flex-col">
                       <div className="w-12 h-12 bg-stis-blue/10 rounded-lg flex items-center justify-center mx-auto mb-4">
                         <IconComponent className="w-6 h-6 text-stis-blue" />
                       </div>
                       <h3 className="text-lg font-semibold text-gray-900 mb-2">
                         {facility.title}
                       </h3>
-                      <p className="text-gray-600 text-sm">
+                      <p className="text-gray-600 text-sm flex-grow">
                         {facility.description}
                       </p>
                     </CardContent>
@@ -294,19 +294,19 @@ export default function Facilities() {
                 return (
                   <Card
                     key={index}
-                    className="border-0 shadow-lg hover:shadow-xl transition-shadow"
+                    className="border-0 shadow-lg hover:shadow-xl transition-shadow h-full"
                   >
-                    <CardContent className="p-6">
+                    <CardContent className="p-6 h-full flex flex-col">
                       <div className="w-12 h-12 bg-stis-cyan/10 rounded-lg flex items-center justify-center mb-4">
                         <IconComponent className="w-6 h-6 text-stis-cyan" />
                       </div>
                       <h3 className="text-lg font-semibold text-gray-900 mb-2">
                         {tech.title}
                       </h3>
-                      <p className="text-gray-600 text-sm mb-4">
+                      <p className="text-gray-600 text-sm mb-4 flex-grow">
                         {tech.description}
                       </p>
-                      <div className="space-y-1">
+                      <div className="space-y-1 mt-auto">
                         {tech.specs.map((spec, idx) => (
                           <div
                             key={idx}

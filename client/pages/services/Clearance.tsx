@@ -215,10 +215,10 @@ export default function Clearance() {
                 return (
                   <Card
                     key={index}
-                    className="border-0 shadow-lg hover:shadow-xl transition-shadow"
+                    className="border-0 shadow-lg hover:shadow-xl transition-shadow h-full"
                   >
-                    <CardContent className="p-6">
-                      <div className="flex items-start gap-4">
+                    <CardContent className="p-6 h-full flex flex-col">
+                      <div className="flex items-start gap-4 h-full">
                         <div
                           className={`w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 ${
                             req.status === "required"
@@ -234,7 +234,7 @@ export default function Clearance() {
                             }`}
                           />
                         </div>
-                        <div className="flex-1">
+                        <div className="flex-1 flex flex-col">
                           <div className="flex items-center gap-2 mb-2">
                             <h3 className="text-lg font-semibold text-gray-900">
                               {req.title}
@@ -250,7 +250,7 @@ export default function Clearance() {
                               {req.status === "required" ? "Wajib" : "Opsional"}
                             </Badge>
                           </div>
-                          <p className="text-gray-600 leading-relaxed">
+                          <p className="text-gray-600 leading-relaxed flex-grow">
                             {req.description}
                           </p>
                         </div>

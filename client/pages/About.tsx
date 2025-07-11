@@ -243,9 +243,9 @@ export default function About() {
             {team.map((member, index) => (
               <Card
                 key={index}
-                className="border-0 shadow-lg hover:shadow-xl transition-shadow"
+                className="border-0 shadow-lg hover:shadow-xl transition-shadow h-full"
               >
-                <CardContent className="p-8 text-center">
+                <CardContent className="p-8 text-center h-full flex flex-col">
                   <div className="w-20 h-20 bg-gradient-to-br from-stis-blue to-stis-cyan rounded-full flex items-center justify-center mx-auto mb-6">
                     <Users className="w-10 h-10 text-white" />
                   </div>
@@ -255,7 +255,7 @@ export default function About() {
                   <Badge variant="secondary" className="mb-4">
                     {member.role}
                   </Badge>
-                  <p className="text-gray-600 text-sm leading-relaxed">
+                  <p className="text-gray-600 text-sm leading-relaxed flex-grow">
                     {member.description}
                   </p>
                 </CardContent>

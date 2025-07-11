@@ -224,9 +224,9 @@ export default function Structure() {
               {departments.map((dept, index) => (
                 <Card
                   key={index}
-                  className="border-0 shadow-lg hover:shadow-xl transition-shadow"
+                  className="border-0 shadow-lg hover:shadow-xl transition-shadow h-full"
                 >
-                  <CardContent className="p-6">
+                  <CardContent className="p-6 h-full flex flex-col">
                     <div className="text-center mb-6">
                       <div className="w-16 h-16 bg-stis-blue/10 rounded-xl flex items-center justify-center mx-auto mb-4">
                         <Users className="w-8 h-8 text-stis-blue" />
@@ -244,7 +244,7 @@ export default function Structure() {
                       </Badge>
                     </div>
 
-                    <div className="mb-6">
+                    <div className="mb-6 flex-grow">
                       <h4 className="font-semibold text-gray-900 mb-3">
                         Tugas & Tanggung Jawab:
                       </h4>
@@ -261,7 +261,7 @@ export default function Structure() {
                       </ul>
                     </div>
 
-                    <div className="text-center">
+                    <div className="text-center mt-auto">
                       <div className="flex items-center justify-center gap-2 text-sm text-gray-600">
                         <Mail className="w-4 h-4" />
                         {dept.contact}
@@ -293,9 +293,9 @@ export default function Structure() {
               {staff.map((member, index) => (
                 <Card
                   key={index}
-                  className="border-0 shadow-md hover:shadow-lg transition-shadow"
+                  className="border-0 shadow-md hover:shadow-lg transition-shadow h-full"
                 >
-                  <CardContent className="p-6 text-center">
+                  <CardContent className="p-6 text-center h-full flex flex-col">
                     <div className="w-20 h-20 bg-gradient-to-br from-stis-blue to-stis-cyan rounded-full flex items-center justify-center mx-auto mb-4">
                       <Users className="w-10 h-10 text-white" />
                     </div>
@@ -305,7 +305,7 @@ export default function Structure() {
                     <Badge variant="outline" className="mb-3 text-xs">
                       {member.position}
                     </Badge>
-                    <div className="space-y-2 text-sm text-gray-600">
+                    <div className="space-y-2 text-sm text-gray-600 flex-grow">
                       <p>
                         <strong>Spesialisasi:</strong>
                         <br />

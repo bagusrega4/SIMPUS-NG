@@ -268,14 +268,14 @@ export default function Vision() {
                 return (
                   <Card
                     key={index}
-                    className="border-0 shadow-lg hover:shadow-xl transition-shadow"
+                    className="border-0 shadow-lg hover:shadow-xl transition-shadow h-full"
                   >
-                    <CardContent className="p-8">
+                    <CardContent className="p-8 h-full flex flex-col">
                       <div className="flex items-start gap-4 mb-6">
                         <div className="w-12 h-12 bg-stis-cyan/10 rounded-lg flex items-center justify-center flex-shrink-0">
                           <IconComponent className="w-6 h-6 text-stis-cyan" />
                         </div>
-                        <div>
+                        <div className="flex-grow">
                           <h3 className="text-xl font-semibold text-gray-900 mb-3">
                             {mission.title}
                           </h3>
@@ -285,7 +285,7 @@ export default function Vision() {
                         </div>
                       </div>
 
-                      <div className="pl-16">
+                      <div className="pl-16 flex-grow">
                         <h4 className="font-medium text-gray-900 mb-3">
                           Implementasi:
                         </h4>
@@ -333,9 +333,9 @@ export default function Vision() {
               {values.map((value, index) => (
                 <Card
                   key={index}
-                  className="border-0 shadow-lg hover:shadow-xl transition-shadow group"
+                  className="border-0 shadow-lg hover:shadow-xl transition-shadow group h-full"
                 >
-                  <CardContent className="p-6 text-center">
+                  <CardContent className="p-6 text-center h-full flex flex-col">
                     <div
                       className={`w-12 h-12 ${value.color}/10 rounded-lg flex items-center justify-center mx-auto mb-4 group-hover:${value.color}/20 transition-colors`}
                     >
@@ -346,7 +346,7 @@ export default function Vision() {
                     <h3 className="text-lg font-semibold text-gray-900 mb-3">
                       {value.title}
                     </h3>
-                    <p className="text-sm text-gray-600 leading-relaxed">
+                    <p className="text-sm text-gray-600 leading-relaxed flex-grow">
                       {value.description}
                     </p>
                   </CardContent>
