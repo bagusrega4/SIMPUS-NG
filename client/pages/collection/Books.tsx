@@ -471,6 +471,27 @@ export default function Books() {
     return matchesSearch && matchesCategory && matchesLanguage;
   });
 
+  // Pagination calculations
+  const totalPages = Math.ceil(filteredBooks.length / booksPerPage);
+  const startIndex = (currentPage - 1) * booksPerPage;
+  const endIndex = startIndex + booksPerPage;
+  const currentBooks = filteredBooks.slice(startIndex, endIndex);
+
+  // Reset to page 1 when filters change
+  const handleFilterChange = (filterType: string, value: string) => {
+    setCurrentPage(1);
+    if (filterType === "category") {
+      setSelectedCategory(value);
+    } else if (filterType === "language") {
+      setSelectedLanguage(value);
+    }
+  };
+
+  const handleSearchChange = (value: string) => {
+    setCurrentPage(1);
+    setSearchQuery(value);
+  };
+
   const handleBorrowBook = (book: any) => {
     const params = new URLSearchParams({
       id: book.id.toString(),
