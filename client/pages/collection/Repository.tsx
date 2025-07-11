@@ -279,17 +279,17 @@ export default function Repository() {
       </div>
 
       {/* Statistics */}
-      <section className="py-12 bg-white">
+      <section className="py-12 bg-white border-b border-gray-200">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {repositoryStats.map((stat, index) => {
                 const IconComponent = stat.icon;
                 return (
-                  <Card key={index} className="border-0 shadow-lg text-center">
-                    <CardContent className="p-6">
-                      <div className="w-12 h-12 bg-stis-blue/10 rounded-lg flex items-center justify-center mx-auto mb-4">
-                        <IconComponent className="w-6 h-6 text-stis-blue" />
+                  <Card key={index} className="border-0 shadow-md">
+                    <CardContent className="p-6 text-center">
+                      <div className="w-12 h-12 bg-stis-cyan/10 rounded-lg flex items-center justify-center mx-auto mb-4">
+                        <IconComponent className="w-6 h-6 text-stis-cyan" />
                       </div>
                       <div className="text-2xl font-bold text-stis-blue mb-1">
                         {stat.count.toLocaleString()}
@@ -305,7 +305,7 @@ export default function Repository() {
       </section>
 
       {/* Search & Filter */}
-      <section className="py-8 bg-white border-b border-gray-200">
+      <section className="py-8 bg-stis-gray-light border-b border-gray-200">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
             <div className="flex flex-col lg:flex-row gap-6 items-center">
@@ -315,23 +315,12 @@ export default function Repository() {
                   <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                   <Input
                     type="text"
-                    placeholder="Cari judul, penulis, atau kata kunci..."
+                    placeholder="Cari berdasarkan judul, penulis, atau kata kunci..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className="pl-12 py-3 text-base rounded-xl border-2 border-gray-200 focus:border-stis-blue"
                   />
                 </div>
-              </div>
-
-              {/* Filters */}
-              <div className="flex gap-4 w-full lg:w-auto">
-                <Button
-                  variant="outline"
-                  className="border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white"
-                >
-                  <Search className="w-4 h-4 mr-2" />
-                  Cari
-                </Button>
               </div>
             </div>
           </div>
@@ -343,7 +332,7 @@ export default function Repository() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
             <Tabs defaultValue="tugas-akhir-d3" className="w-full">
-              <TabsList className="grid w-full grid-cols-4 max-w-4xl mx-auto mb-12">
+              <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4">
                 <TabsTrigger value="tugas-akhir-d3">Tugas Akhir D3</TabsTrigger>
                 <TabsTrigger value="skripsi-d4-st">
                   Skripsi D4 Statistika
@@ -366,7 +355,7 @@ export default function Repository() {
                     </h3>
                     <Select defaultValue="terbaru">
                       <SelectTrigger className="w-48">
-                        <SelectValue placeholder="Urutkan" />
+                        <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="terbaru">Terbaru</SelectItem>
@@ -384,105 +373,88 @@ export default function Repository() {
                         className="border-0 shadow-lg hover:shadow-xl transition-shadow"
                       >
                         <CardContent className="p-6">
-                          <div className="flex flex-col lg:flex-row gap-6">
-                            {/* Document Icon */}
-                            <div className="w-full lg:w-24 h-32 lg:h-32 bg-gradient-to-br from-stis-blue-light to-stis-gray-light rounded-lg flex items-center justify-center flex-shrink-0">
-                              <FileText className="w-12 h-12 text-stis-blue/40" />
+                          <div className="flex gap-6">
+                            <div className="w-20 h-28 bg-gradient-to-br from-stis-blue-light to-stis-gray-light rounded-lg flex items-center justify-center flex-shrink-0">
+                              {/* Document Icon */}
+                              <FileText className="w-8 h-8 text-stis-blue/40" />
                             </div>
 
-                            {/* Thesis Details */}
                             <div className="flex-1">
-                              <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
-                                <div className="flex-1">
-                                  <div className="flex items-center gap-2 mb-2">
+                              {/* Thesis Details */}
+                              <div className="flex items-center gap-2 mb-2">
+                                <Badge variant="outline" className="text-xs">
+                                  {thesis.program}
+                                </Badge>
+                                <Badge variant="outline" className="text-xs">
+                                  {thesis.year}
+                                </Badge>
+                                <Badge variant="outline" className="text-xs">
+                                  {thesis.language}
+                                </Badge>
+                              </div>
+
+                              <h4 className="text-xl font-semibold text-gray-900 mb-2">
+                                {thesis.title}
+                              </h4>
+
+                              <p className="text-gray-600 mb-2">
+                                <span className="font-medium">
+                                  {thesis.author} ({thesis.nim})
+                                </span>
+                              </p>
+
+                              <p className="text-sm text-gray-500 mb-3">
+                                Pembimbing: {thesis.supervisor}
+                              </p>
+
+                              <p className="text-sm text-gray-500 mb-4">
+                                {thesis.department} • {thesis.pages} halaman •{" "}
+                                {thesis.file_size}
+                              </p>
+
+                              <p className="text-gray-700 mb-4 leading-relaxed">
+                                {thesis.abstract}
+                              </p>
+
+                              <div className="mb-4">
+                                <span className="text-sm font-medium text-gray-700">
+                                  Keywords:
+                                </span>
+                                <div className="flex flex-wrap gap-1 mt-1">
+                                  {thesis.keywords.map((keyword, idx) => (
                                     <Badge
+                                      key={idx}
                                       variant="secondary"
                                       className="text-xs"
                                     >
-                                      {thesis.program}
+                                      {keyword}
                                     </Badge>
-                                    <Badge
-                                      variant="outline"
-                                      className="text-xs"
-                                    >
-                                      {thesis.year}
-                                    </Badge>
-                                    <Badge
-                                      variant="outline"
-                                      className="text-xs"
-                                    >
-                                      {thesis.language}
-                                    </Badge>
+                                  ))}
+                                </div>
+                              </div>
+
+                              <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-4 text-sm text-gray-500">
+                                  <div className="flex items-center gap-1">
+                                    <Star className="w-4 h-4 text-yellow-500" />
+                                    <span>{thesis.rating}</span>
                                   </div>
-
-                                  <h3 className="text-lg font-semibold text-gray-900 mb-2 hover:text-stis-blue transition-colors cursor-pointer">
-                                    {thesis.title}
-                                  </h3>
-
-                                  <div className="space-y-1 text-sm text-gray-600 mb-3">
-                                    <div className="flex items-center gap-2">
-                                      <User className="w-4 h-4" />
-                                      <span>
-                                        {thesis.author} ({thesis.nim})
-                                      </span>
-                                    </div>
-                                    <div className="flex items-center gap-2">
-                                      <GraduationCap className="w-4 h-4" />
-                                      <span>
-                                        Pembimbing: {thesis.supervisor}
-                                      </span>
-                                    </div>
-                                    <div className="flex items-center gap-2">
-                                      <Calendar className="w-4 h-4" />
-                                      <span>
-                                        {thesis.department} • {thesis.pages}{" "}
-                                        halaman • {thesis.file_size}
-                                      </span>
-                                    </div>
+                                  <div className="flex items-center gap-1">
+                                    <Eye className="w-4 h-4" />
+                                    <span>{thesis.views} views</span>
                                   </div>
-
-                                  <p className="text-gray-600 text-sm leading-relaxed mb-3">
-                                    {thesis.abstract}
-                                  </p>
-
-                                  <div className="mb-3">
-                                    <span className="text-xs font-medium text-gray-700 mr-2">
-                                      Keywords:
-                                    </span>
-                                    <div className="inline-flex flex-wrap gap-1">
-                                      {thesis.keywords.map((keyword, idx) => (
-                                        <Badge
-                                          key={idx}
-                                          variant="outline"
-                                          className="text-xs"
-                                        >
-                                          {keyword}
-                                        </Badge>
-                                      ))}
-                                    </div>
-                                  </div>
-
-                                  <div className="flex items-center gap-4 text-xs text-gray-500">
-                                    <div className="flex items-center gap-1">
-                                      <Star className="w-3 h-3 text-yellow-400 fill-current" />
-                                      <span>{thesis.rating}</span>
-                                    </div>
-                                    <div className="flex items-center gap-1">
-                                      <Eye className="w-3 h-3" />
-                                      <span>{thesis.views} views</span>
-                                    </div>
-                                    <div className="flex items-center gap-1">
-                                      <Download className="w-3 h-3" />
-                                      <span>{thesis.downloads} downloads</span>
-                                    </div>
+                                  <div className="flex items-center gap-1">
+                                    <Download className="w-4 h-4" />
+                                    <span>{thesis.downloads} downloads</span>
                                   </div>
                                 </div>
 
                                 {/* Action Buttons */}
-                                <div className="flex flex-col gap-2 lg:w-32">
+                                <div className="flex gap-2">
                                   <Button
                                     size="sm"
-                                    className="bg-stis-blue hover:bg-stis-blue-dark"
+                                    variant="outline"
+                                    className="border-stis-blue text-stis-blue hover:bg-stis-blue hover:text-white"
                                   >
                                     <Eye className="w-4 h-4 mr-2" />
                                     Baca
@@ -516,7 +488,7 @@ export default function Repository() {
                     </h3>
                     <Select defaultValue="terbaru">
                       <SelectTrigger className="w-48">
-                        <SelectValue placeholder="Urutkan" />
+                        <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="terbaru">Terbaru</SelectItem>
@@ -534,105 +506,88 @@ export default function Repository() {
                         className="border-0 shadow-lg hover:shadow-xl transition-shadow"
                       >
                         <CardContent className="p-6">
-                          <div className="flex flex-col lg:flex-row gap-6">
-                            {/* Document Icon */}
-                            <div className="w-full lg:w-24 h-32 lg:h-32 bg-gradient-to-br from-stis-blue-light to-stis-gray-light rounded-lg flex items-center justify-center flex-shrink-0">
-                              <FileText className="w-12 h-12 text-stis-blue/40" />
+                          <div className="flex gap-6">
+                            <div className="w-20 h-28 bg-gradient-to-br from-stis-blue-light to-stis-gray-light rounded-lg flex items-center justify-center flex-shrink-0">
+                              {/* Document Icon */}
+                              <FileText className="w-8 h-8 text-stis-blue/40" />
                             </div>
 
-                            {/* Thesis Details */}
                             <div className="flex-1">
-                              <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
-                                <div className="flex-1">
-                                  <div className="flex items-center gap-2 mb-2">
+                              {/* Thesis Details */}
+                              <div className="flex items-center gap-2 mb-2">
+                                <Badge variant="outline" className="text-xs">
+                                  {thesis.program}
+                                </Badge>
+                                <Badge variant="outline" className="text-xs">
+                                  {thesis.year}
+                                </Badge>
+                                <Badge variant="outline" className="text-xs">
+                                  {thesis.language}
+                                </Badge>
+                              </div>
+
+                              <h4 className="text-xl font-semibold text-gray-900 mb-2">
+                                {thesis.title}
+                              </h4>
+
+                              <p className="text-gray-600 mb-2">
+                                <span className="font-medium">
+                                  {thesis.author} ({thesis.nim})
+                                </span>
+                              </p>
+
+                              <p className="text-sm text-gray-500 mb-3">
+                                Pembimbing: {thesis.supervisor}
+                              </p>
+
+                              <p className="text-sm text-gray-500 mb-4">
+                                {thesis.department} • {thesis.pages} halaman •{" "}
+                                {thesis.file_size}
+                              </p>
+
+                              <p className="text-gray-700 mb-4 leading-relaxed">
+                                {thesis.abstract}
+                              </p>
+
+                              <div className="mb-4">
+                                <span className="text-sm font-medium text-gray-700">
+                                  Keywords:
+                                </span>
+                                <div className="flex flex-wrap gap-1 mt-1">
+                                  {thesis.keywords.map((keyword, idx) => (
                                     <Badge
+                                      key={idx}
                                       variant="secondary"
                                       className="text-xs"
                                     >
-                                      {thesis.program}
+                                      {keyword}
                                     </Badge>
-                                    <Badge
-                                      variant="outline"
-                                      className="text-xs"
-                                    >
-                                      {thesis.year}
-                                    </Badge>
-                                    <Badge
-                                      variant="outline"
-                                      className="text-xs"
-                                    >
-                                      {thesis.language}
-                                    </Badge>
+                                  ))}
+                                </div>
+                              </div>
+
+                              <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-4 text-sm text-gray-500">
+                                  <div className="flex items-center gap-1">
+                                    <Star className="w-4 h-4 text-yellow-500" />
+                                    <span>{thesis.rating}</span>
                                   </div>
-
-                                  <h3 className="text-lg font-semibold text-gray-900 mb-2 hover:text-stis-blue transition-colors cursor-pointer">
-                                    {thesis.title}
-                                  </h3>
-
-                                  <div className="space-y-1 text-sm text-gray-600 mb-3">
-                                    <div className="flex items-center gap-2">
-                                      <User className="w-4 h-4" />
-                                      <span>
-                                        {thesis.author} ({thesis.nim})
-                                      </span>
-                                    </div>
-                                    <div className="flex items-center gap-2">
-                                      <GraduationCap className="w-4 h-4" />
-                                      <span>
-                                        Pembimbing: {thesis.supervisor}
-                                      </span>
-                                    </div>
-                                    <div className="flex items-center gap-2">
-                                      <Calendar className="w-4 h-4" />
-                                      <span>
-                                        {thesis.department} • {thesis.pages}{" "}
-                                        halaman • {thesis.file_size}
-                                      </span>
-                                    </div>
+                                  <div className="flex items-center gap-1">
+                                    <Eye className="w-4 h-4" />
+                                    <span>{thesis.views} views</span>
                                   </div>
-
-                                  <p className="text-gray-600 text-sm leading-relaxed mb-3">
-                                    {thesis.abstract}
-                                  </p>
-
-                                  <div className="mb-3">
-                                    <span className="text-xs font-medium text-gray-700 mr-2">
-                                      Keywords:
-                                    </span>
-                                    <div className="inline-flex flex-wrap gap-1">
-                                      {thesis.keywords.map((keyword, idx) => (
-                                        <Badge
-                                          key={idx}
-                                          variant="outline"
-                                          className="text-xs"
-                                        >
-                                          {keyword}
-                                        </Badge>
-                                      ))}
-                                    </div>
-                                  </div>
-
-                                  <div className="flex items-center gap-4 text-xs text-gray-500">
-                                    <div className="flex items-center gap-1">
-                                      <Star className="w-3 h-3 text-yellow-400 fill-current" />
-                                      <span>{thesis.rating}</span>
-                                    </div>
-                                    <div className="flex items-center gap-1">
-                                      <Eye className="w-3 h-3" />
-                                      <span>{thesis.views} views</span>
-                                    </div>
-                                    <div className="flex items-center gap-1">
-                                      <Download className="w-3 h-3" />
-                                      <span>{thesis.downloads} downloads</span>
-                                    </div>
+                                  <div className="flex items-center gap-1">
+                                    <Download className="w-4 h-4" />
+                                    <span>{thesis.downloads} downloads</span>
                                   </div>
                                 </div>
 
                                 {/* Action Buttons */}
-                                <div className="flex flex-col gap-2 lg:w-32">
+                                <div className="flex gap-2">
                                   <Button
                                     size="sm"
-                                    className="bg-stis-blue hover:bg-stis-blue-dark"
+                                    variant="outline"
+                                    className="border-stis-blue text-stis-blue hover:bg-stis-blue hover:text-white"
                                   >
                                     <Eye className="w-4 h-4 mr-2" />
                                     Baca
@@ -666,7 +621,7 @@ export default function Repository() {
                     </h3>
                     <Select defaultValue="terbaru">
                       <SelectTrigger className="w-48">
-                        <SelectValue placeholder="Urutkan" />
+                        <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="terbaru">Terbaru</SelectItem>
@@ -684,105 +639,88 @@ export default function Repository() {
                         className="border-0 shadow-lg hover:shadow-xl transition-shadow"
                       >
                         <CardContent className="p-6">
-                          <div className="flex flex-col lg:flex-row gap-6">
-                            {/* Document Icon */}
-                            <div className="w-full lg:w-24 h-32 lg:h-32 bg-gradient-to-br from-stis-blue-light to-stis-gray-light rounded-lg flex items-center justify-center flex-shrink-0">
-                              <FileText className="w-12 h-12 text-stis-blue/40" />
+                          <div className="flex gap-6">
+                            <div className="w-20 h-28 bg-gradient-to-br from-stis-blue-light to-stis-gray-light rounded-lg flex items-center justify-center flex-shrink-0">
+                              {/* Document Icon */}
+                              <FileText className="w-8 h-8 text-stis-blue/40" />
                             </div>
 
-                            {/* Thesis Details */}
                             <div className="flex-1">
-                              <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
-                                <div className="flex-1">
-                                  <div className="flex items-center gap-2 mb-2">
+                              {/* Thesis Details */}
+                              <div className="flex items-center gap-2 mb-2">
+                                <Badge variant="outline" className="text-xs">
+                                  {thesis.program}
+                                </Badge>
+                                <Badge variant="outline" className="text-xs">
+                                  {thesis.year}
+                                </Badge>
+                                <Badge variant="outline" className="text-xs">
+                                  {thesis.language}
+                                </Badge>
+                              </div>
+
+                              <h4 className="text-xl font-semibold text-gray-900 mb-2">
+                                {thesis.title}
+                              </h4>
+
+                              <p className="text-gray-600 mb-2">
+                                <span className="font-medium">
+                                  {thesis.author} ({thesis.nim})
+                                </span>
+                              </p>
+
+                              <p className="text-sm text-gray-500 mb-3">
+                                Pembimbing: {thesis.supervisor}
+                              </p>
+
+                              <p className="text-sm text-gray-500 mb-4">
+                                {thesis.department} • {thesis.pages} halaman •{" "}
+                                {thesis.file_size}
+                              </p>
+
+                              <p className="text-gray-700 mb-4 leading-relaxed">
+                                {thesis.abstract}
+                              </p>
+
+                              <div className="mb-4">
+                                <span className="text-sm font-medium text-gray-700">
+                                  Keywords:
+                                </span>
+                                <div className="flex flex-wrap gap-1 mt-1">
+                                  {thesis.keywords.map((keyword, idx) => (
                                     <Badge
+                                      key={idx}
                                       variant="secondary"
                                       className="text-xs"
                                     >
-                                      {thesis.program}
+                                      {keyword}
                                     </Badge>
-                                    <Badge
-                                      variant="outline"
-                                      className="text-xs"
-                                    >
-                                      {thesis.year}
-                                    </Badge>
-                                    <Badge
-                                      variant="outline"
-                                      className="text-xs"
-                                    >
-                                      {thesis.language}
-                                    </Badge>
+                                  ))}
+                                </div>
+                              </div>
+
+                              <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-4 text-sm text-gray-500">
+                                  <div className="flex items-center gap-1">
+                                    <Star className="w-4 h-4 text-yellow-500" />
+                                    <span>{thesis.rating}</span>
                                   </div>
-
-                                  <h3 className="text-lg font-semibold text-gray-900 mb-2 hover:text-stis-blue transition-colors cursor-pointer">
-                                    {thesis.title}
-                                  </h3>
-
-                                  <div className="space-y-1 text-sm text-gray-600 mb-3">
-                                    <div className="flex items-center gap-2">
-                                      <User className="w-4 h-4" />
-                                      <span>
-                                        {thesis.author} ({thesis.nim})
-                                      </span>
-                                    </div>
-                                    <div className="flex items-center gap-2">
-                                      <GraduationCap className="w-4 h-4" />
-                                      <span>
-                                        Pembimbing: {thesis.supervisor}
-                                      </span>
-                                    </div>
-                                    <div className="flex items-center gap-2">
-                                      <Calendar className="w-4 h-4" />
-                                      <span>
-                                        {thesis.department} • {thesis.pages}{" "}
-                                        halaman • {thesis.file_size}
-                                      </span>
-                                    </div>
+                                  <div className="flex items-center gap-1">
+                                    <Eye className="w-4 h-4" />
+                                    <span>{thesis.views} views</span>
                                   </div>
-
-                                  <p className="text-gray-600 text-sm leading-relaxed mb-3">
-                                    {thesis.abstract}
-                                  </p>
-
-                                  <div className="mb-3">
-                                    <span className="text-xs font-medium text-gray-700 mr-2">
-                                      Keywords:
-                                    </span>
-                                    <div className="inline-flex flex-wrap gap-1">
-                                      {thesis.keywords.map((keyword, idx) => (
-                                        <Badge
-                                          key={idx}
-                                          variant="outline"
-                                          className="text-xs"
-                                        >
-                                          {keyword}
-                                        </Badge>
-                                      ))}
-                                    </div>
-                                  </div>
-
-                                  <div className="flex items-center gap-4 text-xs text-gray-500">
-                                    <div className="flex items-center gap-1">
-                                      <Star className="w-3 h-3 text-yellow-400 fill-current" />
-                                      <span>{thesis.rating}</span>
-                                    </div>
-                                    <div className="flex items-center gap-1">
-                                      <Eye className="w-3 h-3" />
-                                      <span>{thesis.views} views</span>
-                                    </div>
-                                    <div className="flex items-center gap-1">
-                                      <Download className="w-3 h-3" />
-                                      <span>{thesis.downloads} downloads</span>
-                                    </div>
+                                  <div className="flex items-center gap-1">
+                                    <Download className="w-4 h-4" />
+                                    <span>{thesis.downloads} downloads</span>
                                   </div>
                                 </div>
 
                                 {/* Action Buttons */}
-                                <div className="flex flex-col gap-2 lg:w-32">
+                                <div className="flex gap-2">
                                   <Button
                                     size="sm"
-                                    className="bg-stis-blue hover:bg-stis-blue-dark"
+                                    variant="outline"
+                                    className="border-stis-blue text-stis-blue hover:bg-stis-blue hover:text-white"
                                   >
                                     <Eye className="w-4 h-4 mr-2" />
                                     Baca
@@ -813,10 +751,7 @@ export default function Repository() {
                     <h3 className="text-2xl font-bold text-gray-900">
                       Karya Ilmiah Dosen & Peneliti
                     </h3>
-                    <Button
-                      variant="outline"
-                      className="border-stis-blue text-stis-blue hover:bg-stis-blue hover:text-white"
-                    >
+                    <Button className="bg-stis-cyan hover:bg-stis-cyan/90">
                       Lihat Semua Karya Ilmiah
                     </Button>
                   </div>
@@ -828,96 +763,87 @@ export default function Repository() {
                         className="border-0 shadow-lg hover:shadow-xl transition-shadow"
                       >
                         <CardContent className="p-6">
-                          <div className="flex items-start gap-6">
+                          <div className="flex gap-6">
                             <div className="w-16 h-16 bg-stis-cyan/10 rounded-lg flex items-center justify-center flex-shrink-0">
                               <Award className="w-8 h-8 text-stis-cyan" />
                             </div>
 
                             <div className="flex-1">
-                              <div className="flex items-start justify-between mb-4">
-                                <div className="flex-1">
-                                  <div className="flex items-center gap-2 mb-2">
+                              <div className="flex items-center gap-2 mb-2">
+                                <Badge className="bg-stis-cyan hover:bg-stis-cyan/90">
+                                  {pub.type}
+                                </Badge>
+                                <Badge variant="outline" className="text-xs">
+                                  {pub.year}
+                                </Badge>
+                              </div>
+
+                              <h4 className="text-xl font-semibold text-gray-900 mb-2">
+                                {pub.title}
+                              </h4>
+
+                              <p className="text-gray-600 mb-2">
+                                <span className="font-medium">Authors:</span>{" "}
+                                {pub.authors.join(", ")}
+                              </p>
+
+                              <p className="text-sm text-gray-500 mb-3">
+                                <span className="font-medium">
+                                  Published in:
+                                </span>{" "}
+                                {pub.journal} • {pub.volume} • {pub.pages}
+                              </p>
+
+                              <p className="text-sm text-gray-500 mb-4">
+                                <span className="font-medium">DOI:</span>
+                                {pub.doi}
+                              </p>
+
+                              <p className="text-gray-700 mb-4 leading-relaxed">
+                                {pub.abstract}
+                              </p>
+
+                              <div className="mb-4">
+                                <span className="text-sm font-medium text-gray-700">
+                                  Keywords:
+                                </span>
+                                <div className="flex flex-wrap gap-1 mt-1">
+                                  {pub.keywords.map((keyword, idx) => (
                                     <Badge
+                                      key={idx}
                                       variant="secondary"
                                       className="text-xs"
                                     >
-                                      {pub.type}
+                                      {keyword}
                                     </Badge>
-                                    <Badge
-                                      variant="outline"
-                                      className="text-xs"
-                                    >
-                                      {pub.year}
-                                    </Badge>
+                                  ))}
+                                </div>
+                              </div>
+
+                              <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-4 text-sm text-gray-500">
+                                  <div className="flex items-center gap-1">
+                                    <Star className="w-4 h-4 text-yellow-500" />
+                                    <span>{pub.rating}</span>
                                   </div>
-
-                                  <h4 className="text-lg font-semibold text-gray-900 mb-2">
-                                    {pub.title}
-                                  </h4>
-
-                                  <div className="space-y-1 text-sm text-gray-600 mb-3">
-                                    <p>
-                                      <strong>Authors:</strong>{" "}
-                                      {pub.authors.join(", ")}
-                                    </p>
-                                    <p>
-                                      <strong>Published in:</strong>{" "}
-                                      {pub.journal} • {pub.volume} • {pub.pages}
-                                    </p>
-                                    <p>
-                                      <strong>DOI:</strong> {pub.doi}
-                                    </p>
+                                  <div className="flex items-center gap-1">
+                                    <Eye className="w-4 h-4" />
+                                    <span>{pub.views} views</span>
                                   </div>
-
-                                  <p className="text-gray-600 text-sm mb-3 leading-relaxed">
-                                    {pub.abstract}
-                                  </p>
-
-                                  <div className="mb-4">
-                                    <span className="text-xs font-medium text-gray-700 mr-2">
-                                      Keywords:
-                                    </span>
-                                    <div className="inline-flex flex-wrap gap-1">
-                                      {pub.keywords.map((keyword, idx) => (
-                                        <Badge
-                                          key={idx}
-                                          variant="outline"
-                                          className="text-xs"
-                                        >
-                                          {keyword}
-                                        </Badge>
-                                      ))}
-                                    </div>
-                                  </div>
-
-                                  <div className="flex items-center gap-4 text-xs text-gray-500">
-                                    <div className="flex items-center gap-1">
-                                      <Star className="w-3 h-3 text-yellow-400 fill-current" />
-                                      <span>{pub.rating}</span>
-                                    </div>
-                                    <div className="flex items-center gap-1">
-                                      <Eye className="w-3 h-3" />
-                                      <span>{pub.views} views</span>
-                                    </div>
-                                    <div className="flex items-center gap-1">
-                                      <Download className="w-3 h-3" />
-                                      <span>{pub.downloads} downloads</span>
-                                    </div>
+                                  <div className="flex items-center gap-1">
+                                    <Download className="w-4 h-4" />
+                                    <span>{pub.downloads} downloads</span>
                                   </div>
                                 </div>
 
-                                <div className="flex flex-col gap-2 ml-4">
+                                <div className="flex gap-2">
                                   <Button
                                     size="sm"
                                     className="bg-stis-cyan hover:bg-stis-cyan/90"
                                   >
                                     Akses Paper
                                   </Button>
-                                  <Button
-                                    size="sm"
-                                    variant="outline"
-                                    className="border-stis-blue text-stis-blue hover:bg-stis-blue hover:text-white"
-                                  >
+                                  <Button size="sm" variant="outline">
                                     Detail
                                   </Button>
                                 </div>

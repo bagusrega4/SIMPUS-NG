@@ -487,11 +487,6 @@ export default function Books() {
     }
   };
 
-  const handleSearchChange = (value: string) => {
-    setCurrentPage(1);
-    setSearchQuery(value);
-  };
-
   const handleBorrowBook = (book: any) => {
     const params = new URLSearchParams({
       id: book.id.toString(),
@@ -539,21 +534,13 @@ export default function Books() {
                     type="text"
                     placeholder="Cari judul buku, penulis, atau kata kunci..."
                     value={searchQuery}
-                    onChange={(e) => handleSearchChange(e.target.value)}
+                    onChange={(e) => {
+                      setSearchQuery(e.target.value);
+                      setCurrentPage(1);
+                    }}
                     className="pl-12 py-3 text-base rounded-xl border-2 border-gray-200 focus:border-stis-blue"
                   />
                 </div>
-              </div>
-
-              {/* Filters */}
-              <div className="flex gap-4 w-full lg:w-auto">
-                <Button
-                  variant="outline"
-                  className="border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white"
-                >
-                  <Search className="w-4 h-4 mr-2" />
-                  Cari
-                </Button>
               </div>
             </div>
           </div>

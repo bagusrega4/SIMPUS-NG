@@ -12,6 +12,9 @@ import {
   FileText,
   ArrowRight,
   BookOpen,
+  Instagram,
+  Twitter,
+  Youtube,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -1203,33 +1206,36 @@ export default function News() {
               </div>
             </div>
 
-            {/* Quick Links */}
+            {/* Social Media */}
             <div>
-              <h5 className="text-lg font-semibold mb-4">Pintasan</h5>
+              <h5 className="text-lg font-semibold mb-4">Media Sosial</h5>
               <div className="space-y-3">
                 <a
-                  href="#"
-                  className="block text-white/80 hover:text-white transition-colors text-sm"
+                  href="https://www.instagram.com/polstatstis?utm_source=ig_web_button_share_sheet&igsh=ODdmZWVhMTFiMw=="
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center space-x-3 text-white/80 hover:text-white transition-colors text-sm group"
                 >
-                  Katalog Online
+                  <Instagram className="w-5 h-5 group-hover:text-pink-400 transition-colors" />
+                  <span>@polstatstis</span>
                 </a>
                 <a
-                  href="#"
-                  className="block text-white/80 hover:text-white transition-colors text-sm"
+                  href="https://twitter.com/stisjkt"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center space-x-3 text-white/80 hover:text-white transition-colors text-sm group"
                 >
-                  Perpanjangan Buku
+                  <Twitter className="w-5 h-5 group-hover:text-blue-400 transition-colors" />
+                  <span>@stisjkt</span>
                 </a>
                 <a
-                  href="#"
-                  className="block text-white/80 hover:text-white transition-colors text-sm"
+                  href="https://www.youtube.com/@PoliteknikStatistikaSTIS"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center space-x-3 text-white/80 hover:text-white transition-colors text-sm group"
                 >
-                  Reservasi Ruang
-                </a>
-                <a
-                  href="#"
-                  className="block text-white/80 hover:text-white transition-colors text-sm"
-                >
-                  Download Formulir
+                  <Youtube className="w-5 h-5 group-hover:text-red-400 transition-colors" />
+                  <span>PoliteknikStatistikaSTIS</span>
                 </a>
               </div>
             </div>

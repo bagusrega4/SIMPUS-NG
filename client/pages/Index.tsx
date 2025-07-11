@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import {
   Search,
   BookOpen,
@@ -15,6 +16,9 @@ import {
   Phone,
   MapPin,
   Clock,
+  Instagram,
+  Twitter,
+  Youtube,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -27,60 +31,16 @@ import {
 } from "@/components/ui/collapsible";
 import Navigation from "@/components/Navigation";
 import HelpPopup from "@/components/HelpPopup";
-import SearchResults from "@/components/SearchResults";
-import SearchSuggestions from "@/components/SearchSuggestions";
 
 export default function Index() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [showSearchResults, setShowSearchResults] = useState(false);
-  const [showSuggestions, setShowSuggestions] = useState(false);
   const [openFAQ, setOpenFAQ] = useState<number | null>(null);
-
-  // Handle search functionality
-  const handleSearch = () => {
-    if (searchQuery.trim()) {
-      setShowSearchResults(true);
-      setShowSuggestions(false);
-    }
-  };
-
-  const handleSearchKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter") {
-      handleSearch();
-    }
-  };
-
-  const handleSuggestionClick = (suggestion: string) => {
-    setSearchQuery(suggestion);
-    setShowSearchResults(true);
-    setShowSuggestions(false);
-  };
-
-  const handleSearchFocus = () => {
-    setShowSuggestions(true);
-  };
-
-  const handleSearchBlur = () => {
-    // Delay hiding suggestions to allow clicking
-    setTimeout(() => setShowSuggestions(false), 150);
-  };
-
-  // Close search results when clicking Escape
-  useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setShowSearchResults(false);
-      }
-    };
-    document.addEventListener("keydown", handleEscape);
-    return () => document.removeEventListener("keydown", handleEscape);
-  }, []);
 
   const helpItems = [
     {
-      question: "Bagaimana cara mencari informasi di SIMPus?",
+      question: "Bagaimana cara mencari buku di SIMPus?",
       answer:
-        "Gunakan kolom pencarian di atas untuk mencari halaman, layanan, koleksi, informasi, dan konten lainnya di seluruh website SIMPus. Hasil pencarian akan menampilkan semua halaman yang relevan.",
+        "Gunakan kolom pencarian di atas untuk mencari buku berdasarkan judul, penulis, atau ISBN. Anda juga bisa menggunakan filter kategori.",
     },
     {
       question: "Bagaimana cara mengakses layanan perpustakaan?",
@@ -214,21 +174,10 @@ export default function Index() {
                     <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                     <Input
                       type="text"
-                      placeholder="Cari halaman, layanan, koleksi, informasi di seluruh website..."
+                      placeholder="Telusuri koleksi buku, jurnal, dan sumber daya..."
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      onKeyPress={handleSearchKeyPress}
-                      onFocus={handleSearchFocus}
-                      onBlur={handleSearchBlur}
                       className="w-full pl-12 py-3 text-base rounded-xl border-2 border-gray-200 focus:border-stis-blue"
-                    />
-
-                    {/* Search Suggestions */}
-                    <SearchSuggestions
-                      query={searchQuery}
-                      isVisible={showSuggestions && !showSearchResults}
-                      onSuggestionClick={handleSuggestionClick}
-                      onClose={() => setShowSuggestions(false)}
                     />
                   </div>
                 </div>
@@ -237,7 +186,6 @@ export default function Index() {
                 <div className="sm:w-auto w-full">
                   <Button
                     variant="outline"
-                    onClick={handleSearch}
                     className="w-full sm:w-auto border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white px-6 py-3"
                   >
                     <Search className="w-4 h-4 mr-2" />
@@ -303,21 +251,21 @@ export default function Index() {
             {services.map((service, index) => {
               const IconComponent = service.icon;
               return (
-                <a key={index} href={service.href} className="h-full">
-                  <Card className="group hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border-0 shadow-md cursor-pointer h-full">
-                    <CardContent className="p-8 text-center h-full flex flex-col">
+                <Link key={index} to={service.href}>
+                  <Card className="group hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border-0 shadow-md cursor-pointer">
+                    <CardContent className="p-8 text-center">
                       <div className="w-16 h-16 bg-emerald-600/10 rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:bg-emerald-600/20 transition-colors">
                         <IconComponent className="w-8 h-8 text-stis-blue" />
                       </div>
                       <h4 className="text-xl font-semibold text-gray-900 mb-3 group-hover:text-stis-blue transition-colors">
                         {service.title}
                       </h4>
-                      <p className="text-gray-600 leading-relaxed flex-grow">
+                      <p className="text-gray-600 leading-relaxed">
                         {service.description}
                       </p>
                     </CardContent>
                   </Card>
-                </a>
+                </Link>
               );
             })}
           </div>
@@ -514,33 +462,36 @@ export default function Index() {
               </div>
             </div>
 
-            {/* Quick Links */}
+            {/* Social Media */}
             <div>
-              <h5 className="text-lg font-semibold mb-4">Pintasan</h5>
+              <h5 className="text-lg font-semibold mb-4">Media Sosial</h5>
               <div className="space-y-3">
                 <a
-                  href="#"
-                  className="block text-white/80 hover:text-white transition-colors text-sm"
+                  href="https://www.instagram.com/polstatstis?utm_source=ig_web_button_share_sheet&igsh=ODdmZWVhMTFiMw=="
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center space-x-3 text-white/80 hover:text-white transition-colors text-sm group"
                 >
-                  Katalog Online
+                  <Instagram className="w-5 h-5 group-hover:text-pink-400 transition-colors" />
+                  <span>@polstatstis</span>
                 </a>
                 <a
-                  href="#"
-                  className="block text-white/80 hover:text-white transition-colors text-sm"
+                  href="https://twitter.com/stisjkt"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center space-x-3 text-white/80 hover:text-white transition-colors text-sm group"
                 >
-                  Perpanjangan Buku
+                  <Twitter className="w-5 h-5 group-hover:text-blue-400 transition-colors" />
+                  <span>@stisjkt</span>
                 </a>
                 <a
-                  href="#"
-                  className="block text-white/80 hover:text-white transition-colors text-sm"
+                  href="https://www.youtube.com/@PoliteknikStatistikaSTIS"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center space-x-3 text-white/80 hover:text-white transition-colors text-sm group"
                 >
-                  Reservasi Ruang
-                </a>
-                <a
-                  href="#"
-                  className="block text-white/80 hover:text-white transition-colors text-sm"
-                >
-                  Download Formulir
+                  <Youtube className="w-5 h-5 group-hover:text-red-400 transition-colors" />
+                  <span>PoliteknikStatistikaSTIS</span>
                 </a>
               </div>
             </div>
@@ -551,7 +502,7 @@ export default function Index() {
             <h5 className="text-lg font-semibold mb-6">Lokasi Polstat STIS</h5>
             <div className="bg-white/10 rounded-lg p-4 mb-6">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.521260322283!2d106.8606999746484!3d-6.194605593769447!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5390917b759%3A0x6b45e67356080477!2sPoliteknik%20Statistika%20STIS!5e0!3m2!1sen!2sid!4v1692123456789!5m2!1sen!2sid"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.6665373493647!2d106.87052607502927!3d-6.194444394338147!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5390917b759%3A0x6b45e67356080477!2sPoliteknik%20Statistika%20STIS!5e0!3m2!1sid!2sid!4v1704067200000!5m2!1sid!2sid"
                 width="100%"
                 height="200"
                 style={{ border: 0 }}
@@ -571,13 +522,6 @@ export default function Index() {
           </div>
         </div>
       </footer>
-
-      {/* Search Results Modal */}
-      <SearchResults
-        query={searchQuery}
-        isOpen={showSearchResults}
-        onClose={() => setShowSearchResults(false)}
-      />
 
       {/* Help Popup */}
       <HelpPopup pageHelp={helpItems} />
