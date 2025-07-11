@@ -582,7 +582,7 @@ export default function Books() {
                       ? "ring-2 ring-stis-blue bg-stis-blue-light"
                       : ""
                   }`}
-                  onClick={() => setSelectedCategory(category.id)}
+                  onClick={() => handleFilterChange("category", category.id)}
                 >
                   <CardContent className="p-4 text-center">
                     <div className="text-xl font-bold text-stis-blue mb-1">
