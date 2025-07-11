@@ -47,9 +47,6 @@ export default function Digital() {
 
   const [searchQuery, setSearchQuery] = useState("");
   const [activeTab, setActiveTab] = useState("ebooks");
-  const [ebooksCurrentPage, setEbooksCurrentPage] = useState(1);
-  const [ejournalsCurrentPage, setEjournalsCurrentPage] = useState(1);
-  const itemsPerPage = 5;
 
   const ebooks = [
     {
