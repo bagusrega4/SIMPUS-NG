@@ -582,7 +582,7 @@ export default function Books() {
                       <div className="flex justify-between">
                         <span className="text-gray-600">Penulis:</span>
                         <span className="font-medium">
-                          {selectedBook.author}
+                          {selectedBook.authors.join(", ")}
                         </span>
                       </div>
                       <div className="flex justify-between">
