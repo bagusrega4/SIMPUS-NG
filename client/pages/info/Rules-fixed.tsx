@@ -17,7 +17,6 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Navigation from "@/components/Navigation";
 import HelpPopup from "@/components/HelpPopup";
-import StandardFooter from "@/components/StandardFooter";
 
 export default function Rules() {
   const helpItems = [
@@ -232,6 +231,25 @@ export default function Rules() {
   return (
     <div className="min-h-screen bg-white">
       <Navigation />
+
+      {/* Header */}
+      <div className="bg-gradient-to-br from-stis-blue-light via-white to-stis-gray-light pt-24 pb-16">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto text-center">
+            <Badge variant="secondary" className="mb-4">
+              Informasi
+            </Badge>
+            <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
+              Peraturan <span className="text-stis-blue">Perpustakaan</span>
+            </h1>
+            <p className="text-lg sm:text-xl text-gray-600 leading-relaxed">
+              Tata tertib dan peraturan yang berlaku di Perpustakaan STIS untuk
+              menciptakan lingkungan belajar yang kondusif dan nyaman bagi
+              seluruh pengguna
+            </p>
+          </div>
+        </div>
+      </div>
 
       {/* Main Content */}
       <section className="py-16 bg-stis-gray-light">
@@ -510,16 +528,7 @@ export default function Rules() {
                     Dokumen PDF berisi semua peraturan dan tata tertib
                     perpustakaan
                   </p>
-                  <Button
-                    className="w-full bg-stis-blue hover:bg-stis-blue-dark"
-                    onClick={() => {
-                      // Create a downloadable PDF of rules
-                      const link = document.createElement("a");
-                      link.href = "/documents/peraturan-perpustakaan.pdf";
-                      link.download = "Peraturan Perpustakaan STIS.pdf";
-                      link.click();
-                    }}
-                  >
+                  <Button className="w-full bg-stis-blue hover:bg-stis-blue-dark">
                     <Download className="w-4 h-4 mr-2" />
                     Download PDF
                   </Button>
@@ -538,17 +547,7 @@ export default function Rules() {
                     Ringkasan singkat aturan penting yang perlu diketahui
                     pengguna
                   </p>
-                  <Button
-                    className="w-full bg-stis-blue hover:bg-stis-blue-dark"
-                    onClick={() => {
-                      // Create a downloadable summary PDF
-                      const link = document.createElement("a");
-                      link.href =
-                        "/documents/ringkasan-aturan-perpustakaan.pdf";
-                      link.download = "Ringkasan Aturan Perpustakaan STIS.pdf";
-                      link.click();
-                    }}
-                  >
+                  <Button className="w-full bg-stis-blue hover:bg-stis-blue-dark">
                     <Download className="w-4 h-4 mr-2" />
                     Download Ringkasan
                   </Button>
@@ -559,7 +558,93 @@ export default function Rules() {
         </div>
       </section>
 
-      <StandardFooter />
+      {/* Footer */}
+      <footer className="bg-stis-blue text-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {/* Brand */}
+            <div className="lg:col-span-2">
+              <div className="flex items-center space-x-3 mb-6">
+                <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center">
+                  <Scale className="w-7 h-7 text-white" />
+                </div>
+                <div>
+                  <h4 className="text-2xl font-bold">SIMPus</h4>
+                  <p className="text-white/80">
+                    Sistem Informasi Manajemen Perpustakaan STIS
+                  </p>
+                </div>
+              </div>
+              <p className="text-white/80 mb-6 max-w-md">
+                Perpustakaan digital modern yang mendukung kegiatan akademik dan
+                penelitian di Politeknik Statistika STIS.
+              </p>
+            </div>
+
+            {/* Contact Info */}
+            <div>
+              <h5 className="text-lg font-semibold mb-4">Kontak</h5>
+              <div className="space-y-3">
+                <div className="flex items-start space-x-3">
+                  <div className="w-5 h-5 text-white/60 mt-1 flex-shrink-0">
+                    📍
+                  </div>
+                  <p className="text-white/80 text-sm">
+                    Jl. Otto Iskandardinata No.64C, Jakarta Timur 13330
+                  </p>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <div className="w-5 h-5 text-white/60">📞</div>
+                  <p className="text-white/80 text-sm">(021) 8191437</p>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <div className="w-5 h-5 text-white/60">🕒</div>
+                  <p className="text-white/80 text-sm">
+                    Senin - Jumat: 08:00 - 16:00
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Quick Links */}
+            <div>
+              <h5 className="text-lg font-semibold mb-4">Pintasan</h5>
+              <div className="space-y-3">
+                <a
+                  href="#"
+                  className="block text-white/80 hover:text-white transition-colors text-sm"
+                >
+                  Katalog Online
+                </a>
+                <a
+                  href="#"
+                  className="block text-white/80 hover:text-white transition-colors text-sm"
+                >
+                  Perpanjangan Buku
+                </a>
+                <a
+                  href="#"
+                  className="block text-white/80 hover:text-white transition-colors text-sm"
+                >
+                  Reservasi Ruang
+                </a>
+                <a
+                  href="#"
+                  className="block text-white/80 hover:text-white transition-colors text-sm"
+                >
+                  Download Formulir
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div className="border-t border-white/20 mt-12 pt-8 text-center">
+            <p className="text-white/60 text-sm">
+              © 2024 Perpustakaan STIS. Hak cipta dilindungi undang-undang.
+            </p>
+          </div>
+        </div>
+      </footer>
 
       {/* Help Popup */}
       <HelpPopup pageHelp={helpItems} />

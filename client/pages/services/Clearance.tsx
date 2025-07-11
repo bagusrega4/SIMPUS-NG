@@ -10,7 +10,6 @@ import {
   Calendar,
   FileText,
   Printer,
-  Mail,
   ArrowRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -175,25 +174,6 @@ export default function Clearance() {
   return (
     <div className="min-h-screen bg-white">
       <Navigation />
-
-      {/* Header */}
-      <div className="bg-gradient-to-br from-stis-blue-light via-white to-stis-gray-light pt-24 pb-16">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center">
-            <Badge variant="secondary" className="mb-4">
-              Layanan
-            </Badge>
-            <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
-              Surat Bebas <span className="text-stis-blue">Perpustakaan</span>
-            </h1>
-            <p className="text-lg sm:text-xl text-gray-600 leading-relaxed">
-              Layanan penerbitan surat keterangan bebas perpustakaan untuk
-              keperluan kelulusan, mutasi, atau pengurusan dokumen akademik
-              lainnya
-            </p>
-          </div>
-        </div>
-      </div>
 
       {/* Requirements */}
       <section className="py-16 bg-white">
@@ -654,38 +634,6 @@ export default function Clearance() {
                     </Card>
                   ))}
                 </div>
-
-                <Card className="border-0 shadow-lg mt-8 max-w-4xl mx-auto">
-                  <CardContent className="p-6">
-                    <div className="flex items-start gap-4">
-                      <Mail className="w-6 h-6 text-blue-500 flex-shrink-0 mt-1" />
-                      <div>
-                        <h4 className="font-semibold text-gray-900 mb-2">
-                          Butuh Bantuan?
-                        </h4>
-                        <p className="text-gray-600 mb-4">
-                          Jika Anda mengalami kesulitan dalam mengisi formulir
-                          atau memiliki pertanyaan, silakan hubungi:
-                        </p>
-                        <div className="space-y-2 text-sm">
-                          <p>
-                            <strong>Email:</strong> perpustakaan@stis.ac.id
-                          </p>
-                          <p>
-                            <strong>Telepon:</strong> (021) 8191437 ext. 205
-                          </p>
-                          <p>
-                            <strong>WhatsApp:</strong> +62 812-3456-7890
-                          </p>
-                          <p>
-                            <strong>Jam Layanan:</strong> Senin-Jumat,
-                            08:00-16:00 WIB
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
               </TabsContent>
             </Tabs>
           </div>

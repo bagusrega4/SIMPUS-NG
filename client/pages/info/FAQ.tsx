@@ -3,13 +3,6 @@ import {
   Search,
   ChevronDown,
   ChevronUp,
-  BookOpen,
-  UserCheck,
-  RotateCcw,
-  CreditCard,
-  Phone,
-  Mail,
-  MessageCircle,
   HelpCircle,
   ThumbsUp,
   ThumbsDown,
@@ -18,7 +11,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Collapsible,
   CollapsibleContent,
@@ -26,6 +18,7 @@ import {
 } from "@/components/ui/collapsible";
 import Navigation from "@/components/Navigation";
 import HelpPopup from "@/components/HelpPopup";
+import StandardFooter from "@/components/StandardFooter";
 
 export default function FAQ() {
   const helpItems = [
@@ -48,6 +41,31 @@ export default function FAQ() {
   const [searchQuery, setSearchQuery] = useState("");
   const [openFAQ, setOpenFAQ] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState("semua");
+  const [faqVotes, setFaqVotes] = useState<{
+    [key: string]: { helpful: number; not_helpful: number };
+  }>({});
+
+  const handleVote = (faqId: string, isHelpful: boolean) => {
+    setFaqVotes((prev) => {
+      const currentVotes = prev[faqId] || { helpful: 0, not_helpful: 0 };
+      return {
+        ...prev,
+        [faqId]: {
+          helpful: isHelpful ? currentVotes.helpful + 1 : currentVotes.helpful,
+          not_helpful: !isHelpful
+            ? currentVotes.not_helpful + 1
+            : currentVotes.not_helpful,
+        },
+      };
+    });
+
+    // Show feedback to user
+    alert(
+      isHelpful
+        ? "Terima kasih atas feedback positif Anda!"
+        : "Terima kasih atas feedback Anda. Kami akan meningkatkan jawaban ini.",
+    );
+  };
 
   const faqCategories = [
     { id: "semua", label: "Semua Kategori", count: 24 },
@@ -205,55 +223,9 @@ export default function FAQ() {
     return matchesSearch && matchesCategory;
   });
 
-  const popularFAQs = faqs
-    .sort((a, b) => b.popularity - a.popularity)
-    .slice(0, 5);
-
-  const contactMethods = [
-    {
-      icon: Phone,
-      title: "Telepon",
-      info: "(021) 8191437 ext. 205",
-      description: "Senin - Jumat, 08:00 - 16:00 WIB",
-      action: "Hubungi Sekarang",
-    },
-    {
-      icon: Mail,
-      title: "Email",
-      info: "perpustakaan@stis.ac.id",
-      description: "Respon dalam 24 jam",
-      action: "Kirim Email",
-    },
-    {
-      icon: MessageCircle,
-      title: "WhatsApp",
-      info: "+62 812-3456-7890",
-      description: "Chat langsung dengan petugas",
-      action: "Chat WA",
-    },
-  ];
-
   return (
     <div className="min-h-screen bg-white">
       <Navigation />
-
-      {/* Header */}
-      <div className="bg-gradient-to-br from-stis-blue-light via-white to-stis-gray-light pt-24 pb-16">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center">
-            <Badge variant="secondary" className="mb-4">
-              Informasi
-            </Badge>
-            <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
-              Frequently Asked <span className="text-stis-blue">Questions</span>
-            </h1>
-            <p className="text-lg sm:text-xl text-gray-600 leading-relaxed">
-              Temukan jawaban untuk pertanyaan yang sering diajukan tentang
-              layanan, fasilitas, dan peraturan Perpustakaan STIS
-            </p>
-          </div>
-        </div>
-      </div>
 
       {/* Search & Filter */}
       <section className="py-8 bg-white border-b border-gray-200">
@@ -320,393 +292,141 @@ export default function FAQ() {
       <section className="py-16 bg-stis-gray-light">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
-            <Tabs defaultValue="all-faqs" className="w-full">
-              <TabsList className="grid w-full grid-cols-3 max-w-md mx-auto mb-12">
-                <TabsTrigger value="all-faqs">Semua FAQ</TabsTrigger>
-                <TabsTrigger value="popular">Populer</TabsTrigger>
-                <TabsTrigger value="contact">Kontak</TabsTrigger>
-              </TabsList>
+            <div className="text-center mb-8">
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                Daftar FAQ ({filteredFAQs.length})
+              </h3>
+              <p className="text-gray-600">
+                Klik pada pertanyaan untuk melihat jawaban lengkap
+              </p>
+            </div>
 
-              {/* All FAQs Tab */}
-              <TabsContent value="all-faqs">
-                <div className="text-center mb-8">
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                    Daftar FAQ ({filteredFAQs.length})
-                  </h3>
-                  <p className="text-gray-600">
-                    Klik pada pertanyaan untuk melihat jawaban lengkap
-                  </p>
-                </div>
-
-                <div className="space-y-4">
-                  {filteredFAQs.map((faq) => (
-                    <Collapsible
-                      key={faq.id}
-                      open={openFAQ === faq.id}
-                      onOpenChange={() =>
-                        setOpenFAQ(openFAQ === faq.id ? null : faq.id)
-                      }
-                    >
-                      <Card className="border-0 shadow-md hover:shadow-lg transition-shadow">
-                        <CollapsibleTrigger asChild>
-                          <Button
-                            variant="ghost"
-                            className="w-full p-6 text-left justify-between hover:bg-gray-50 h-auto"
-                          >
-                            <div className="flex-1 pr-4">
-                              <div className="flex items-center gap-2 mb-2">
-                                <Badge variant="outline" className="text-xs">
-                                  {
-                                    faqCategories.find(
-                                      (cat) => cat.id === faq.category,
-                                    )?.label
-                                  }
-                                </Badge>
-                                <div className="flex items-center gap-1 text-xs text-gray-500">
-                                  <ThumbsUp className="w-3 h-3" />
-                                  <span>{faq.helpful}</span>
-                                </div>
-                              </div>
-                              <span className="font-semibold text-gray-900 text-lg text-left block">
-                                {faq.question}
-                              </span>
-                            </div>
-                            {openFAQ === faq.id ? (
-                              <ChevronUp className="w-5 h-5 text-gray-500 flex-shrink-0" />
-                            ) : (
-                              <ChevronDown className="w-5 h-5 text-gray-500 flex-shrink-0" />
-                            )}
-                          </Button>
-                        </CollapsibleTrigger>
-                        <CollapsibleContent>
-                          <div className="px-6 pb-6">
-                            <div className="bg-stis-blue-light rounded-lg p-4 mb-4">
-                              <p className="text-gray-800 leading-relaxed">
-                                {faq.answer}
-                              </p>
-                            </div>
-
-                            <div className="flex items-center justify-between">
-                              <div className="flex flex-wrap gap-1">
-                                {faq.tags.map((tag, idx) => (
-                                  <Badge
-                                    key={idx}
-                                    variant="outline"
-                                    className="text-xs"
-                                  >
-                                    {tag}
-                                  </Badge>
-                                ))}
-                              </div>
-
-                              <div className="flex items-center gap-4">
-                                <span className="text-sm text-gray-500">
-                                  Apakah jawaban ini membantu?
-                                </span>
-                                <div className="flex gap-2">
-                                  <Button
-                                    size="sm"
-                                    variant="outline"
-                                    className="border-green-300 text-green-600 hover:bg-green-50"
-                                  >
-                                    <ThumbsUp className="w-4 h-4 mr-1" />
-                                    Ya ({faq.helpful})
-                                  </Button>
-                                  <Button
-                                    size="sm"
-                                    variant="outline"
-                                    className="border-red-300 text-red-600 hover:bg-red-50"
-                                  >
-                                    <ThumbsDown className="w-4 h-4 mr-1" />
-                                    Tidak ({faq.not_helpful})
-                                  </Button>
-                                </div>
-                              </div>
+            <div className="space-y-4">
+              {filteredFAQs.map((faq) => (
+                <Collapsible
+                  key={faq.id}
+                  open={openFAQ === faq.id}
+                  onOpenChange={() =>
+                    setOpenFAQ(openFAQ === faq.id ? null : faq.id)
+                  }
+                >
+                  <Card className="border-0 shadow-md hover:shadow-lg transition-shadow">
+                    <CollapsibleTrigger asChild>
+                      <Button
+                        variant="ghost"
+                        className="w-full p-6 text-left justify-between hover:bg-gray-50 h-auto"
+                      >
+                        <div className="flex-1 pr-4">
+                          <div className="flex items-center gap-2 mb-2">
+                            <Badge variant="outline" className="text-xs">
+                              {
+                                faqCategories.find(
+                                  (cat) => cat.id === faq.category,
+                                )?.label
+                              }
+                            </Badge>
+                            <div className="flex items-center gap-1 text-xs text-gray-500">
+                              <ThumbsUp className="w-3 h-3" />
+                              <span>{faq.helpful}</span>
                             </div>
                           </div>
-                        </CollapsibleContent>
-                      </Card>
-                    </Collapsible>
-                  ))}
-                </div>
-
-                {filteredFAQs.length === 0 && (
-                  <Card className="border-0 shadow-lg">
-                    <CardContent className="p-12 text-center">
-                      <HelpCircle className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                      <h3 className="text-lg font-medium text-gray-900 mb-2">
-                        Tidak ada FAQ yang ditemukan
-                      </h3>
-                      <p className="text-gray-600 mb-4">
-                        Coba ubah kata kunci pencarian atau kategori yang
-                        dipilih.
-                      </p>
-                      <Button
-                        onClick={() => {
-                          setSearchQuery("");
-                          setSelectedCategory("semua");
-                        }}
-                        className="bg-stis-blue hover:bg-stis-blue-dark"
-                      >
-                        Reset Filter
+                          <span className="font-semibold text-gray-900 text-lg text-left block">
+                            {faq.question}
+                          </span>
+                        </div>
+                        {openFAQ === faq.id ? (
+                          <ChevronUp className="w-5 h-5 text-gray-500 flex-shrink-0" />
+                        ) : (
+                          <ChevronDown className="w-5 h-5 text-gray-500 flex-shrink-0" />
+                        )}
                       </Button>
-                    </CardContent>
-                  </Card>
-                )}
-              </TabsContent>
+                    </CollapsibleTrigger>
+                    <CollapsibleContent>
+                      <div className="px-6 pb-6">
+                        <div className="bg-stis-blue-light rounded-lg p-4 mb-4">
+                          <p className="text-gray-800 leading-relaxed">
+                            {faq.answer}
+                          </p>
+                        </div>
 
-              {/* Popular FAQs Tab */}
-              <TabsContent value="popular">
-                <div className="text-center mb-8">
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                    FAQ Paling Populer
-                  </h3>
-                  <p className="text-gray-600">
-                    Pertanyaan yang paling sering ditanyakan pengguna
-                  </p>
-                </div>
+                        <div className="flex items-center justify-between">
+                          <div className="flex flex-wrap gap-1">
+                            {faq.tags.map((tag, idx) => (
+                              <Badge
+                                key={idx}
+                                variant="outline"
+                                className="text-xs"
+                              >
+                                {tag}
+                              </Badge>
+                            ))}
+                          </div>
 
-                <div className="space-y-4">
-                  {popularFAQs.map((faq, index) => (
-                    <Card
-                      key={faq.id}
-                      className="border-0 shadow-lg hover:shadow-xl transition-shadow"
-                    >
-                      <CardContent className="p-6">
-                        <div className="flex items-start gap-4">
-                          <div className="w-8 h-8 bg-stis-blue rounded-full flex items-center justify-center flex-shrink-0">
-                            <span className="text-white font-bold text-sm">
-                              {index + 1}
+                          <div className="flex items-center gap-4">
+                            <span className="text-sm text-gray-500">
+                              Apakah jawaban ini membantu?
                             </span>
-                          </div>
-                          <div className="flex-1">
-                            <div className="flex items-center gap-2 mb-2">
-                              <Badge variant="outline" className="text-xs">
-                                {
-                                  faqCategories.find(
-                                    (cat) => cat.id === faq.category,
-                                  )?.label
-                                }
-                              </Badge>
-                              <Badge className="text-xs bg-orange-500">
-                                {faq.popularity}% populer
-                              </Badge>
+                            <div className="flex gap-2">
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                className="border-green-300 text-green-600 hover:bg-green-600 hover:text-white"
+                                onClick={() => handleVote(faq.id, true)}
+                              >
+                                <ThumbsUp className="w-4 h-4 mr-1" />
+                                Ya (
+                                {(faqVotes[faq.id]?.helpful || 0) + faq.helpful}
+                                )
+                              </Button>
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                className="border-red-300 text-red-600 hover:bg-red-600 hover:text-white"
+                                onClick={() => handleVote(faq.id, false)}
+                              >
+                                <ThumbsDown className="w-4 h-4 mr-1" />
+                                Tidak (
+                                {(faqVotes[faq.id]?.not_helpful || 0) +
+                                  faq.not_helpful}
+                                )
+                              </Button>
                             </div>
-                            <h4 className="font-semibold text-gray-900 mb-3">
-                              {faq.question}
-                            </h4>
-                            <p className="text-gray-600 text-sm leading-relaxed mb-4">
-                              {faq.answer.substring(0, 200)}...
-                            </p>
-                            <Button
-                              size="sm"
-                              className="bg-stis-blue hover:bg-stis-blue-dark"
-                              onClick={() => {
-                                setOpenFAQ(faq.id);
-                                // Switch to all-faqs tab
-                                (
-                                  document.querySelector(
-                                    '[value="all-faqs"]',
-                                  ) as HTMLElement
-                                )?.click();
-                              }}
-                            >
-                              Baca Selengkapnya
-                            </Button>
                           </div>
                         </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </TabsContent>
+                      </div>
+                    </CollapsibleContent>
+                  </Card>
+                </Collapsible>
+              ))}
+            </div>
 
-              {/* Contact Tab */}
-              <TabsContent value="contact">
-                <div className="text-center mb-12">
-                  <h3 className="text-3xl font-bold text-gray-900 mb-4">
-                    Masih Ada Pertanyaan?
+            {filteredFAQs.length === 0 && (
+              <Card className="border-0 shadow-lg">
+                <CardContent className="p-12 text-center">
+                  <HelpCircle className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+                  <h3 className="text-lg font-medium text-gray-900 mb-2">
+                    Tidak ada FAQ yang ditemukan
                   </h3>
-                  <p className="text-lg text-gray-600">
-                    Hubungi tim support perpustakaan untuk bantuan lebih lanjut
+                  <p className="text-gray-600 mb-4">
+                    Coba ubah kata kunci pencarian atau kategori yang dipilih.
                   </p>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-                  {contactMethods.map((method, index) => {
-                    const IconComponent = method.icon;
-                    return (
-                      <Card
-                        key={index}
-                        className="border-0 shadow-lg hover:shadow-xl transition-shadow text-center"
-                      >
-                        <CardContent className="p-8">
-                          <div className="w-16 h-16 bg-stis-blue/10 rounded-xl flex items-center justify-center mx-auto mb-6">
-                            <IconComponent className="w-8 h-8 text-stis-blue" />
-                          </div>
-                          <h4 className="text-xl font-semibold text-gray-900 mb-2">
-                            {method.title}
-                          </h4>
-                          <p className="text-stis-blue font-medium mb-2">
-                            {method.info}
-                          </p>
-                          <p className="text-sm text-gray-600 mb-6">
-                            {method.description}
-                          </p>
-                          <Button className="w-full bg-stis-blue hover:bg-stis-blue-dark">
-                            {method.action}
-                          </Button>
-                        </CardContent>
-                      </Card>
-                    );
-                  })}
-                </div>
-
-                {/* Contact Form */}
-                <Card className="border-0 shadow-lg max-w-4xl mx-auto">
-                  <CardContent className="p-8">
-                    <h4 className="text-xl font-semibold text-gray-900 mb-6 text-center">
-                      Kirim Pertanyaan Baru
-                    </h4>
-                    <form className="space-y-6">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-2">
-                            Nama Lengkap
-                          </label>
-                          <Input placeholder="Masukkan nama lengkap" />
-                        </div>
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-2">
-                            Email
-                          </label>
-                          <Input type="email" placeholder="contoh@stis.ac.id" />
-                        </div>
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                          Kategori Pertanyaan
-                        </label>
-                        <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-stis-blue focus:border-transparent">
-                          <option value="">Pilih kategori</option>
-                          <option value="umum">Umum</option>
-                          <option value="peminjaman">Peminjaman</option>
-                          <option value="digital">Koleksi Digital</option>
-                          <option value="teknis">Teknis</option>
-                        </select>
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                          Pertanyaan
-                        </label>
-                        <textarea
-                          rows={5}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-stis-blue focus:border-transparent"
-                          placeholder="Tulis pertanyaan Anda dengan detail..."
-                        ></textarea>
-                      </div>
-                      <Button
-                        size="lg"
-                        className="w-full bg-stis-blue hover:bg-stis-blue-dark"
-                      >
-                        Kirim Pertanyaan
-                      </Button>
-                    </form>
-                  </CardContent>
-                </Card>
-              </TabsContent>
-            </Tabs>
+                  <Button
+                    onClick={() => {
+                      setSearchQuery("");
+                      setSelectedCategory("semua");
+                    }}
+                    className="bg-stis-blue hover:bg-stis-blue-dark"
+                  >
+                    Reset Filter
+                  </Button>
+                </CardContent>
+              </Card>
+            )}
           </div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-stis-blue text-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {/* Brand */}
-            <div className="lg:col-span-2">
-              <div className="flex items-center space-x-3 mb-6">
-                <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center">
-                  <HelpCircle className="w-7 h-7 text-white" />
-                </div>
-                <div>
-                  <h4 className="text-2xl font-bold">SIMPus</h4>
-                  <p className="text-white/80">
-                    Sistem Informasi Manajemen Perpustakaan STIS
-                  </p>
-                </div>
-              </div>
-              <p className="text-white/80 mb-6 max-w-md">
-                Perpustakaan digital modern yang mendukung kegiatan akademik dan
-                penelitian di Politeknik Statistika STIS.
-              </p>
-            </div>
-
-            {/* Contact Info */}
-            <div>
-              <h5 className="text-lg font-semibold mb-4">Kontak</h5>
-              <div className="space-y-3">
-                <div className="flex items-start space-x-3">
-                  <div className="w-5 h-5 text-white/60 mt-1 flex-shrink-0">
-                    📍
-                  </div>
-                  <p className="text-white/80 text-sm">
-                    Jl. Otto Iskandardinata No.64C, Jakarta Timur 13330
-                  </p>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-5 h-5 text-white/60">📞</div>
-                  <p className="text-white/80 text-sm">(021) 8191437</p>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-5 h-5 text-white/60">🕒</div>
-                  <p className="text-white/80 text-sm">
-                    Senin - Jumat: 08:00 - 16:00
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Quick Links */}
-            <div>
-              <h5 className="text-lg font-semibold mb-4">Pintasan</h5>
-              <div className="space-y-3">
-                <a
-                  href="#"
-                  className="block text-white/80 hover:text-white transition-colors text-sm"
-                >
-                  Katalog Online
-                </a>
-                <a
-                  href="#"
-                  className="block text-white/80 hover:text-white transition-colors text-sm"
-                >
-                  Perpanjangan Buku
-                </a>
-                <a
-                  href="#"
-                  className="block text-white/80 hover:text-white transition-colors text-sm"
-                >
-                  Reservasi Ruang
-                </a>
-                <a
-                  href="#"
-                  className="block text-white/80 hover:text-white transition-colors text-sm"
-                >
-                  Download Formulir
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div className="border-t border-white/20 mt-12 pt-8 text-center">
-            <p className="text-white/60 text-sm">
-              © 2024 Perpustakaan STIS. Hak cipta dilindungi undang-undang.
-            </p>
-          </div>
-        </div>
-      </footer>
+      <StandardFooter />
 
       {/* Help Popup */}
       <HelpPopup pageHelp={helpItems} />

@@ -54,22 +54,6 @@ export default function About() {
   return (
     <div className="min-h-screen bg-white">
       <Header />
-      {/* Header */}
-      <div className="bg-gradient-to-br from-stis-blue-light via-white to-stis-gray-light pt-24 pb-16">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
-              Tentang{" "}
-              <span className="text-stis-blue">Perpustakaan Polstat STIS</span>
-            </h1>
-            <p className="text-lg sm:text-xl text-gray-600 leading-relaxed">
-              Pusat pembelajaran dan informasi yang mendukung visi misi STIS
-              dalam menghasilkan lulusan berkualitas di bidang statistika dan
-              komputasi statistik
-            </p>
-          </div>
-        </div>
-      </div>
 
       {/* Stats Section */}
       <section className="py-16 bg-white">

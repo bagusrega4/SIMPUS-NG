@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Search,
   Filter,
@@ -7,7 +8,6 @@ import {
   Eye,
   Tag,
   Clock,
-  Bell,
   Megaphone,
   FileText,
   ArrowRight,
@@ -30,8 +30,10 @@ import {
 } from "@/components/ui/select";
 import Navigation from "@/components/Navigation";
 import HelpPopup from "@/components/HelpPopup";
+import StandardFooter from "@/components/StandardFooter";
 
 export default function News() {
+  const navigate = useNavigate();
   const helpItems = [
     {
       question: "Seberapa sering berita dan pengumuman diupdate?",
@@ -686,6 +688,18 @@ export default function News() {
     setCurrentPage(1);
   };
 
+  const handleSearch = () => {
+    // Trigger search functionality (already handled by searchQuery state)
+    // Reset to first page when searching
+    setCurrentPage(1);
+
+    // Optional: Show feedback to user
+    if (searchQuery.trim()) {
+      // Search is automatically performed via filteredNews
+      console.log(`Searching for: ${searchQuery}`);
+    }
+  };
+
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString("id-ID", {
@@ -808,7 +822,10 @@ export default function News() {
                     ))}
                   </div>
 
-                  <Button className="bg-stis-blue hover:bg-stis-blue-dark">
+                  <Button
+                    className="bg-stis-blue hover:bg-stis-blue-dark"
+                    onClick={() => navigate(`/news/${featuredNews.id}`)}
+                  >
                     Baca Selengkapnya
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
@@ -854,6 +871,7 @@ export default function News() {
                 <Button
                   variant="outline"
                   className="border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white"
+                  onClick={handleSearch}
                 >
                   <Search className="w-4 h-4 mr-2" />
                   Cari
@@ -977,6 +995,7 @@ export default function News() {
                           <Button
                             size="sm"
                             className="w-full bg-stis-blue hover:bg-stis-blue-dark"
+                            onClick={() => navigate(`/news/${news.id}`)}
                           >
                             Baca Selengkapnya
                           </Button>
@@ -1044,6 +1063,7 @@ export default function News() {
                                 <Button
                                   size="sm"
                                   className="bg-stis-blue hover:bg-stis-blue-dark"
+                                  onClick={() => navigate(`/news/${news.id}`)}
                                 >
                                   Baca Selengkapnya
                                   <ArrowRight className="w-4 h-4 ml-2" />
@@ -1123,131 +1143,7 @@ export default function News() {
         </div>
       </section>
 
-      {/* Newsletter Subscription */}
-      <section className="py-16 bg-stis-gray-light">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center">
-            <Card className="border-0 shadow-lg">
-              <CardContent className="p-8">
-                <div className="w-16 h-16 bg-stis-blue/10 rounded-xl flex items-center justify-center mx-auto mb-6">
-                  <Bell className="w-8 h-8 text-stis-blue" />
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                  Dapatkan Update Terbaru
-                </h3>
-                <p className="text-gray-600 mb-6">
-                  Berlangganan newsletter untuk mendapatkan informasi terbaru
-                  tentang layanan dan kegiatan perpustakaan
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-                  <Input
-                    type="email"
-                    placeholder="Masukkan email Anda"
-                    className="flex-1"
-                  />
-                  <Button className="bg-stis-blue hover:bg-stis-blue-dark">
-                    Berlangganan
-                  </Button>
-                </div>
-                <p className="text-xs text-gray-500 mt-3">
-                  Kami menghormati privasi Anda. Unsubscribe kapan saja.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="bg-stis-blue text-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {/* Brand */}
-            <div className="lg:col-span-2">
-              <div className="flex items-center space-x-3 mb-6">
-                <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center">
-                  <FileText className="w-7 h-7 text-white" />
-                </div>
-                <div>
-                  <h4 className="text-2xl font-bold">SIMPus</h4>
-                  <p className="text-white/80">
-                    Sistem Informasi Manajemen Perpustakaan STIS
-                  </p>
-                </div>
-              </div>
-              <p className="text-white/80 mb-6 max-w-md">
-                Perpustakaan digital modern yang mendukung kegiatan akademik dan
-                penelitian di Politeknik Statistika STIS.
-              </p>
-            </div>
-
-            {/* Contact Info */}
-            <div>
-              <h5 className="text-lg font-semibold mb-4">Kontak</h5>
-              <div className="space-y-3">
-                <div className="flex items-start space-x-3">
-                  <div className="w-5 h-5 text-white/60 mt-1 flex-shrink-0">
-                    📍
-                  </div>
-                  <p className="text-white/80 text-sm">
-                    Jl. Otto Iskandardinata No.64C, Jakarta Timur 13330
-                  </p>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-5 h-5 text-white/60">📞</div>
-                  <p className="text-white/80 text-sm">(021) 8191437</p>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-5 h-5 text-white/60">🕒</div>
-                  <p className="text-white/80 text-sm">
-                    Senin - Jumat: 08:00 - 16:00
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Social Media */}
-            <div>
-              <h5 className="text-lg font-semibold mb-4">Media Sosial</h5>
-              <div className="space-y-3">
-                <a
-                  href="https://www.instagram.com/polstatstis?utm_source=ig_web_button_share_sheet&igsh=ODdmZWVhMTFiMw=="
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center space-x-3 text-white/80 hover:text-white transition-colors text-sm group"
-                >
-                  <Instagram className="w-5 h-5 group-hover:text-pink-400 transition-colors" />
-                  <span>@polstatstis</span>
-                </a>
-                <a
-                  href="https://twitter.com/stisjkt"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center space-x-3 text-white/80 hover:text-white transition-colors text-sm group"
-                >
-                  <Twitter className="w-5 h-5 group-hover:text-blue-400 transition-colors" />
-                  <span>@stisjkt</span>
-                </a>
-                <a
-                  href="https://www.youtube.com/@PoliteknikStatistikaSTIS"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center space-x-3 text-white/80 hover:text-white transition-colors text-sm group"
-                >
-                  <Youtube className="w-5 h-5 group-hover:text-red-400 transition-colors" />
-                  <span>PoliteknikStatistikaSTIS</span>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div className="border-t border-white/20 mt-12 pt-8 text-center">
-            <p className="text-white/60 text-sm">
-              © 2024 Perpustakaan STIS. Hak cipta dilindungi undang-undang.
-            </p>
-          </div>
-        </div>
-      </footer>
+      <StandardFooter />
 
       {/* Help Popup */}
       <HelpPopup pageHelp={helpItems} />

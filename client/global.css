@@ -40,12 +40,13 @@
     --radius: 0.75rem;
 
     /* STIS Library Brand Colors */
-    --stis-blue: 160 84% 39%;
-    --stis-blue-dark: 160 84% 32%;
-    --stis-blue-light: 156 28% 95%;
-    --stis-cyan: 168 76% 42%;
-    --stis-gray-light: 156 28% 95%;
+    --stis-blue: 219 52% 46%; /* #3674B5 - Primary dark blue */
+    --stis-blue-dark: 219 52% 36%; /* Darker variation of #3674B5 */
+    --stis-blue-light: 50 60% 90%; /* #F5F0CD - Light cream background */
+    --stis-cyan: 214 50% 56%; /* #578FCA - Medium blue */
+    --stis-gray-light: 50 60% 90%; /* #F5F0CD - Light cream for backgrounds */
     --stis-gray-medium: 215 15% 50%;
+    --stis-gold: 48 93% 73%; /* #FADA7A - Golden yellow */
 
     --sidebar-background: 0 0% 98%;
 
@@ -94,12 +95,13 @@
     --ring: 168 76% 42%;
 
     /* STIS Dark Mode Colors */
-    --stis-blue: 168 76% 42%;
-    --stis-blue-dark: 168 76% 35%;
-    --stis-blue-light: 217.2 32.6% 17.5%;
-    --stis-cyan: 168 76% 42%;
-    --stis-gray-light: 217.2 32.6% 17.5%;
+    --stis-blue: 219 52% 46%; /* Keep primary color consistent */
+    --stis-blue-dark: 219 52% 36%; /* Darker variation */
+    --stis-blue-light: 217.2 32.6% 17.5%; /* Keep dark background */
+    --stis-cyan: 214 50% 56%; /* #578FCA - Medium blue */
+    --stis-gray-light: 217.2 32.6% 17.5%; /* Keep dark background */
     --stis-gray-medium: 215 20.2% 65.1%;
+    --stis-gold: 48 93% 73%; /* #FADA7A - Golden yellow */
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;

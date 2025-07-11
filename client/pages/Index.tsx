@@ -242,7 +242,7 @@ export default function Index() {
                   <Button
                     variant="outline"
                     onClick={handleSearch}
-                    className="w-full sm:w-auto border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white px-6 py-3"
+                    className="w-full sm:w-auto border-stis-blue text-stis-blue hover:bg-stis-blue hover:text-white px-6 py-3"
                   >
                     <Search className="w-4 h-4 mr-2" />
                     Cari
@@ -310,7 +310,7 @@ export default function Index() {
                 <Link key={index} to={service.href} className="h-full">
                   <Card className="group hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border-0 shadow-md cursor-pointer h-full">
                     <CardContent className="p-8 text-center h-full flex flex-col">
-                      <div className="w-16 h-16 bg-emerald-600/10 rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:bg-emerald-600/20 transition-colors">
+                      <div className="w-16 h-16 bg-stis-blue/10 rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:bg-stis-blue/20 transition-colors">
                         <IconComponent className="w-8 h-8 text-stis-blue" />
                       </div>
                       <h4 className="text-xl font-semibold text-gray-900 mb-3 group-hover:text-stis-blue transition-colors">
@@ -329,7 +329,7 @@ export default function Index() {
       </section>
 
       {/* Operational Hours Section */}
-      <section className="py-16 bg-emerald-50">
+      <section className="py-16 bg-stis-blue-light">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
@@ -408,7 +408,7 @@ export default function Index() {
                   </p>
                   <Button
                     variant="outline"
-                    className="border-stis-blue text-stis-blue hover:bg-emerald-600 hover:text-white"
+                    className="border-stis-blue text-stis-blue hover:bg-stis-blue hover:text-white"
                   >
                     Baca Selengkapnya
                     <ExternalLink className="w-4 h-4 ml-2" />
@@ -473,7 +473,7 @@ export default function Index() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-emerald-600 text-white">
+      <footer className="bg-stis-blue text-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Brand */}

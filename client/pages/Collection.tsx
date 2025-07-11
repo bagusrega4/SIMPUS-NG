@@ -125,50 +125,6 @@ export default function Collection() {
   return (
     <div className="min-h-screen bg-white">
       <Header />
-      {/* Header */}
-      <div className="bg-gradient-to-br from-stis-blue-light via-white to-stis-gray-light pt-24 pb-16">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
-              Koleksi <span className="text-stis-blue">Perpustakaan</span>
-            </h1>
-            <p className="text-lg sm:text-xl text-gray-600 mb-8">
-              Temukan ribuan sumber daya akademik, buku, jurnal, dan publikasi
-              digital untuk mendukung pembelajaran Anda
-            </p>
-
-            {/* Search Bar */}
-            <div className="max-w-6xl mx-auto">
-              <div className="flex flex-col lg:flex-row gap-6 items-center">
-                {/* Search */}
-                <div className="flex-1 w-full lg:w-auto">
-                  <div className="relative">
-                    <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                    <Input
-                      type="text"
-                      placeholder="Cari judul buku, penulis, topik, atau kata kunci..."
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      className="pl-12 py-3 text-base rounded-xl border-2 border-gray-200 focus:border-stis-blue"
-                    />
-                  </div>
-                </div>
-
-                {/* Search Button */}
-                <div className="flex gap-4 w-full lg:w-auto">
-                  <Button
-                    variant="outline"
-                    className="border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white"
-                  >
-                    <Search className="w-4 h-4 mr-2" />
-                    Cari
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
       {/* Category Stats */}
       <section className="py-16 bg-white">

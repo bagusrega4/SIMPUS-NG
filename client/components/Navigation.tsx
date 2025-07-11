@@ -139,11 +139,6 @@ export default function Navigation() {
           href: "/about/vision",
           description: "Visi, misi, dan tujuan perpustakaan",
         },
-        {
-          label: "Fasilitas",
-          href: "/about/facilities",
-          description: "Fasilitas dan layanan perpustakaan",
-        },
       ],
     },
   ];
@@ -224,7 +219,7 @@ export default function Navigation() {
                     onClick={() => handleDropdownToggle(item.label)}
                     className={`flex items-center space-x-1 px-4 py-2 transition-colors font-medium rounded-lg hover:bg-gray-50 ${
                       isActiveRoute(undefined, item.dropdown)
-                        ? "text-stis-blue bg-emerald-50"
+                        ? "text-stis-blue bg-stis-blue-light"
                         : "text-gray-700 hover:text-stis-blue"
                     }`}
                   >
@@ -240,7 +235,7 @@ export default function Navigation() {
                     href={item.href}
                     className={`px-4 py-2 transition-colors font-medium rounded-lg hover:bg-gray-50 ${
                       isActiveRoute(item.href)
-                        ? "text-stis-blue bg-emerald-50"
+                        ? "text-stis-blue bg-stis-blue-light"
                         : "text-gray-700 hover:text-stis-blue"
                     }`}
                   >
