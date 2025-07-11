@@ -414,17 +414,17 @@ export default function Index() {
 
       {/* Footer */}
       <footer className="bg-emerald-600 text-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Brand */}
-            <div className="lg:col-span-2">
+            <div className="sm:col-span-2 lg:col-span-2">
               <div className="flex items-center space-x-3 mb-6">
                 <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center">
                   <BookOpen className="w-7 h-7 text-white" />
                 </div>
                 <div>
-                  <h4 className="text-2xl font-bold">SIMPus</h4>
-                  <p className="text-white/80">
+                  <h4 className="text-xl sm:text-2xl font-bold">SIMPus</h4>
+                  <p className="text-white/80 text-sm sm:text-base">
                     Sistem Informasi Manajemen Perpustakaan Polstat STIS
                   </p>
                 </div>
