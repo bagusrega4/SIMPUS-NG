@@ -231,56 +231,9 @@ export default function BorrowBook() {
   };
 
   if (isSuccess) {
-    // Auto redirect after 3 seconds
-    setTimeout(() => {
-      navigate("/collection/books");
-    }, 3000);
-
-    return (
-      <div className="min-h-screen bg-white">
-        <Navigation />
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-emerald-50 via-white to-teal-50 pt-16">
-          <div className="text-center max-w-lg mx-auto px-4">
-            <div className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-8">
-              <CheckCircle className="w-12 h-12 text-green-600" />
-            </div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-4">
-              Peminjaman Berhasil Diajukan!
-            </h1>
-            <p className="text-gray-600 mb-6 leading-relaxed">
-              Permohonan peminjaman buku "<strong>{bookTitle}</strong>" telah
-              berhasil disubmit. Tim perpustakaan akan memproses permintaan Anda
-              dalam 1-2 hari kerja.
-            </p>
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-8">
-              <h3 className="font-semibold text-blue-900 mb-2">
-                Langkah Selanjutnya:
-              </h3>
-              <ul className="text-blue-800 text-sm space-y-1">
-                <li>• Tunggu konfirmasi melalui email</li>
-                <li>• Siapkan kartu mahasiswa untuk pengambilan</li>
-                <li>• Buku siap diambil setelah dikonfirmasi</li>
-              </ul>
-            </div>
-            <div className="flex gap-4 justify-center">
-              <Button
-                onClick={() => navigate("/collection/books")}
-                className="bg-stis-blue hover:bg-stis-blue-dark"
-              >
-                Kembali ke Koleksi
-              </Button>
-              <Button
-                onClick={() => navigate("/collection/borrowing-history")}
-                variant="outline"
-                className="border-stis-blue text-stis-blue hover:bg-stis-blue hover:text-white"
-              >
-                Lihat Riwayat
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
+    // Immediately redirect to Koleksi Cetak
+    navigate("/collection/books");
+    return null;
   }
 
   return (
