@@ -274,32 +274,44 @@ export default function FAQ() {
                 </div>
               </div>
 
-              {/* Category Filter */}
-              <div className="flex gap-2 flex-wrap w-full lg:w-auto">
-                {faqCategories.map((category) => (
-                  <Button
-                    key={category.id}
-                    variant={
-                      selectedCategory === category.id ? "default" : "outline"
-                    }
-                    size="sm"
-                    onClick={() => setSelectedCategory(category.id)}
-                    className={`${
-                      selectedCategory === category.id
-                        ? "bg-stis-blue hover:bg-stis-blue-dark"
-                        : "border-stis-blue text-stis-blue hover:bg-stis-blue hover:text-white"
-                    }`}
-                  >
-                    {category.label}
-                    <Badge
-                      variant="secondary"
-                      className="ml-2 text-xs px-1.5 py-0"
-                    >
-                      {category.count}
-                    </Badge>
-                  </Button>
-                ))}
+                            {/* Search Button */}
+              <div className="flex gap-4 w-full lg:w-auto">
+                <Button
+                  variant="outline"
+                  className="border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white"
+                >
+                  <Search className="w-4 h-4 mr-2" />
+                  Cari
+                </Button>
               </div>
+            </div>
+
+            {/* Category Filter */}
+            <div className="flex gap-2 flex-wrap justify-center mt-6">
+              {faqCategories.map((category) => (
+                <Button
+                  key={category.id}
+                  variant={
+                    selectedCategory === category.id ? "default" : "outline"
+                  }
+                  size="sm"
+                  onClick={() => setSelectedCategory(category.id)}
+                  className={`${
+                    selectedCategory === category.id
+                      ? "bg-stis-blue hover:bg-stis-blue-dark"
+                      : "border-stis-blue text-stis-blue hover:bg-stis-blue hover:text-white"
+                  }`}
+                >
+                  {category.label}
+                  <Badge
+                    variant="secondary"
+                    className="ml-2 text-xs px-1.5 py-0"
+                  >
+                    {category.count}
+                  </Badge>
+                </Button>
+              ))}
+            </div>
             </div>
           </div>
         </div>
