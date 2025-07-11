@@ -739,19 +739,38 @@ export default function Books() {
             </div>
 
             {/* Pagination */}
-            <div className="flex items-center justify-center gap-2 mt-12">
-              <Button variant="outline" disabled>
-                Sebelumnya
-              </Button>
-              <Button variant="default" className="bg-stis-blue">
-                1
-              </Button>
-              <Button variant="outline">2</Button>
-              <Button variant="outline">3</Button>
-              <Button variant="outline">...</Button>
-              <Button variant="outline">10</Button>
-              <Button variant="outline">Selanjutnya</Button>
-            </div>
+            {totalPages > 1 && (
+              <div className="flex items-center justify-center gap-2 mt-12">
+                <Button
+                  variant="outline"
+                  disabled={currentPage === 1}
+                  onClick={() => setCurrentPage(currentPage - 1)}
+                >
+                  Sebelumnya
+                </Button>
+
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                  (page) => (
+                    <Button
+                      key={page}
+                      variant={currentPage === page ? "default" : "outline"}
+                      className={currentPage === page ? "bg-stis-blue" : ""}
+                      onClick={() => setCurrentPage(page)}
+                    >
+                      {page}
+                    </Button>
+                  ),
+                )}
+
+                <Button
+                  variant="outline"
+                  disabled={currentPage === totalPages}
+                  onClick={() => setCurrentPage(currentPage + 1)}
+                >
+                  Selanjutnya
+                </Button>
+              </div>
+            )}
           </div>
         </div>
       </section>
