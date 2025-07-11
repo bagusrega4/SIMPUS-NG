@@ -192,22 +192,38 @@ export default function Index() {
             </div>
 
             {/* Quick Stats */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16">
-              <div className="text-center">
-                <div className="text-3xl font-bold text-stis-blue">15K+</div>
-                <div className="text-gray-600">Koleksi Buku</div>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 mt-12 sm:mt-16 px-4">
+              <div className="text-center p-4">
+                <div className="text-2xl sm:text-3xl font-bold text-stis-blue">
+                  15K+
+                </div>
+                <div className="text-sm sm:text-base text-gray-600 mt-1">
+                  Koleksi Buku
+                </div>
               </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-stis-blue">5K+</div>
-                <div className="text-gray-600">E-Journal</div>
+              <div className="text-center p-4">
+                <div className="text-2xl sm:text-3xl font-bold text-stis-blue">
+                  5K+
+                </div>
+                <div className="text-sm sm:text-base text-gray-600 mt-1">
+                  E-Journal
+                </div>
               </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-stis-blue">2K+</div>
-                <div className="text-gray-600">E-Book</div>
+              <div className="text-center p-4">
+                <div className="text-2xl sm:text-3xl font-bold text-stis-blue">
+                  2K+
+                </div>
+                <div className="text-sm sm:text-base text-gray-600 mt-1">
+                  E-Book
+                </div>
               </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-stis-blue">24/7</div>
-                <div className="text-gray-600">Akses Online</div>
+              <div className="text-center p-4">
+                <div className="text-2xl sm:text-3xl font-bold text-stis-blue">
+                  24/7
+                </div>
+                <div className="text-sm sm:text-base text-gray-600 mt-1">
+                  Akses Online
+                </div>
               </div>
             </div>
           </div>
