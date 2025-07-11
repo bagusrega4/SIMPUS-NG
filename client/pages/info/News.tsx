@@ -49,13 +49,15 @@ export default function News() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("semua");
   const [selectedSort, setSelectedSort] = useState("terbaru");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
 
   const categories = [
-    { id: "semua", label: "Semua", count: 28 },
-    { id: "pengumuman", label: "Pengumuman", count: 12 },
-    { id: "berita", label: "Berita", count: 8 },
-    { id: "event", label: "Event", count: 5 },
-    { id: "koleksi-baru", label: "Koleksi Baru", count: 3 },
+    { id: "semua", label: "Semua Kategori", count: 45 },
+    { id: "pengumuman", label: "Pengumuman", count: 18 },
+    { id: "berita", label: "Berita", count: 12 },
+    { id: "event", label: "Event", count: 9 },
+    { id: "koleksi-baru", label: "Koleksi Baru", count: 6 },
   ];
 
   const featuredNews = {
@@ -166,6 +168,474 @@ export default function News() {
       tags: ["mentor", "mahasiswa", "program"],
       priority: "medium",
     },
+    {
+      id: 9,
+      title: "Pelatihan Penggunaan Database IEEE Xplore",
+      excerpt:
+        "Workshop khusus untuk mahasiswa dan dosen tentang cara mengakses dan menggunakan database IEEE Xplore secara optimal.",
+      category: "event",
+      author: "Tim Perpustakaan",
+      date: "2023-12-25",
+      views: 567,
+      image: "/placeholder.svg",
+      tags: ["workshop", "ieee", "database"],
+      priority: "medium",
+    },
+    {
+      id: 10,
+      title: "Penambahan Koleksi Buku Data Science",
+      excerpt:
+        "Perpustakaan menambah 200+ buku terbaru dalam bidang data science, machine learning, dan artificial intelligence.",
+      category: "koleksi-baru",
+      author: "Kepala Perpustakaan",
+      date: "2023-12-22",
+      views: 1123,
+      image: "/placeholder.svg",
+      tags: ["data-science", "machine-learning", "ai"],
+      priority: "high",
+    },
+    {
+      id: 11,
+      title: "Gangguan Layanan Internet 30 Desember",
+      excerpt:
+        "Layanan internet perpustakaan akan mengalami gangguan pada 30 Desember 2023 untuk pemeliharaan infrastruktur.",
+      category: "pengumuman",
+      author: "Tim IT",
+      date: "2023-12-20",
+      views: 234,
+      image: "/placeholder.svg",
+      tags: ["maintenance", "internet", "gangguan"],
+      priority: "high",
+    },
+    {
+      id: 12,
+      title: "Kuliah Umum: Tren Data Analytics 2024",
+      excerpt:
+        "Kuliah umum dengan pembicara dari Google Indonesia membahas tren terbaru dalam bidang data analytics.",
+      category: "event",
+      author: "Humas STIS",
+      date: "2023-12-18",
+      views: 892,
+      image: "/placeholder.svg",
+      tags: ["kuliah-umum", "data-analytics", "google"],
+      priority: "medium",
+    },
+    {
+      id: 13,
+      title: "Kerjasama dengan SpringerNature",
+      excerpt:
+        "STIS menandatangani kerjasama dengan SpringerNature untuk akses jurnal internasional premium.",
+      category: "berita",
+      author: "Kepala Perpustakaan",
+      date: "2023-12-15",
+      views: 678,
+      image: "/placeholder.svg",
+      tags: ["kerjasama", "springer", "jurnal"],
+      priority: "medium",
+    },
+    {
+      id: 14,
+      title: "Perpanjangan Masa Berlaku Kartu Anggota",
+      excerpt:
+        "Masa berlaku kartu anggota perpustakaan untuk mahasiswa angkatan 2021 diperpanjang hingga Juni 2024.",
+      category: "pengumuman",
+      author: "Bagian Sirkulasi",
+      date: "2023-12-12",
+      views: 1456,
+      image: "/placeholder.svg",
+      tags: ["kartu-anggota", "perpanjangan", "mahasiswa"],
+      priority: "medium",
+    },
+    {
+      id: 15,
+      title: "Webinar Literasi Informasi Digital",
+      excerpt:
+        "Webinar nasional tentang literasi informasi digital di era big data dan artificial intelligence.",
+      category: "event",
+      author: "Pustakawan Senior",
+      date: "2023-12-10",
+      views: 445,
+      image: "/placeholder.svg",
+      tags: ["webinar", "literasi", "digital"],
+      priority: "medium",
+    },
+    {
+      id: 16,
+      title: "Pengumuman Libur Akhir Tahun 2023",
+      excerpt:
+        "Perpustakaan akan tutup mulai 25 Desember 2023 hingga 2 Januari 2024 untuk libur akhir tahun.",
+      category: "pengumuman",
+      author: "Kepala Perpustakaan",
+      date: "2023-12-08",
+      views: 2341,
+      image: "/placeholder.svg",
+      tags: ["libur", "akhir-tahun", "tutup"],
+      priority: "high",
+    },
+    {
+      id: 17,
+      title: "Peluncuran Repository STIS",
+      excerpt:
+        "Repository institusi STIS resmi diluncurkan untuk menyimpan dan mendistribusikan karya ilmiah civitas akademika.",
+      category: "berita",
+      author: "Tim IT Perpustakaan",
+      date: "2023-12-05",
+      views: 789,
+      image: "/placeholder.svg",
+      tags: ["repository", "karya-ilmiah", "institusi"],
+      priority: "high",
+    },
+    {
+      id: 18,
+      title: "Kompetisi Essay Statistika Nasional",
+      excerpt:
+        "Kompetisi penulisan essay bertema 'Statistika untuk Indonesia Maju' terbuka untuk seluruh mahasiswa.",
+      category: "event",
+      author: "Panitia Kompetisi",
+      date: "2023-12-03",
+      views: 623,
+      image: "/placeholder.svg",
+      tags: ["kompetisi", "essay", "statistika"],
+      priority: "medium",
+    },
+    {
+      id: 19,
+      title: "Update Kebijakan Peminjaman Buku",
+      excerpt:
+        "Kebijakan peminjaman buku diperbarui dengan penambahan kategori buku referensi yang dapat dipinjam.",
+      category: "pengumuman",
+      author: "Bagian Sirkulasi",
+      date: "2023-12-01",
+      views: 1234,
+      image: "/placeholder.svg",
+      tags: ["kebijakan", "peminjaman", "referensi"],
+      priority: "medium",
+    },
+    {
+      id: 20,
+      title: "Koleksi E-Journal Ekonomi Terbaru",
+      excerpt:
+        "Perpustakaan menambah 50+ e-journal terbaru dalam bidang ekonomi dan bisnis dari penerbit internasional.",
+      category: "koleksi-baru",
+      author: "Pustakawan",
+      date: "2023-11-28",
+      views: 567,
+      image: "/placeholder.svg",
+      tags: ["e-journal", "ekonomi", "bisnis"],
+      priority: "medium",
+    },
+    {
+      id: 21,
+      title: "Workshop Mendeley untuk Manajemen Referensi",
+      excerpt:
+        "Pelatihan penggunaan Mendeley untuk membantu mahasiswa dalam manajemen referensi dan sitasi karya ilmiah.",
+      category: "event",
+      author: "Pustakawan Senior",
+      date: "2023-11-25",
+      views: 434,
+      image: "/placeholder.svg",
+      tags: ["workshop", "mendeley", "referensi"],
+      priority: "medium",
+    },
+    {
+      id: 22,
+      title: "Kerjasama dengan Perpustakaan Nasional RI",
+      excerpt:
+        "Penandatanganan MoU dengan Perpustakaan Nasional RI untuk pertukaran koleksi dan program literasi.",
+      category: "berita",
+      author: "Kepala Perpustakaan",
+      date: "2023-11-22",
+      views: 856,
+      image: "/placeholder.svg",
+      tags: ["kerjasama", "perpusnas", "mou"],
+      priority: "high",
+    },
+    {
+      id: 23,
+      title: "Pembaruan Sistem Katalog Online",
+      excerpt:
+        "Sistem katalog online OPAC mendapat pembaruan fitur dengan tampilan yang lebih user-friendly dan responsif.",
+      category: "pengumuman",
+      author: "Tim IT",
+      date: "2023-11-20",
+      views: 678,
+      image: "/placeholder.svg",
+      tags: ["update", "katalog", "opac"],
+      priority: "medium",
+    },
+    {
+      id: 24,
+      title: "Seminar Internasional Big Data 2024",
+      excerpt:
+        "Seminar internasional dengan tema 'Big Data for Sustainable Development' menghadirkan pembicara dari berbagai negara.",
+      category: "event",
+      author: "Panitia Seminar",
+      date: "2023-11-18",
+      views: 1245,
+      image: "/placeholder.svg",
+      tags: ["seminar", "internasional", "big-data"],
+      priority: "high",
+    },
+    {
+      id: 25,
+      title: "Penambahan Ruang Diskusi Baru",
+      excerpt:
+        "Perpustakaan menambah 4 ruang diskusi baru di lantai 3 untuk memfasilitasi kegiatan diskusi kelompok mahasiswa.",
+      category: "berita",
+      author: "Bagian Layanan",
+      date: "2023-11-15",
+      views: 789,
+      image: "/placeholder.svg",
+      tags: ["ruang-diskusi", "fasilitas", "mahasiswa"],
+      priority: "medium",
+    },
+    {
+      id: 26,
+      title: "Koleksi Thesis Digital Angkatan 2023",
+      excerpt:
+        "Koleksi thesis digital mahasiswa angkatan 2023 telah tersedia dan dapat diakses melalui repository institusi.",
+      category: "koleksi-baru",
+      author: "Tim Repository",
+      date: "2023-11-12",
+      views: 923,
+      image: "/placeholder.svg",
+      tags: ["thesis", "digital", "repository"],
+      priority: "medium",
+    },
+    {
+      id: 27,
+      title: "Pelatihan Literasi Digital untuk Dosen",
+      excerpt:
+        "Program pelatihan khusus untuk dosen dalam mengintegrasikan teknologi digital dalam proses pembelajaran.",
+      category: "event",
+      author: "P3M STIS",
+      date: "2023-11-10",
+      views: 345,
+      image: "/placeholder.svg",
+      tags: ["pelatihan", "dosen", "digital"],
+      priority: "medium",
+    },
+    {
+      id: 28,
+      title: "Perpanjangan Akses Database SAGE",
+      excerpt:
+        "Akses database SAGE Publications diperpanjang hingga Desember 2024 untuk mendukung penelitian akademik.",
+      category: "pengumuman",
+      author: "Kepala Perpustakaan",
+      date: "2023-11-08",
+      views: 567,
+      image: "/placeholder.svg",
+      tags: ["database", "sage", "perpanjangan"],
+      priority: "medium",
+    },
+    {
+      id: 29,
+      title: "Lomba Desain Poster Literasi",
+      excerpt:
+        "Kompetisi desain poster dengan tema 'Literasi untuk Masa Depan Indonesia' terbuka untuk seluruh mahasiswa.",
+      category: "event",
+      author: "Humas Perpustakaan",
+      date: "2023-11-05",
+      views: 445,
+      image: "/placeholder.svg",
+      tags: ["lomba", "poster", "literasi"],
+      priority: "medium",
+    },
+    {
+      id: 30,
+      title: "Pembukaan Layanan 24 Jam Online",
+      excerpt:
+        "Layanan perpustakaan online kini tersedia 24 jam untuk akses koleksi digital dan layanan virtual.",
+      category: "berita",
+      author: "Tim IT Perpustakaan",
+      date: "2023-11-03",
+      views: 1678,
+      image: "/placeholder.svg",
+      tags: ["24-jam", "online", "virtual"],
+      priority: "high",
+    },
+    {
+      id: 31,
+      title: "Koleksi Buku Bahasa Inggris Terbaru",
+      excerpt:
+        "Penambahan 100+ buku bahasa Inggris terbaru dalam bidang statistika, matematika, dan teknologi informasi.",
+      category: "koleksi-baru",
+      author: "Pustakawan",
+      date: "2023-11-01",
+      views: 678,
+      image: "/placeholder.svg",
+      tags: ["bahasa-inggris", "statistika", "ti"],
+      priority: "medium",
+    },
+    {
+      id: 32,
+      title: "Maintenance Server Minggu Depan",
+      excerpt:
+        "Pemeliharaan server utama akan dilakukan pada 5 November 2023 pukul 01:00-05:00 WIB.",
+      category: "pengumuman",
+      author: "Tim IT",
+      date: "2023-10-30",
+      views: 234,
+      image: "/placeholder.svg",
+      tags: ["maintenance", "server", "gangguan"],
+      priority: "medium",
+    },
+    {
+      id: 33,
+      title: "Forum Diskusi Alumni: Karir di Era Digital",
+      excerpt:
+        "Forum diskusi dengan alumni STIS yang sukses berkarir di bidang teknologi dan data science.",
+      category: "event",
+      author: "Alumni Association",
+      date: "2023-10-28",
+      views: 789,
+      image: "/placeholder.svg",
+      tags: ["alumni", "karir", "digital"],
+      priority: "medium",
+    },
+    {
+      id: 34,
+      title: "Kerjasama Research dengan Universitas Terkemuka",
+      excerpt:
+        "STIS menjalin kerjasama penelitian dengan 5 universitas terkemuka untuk pengembangan ilmu statistika.",
+      category: "berita",
+      author: "Bagian Penelitian",
+      date: "2023-10-25",
+      views: 1123,
+      image: "/placeholder.svg",
+      tags: ["research", "kerjasama", "universitas"],
+      priority: "high",
+    },
+    {
+      id: 35,
+      title: "Update Aturan Penggunaan Ruang Baca",
+      excerpt:
+        "Perubahan aturan penggunaan ruang baca untuk meningkatkan kenyamanan dan produktivitas belajar.",
+      category: "pengumuman",
+      author: "Bagian Layanan",
+      date: "2023-10-22",
+      views: 567,
+      image: "/placeholder.svg",
+      tags: ["aturan", "ruang-baca", "produktivitas"],
+      priority: "medium",
+    },
+    {
+      id: 36,
+      title: "Workshop R Programming untuk Pemula",
+      excerpt:
+        "Pelatihan dasar pemrograman R untuk analisis statistik bagi mahasiswa semester awal.",
+      category: "event",
+      author: "Dosen Statistika",
+      date: "2023-10-20",
+      views: 445,
+      image: "/placeholder.svg",
+      tags: ["workshop", "r-programming", "statistik"],
+      priority: "medium",
+    },
+    {
+      id: 37,
+      title: "Koleksi Jurnal Nasional Terakreditasi",
+      excerpt:
+        "Penambahan koleksi jurnal nasional terakreditasi SINTA untuk mendukung penelitian mahasiswa dan dosen.",
+      category: "koleksi-baru",
+      author: "Tim Koleksi",
+      date: "2023-10-18",
+      views: 678,
+      image: "/placeholder.svg",
+      tags: ["jurnal", "sinta", "terakreditasi"],
+      priority: "medium",
+    },
+    {
+      id: 38,
+      title: "Pengumuman Seleksi Asisten Pustakawan",
+      excerpt:
+        "Dibuka kesempatan untuk mahasiswa menjadi asisten pustakawan dengan berbagai benefit menarik.",
+      category: "pengumuman",
+      author: "HRD Perpustakaan",
+      date: "2023-10-15",
+      views: 1234,
+      image: "/placeholder.svg",
+      tags: ["seleksi", "asisten", "mahasiswa"],
+      priority: "medium",
+    },
+    {
+      id: 39,
+      title: "Seminar Nasional Data Visualization",
+      excerpt:
+        "Seminar nasional tentang teknik dan tools terbaru dalam visualisasi data untuk berbagai keperluan.",
+      category: "event",
+      author: "Lab Komputer",
+      date: "2023-10-12",
+      views: 856,
+      image: "/placeholder.svg",
+      tags: ["seminar", "visualisasi", "data"],
+      priority: "medium",
+    },
+    {
+      id: 40,
+      title: "Kerjasama dengan Microsoft Education",
+      excerpt:
+        "Partnership dengan Microsoft Education memberikan akses gratis ke berbagai tools dan platform pembelajaran.",
+      category: "berita",
+      author: "Kepala STIS",
+      date: "2023-10-10",
+      views: 1567,
+      image: "/placeholder.svg",
+      tags: ["microsoft", "partnership", "education"],
+      priority: "high",
+    },
+    {
+      id: 41,
+      title: "Program Peer Tutoring Statistika",
+      excerpt:
+        "Program tutorial sebaya untuk membantu mahasiswa yang mengalami kesulitan dalam mata kuliah statistika.",
+      category: "pengumuman",
+      author: "Bagian Akademik",
+      date: "2023-10-08",
+      views: 445,
+      image: "/placeholder.svg",
+      tags: ["tutoring", "statistika", "bantuan"],
+      priority: "medium",
+    },
+    {
+      id: 42,
+      title: "Koleksi E-Book Python Programming",
+      excerpt:
+        "Tambahan koleksi e-book tentang Python programming untuk data science dan machine learning.",
+      category: "koleksi-baru",
+      author: "Pustakawan IT",
+      date: "2023-10-05",
+      views: 789,
+      image: "/placeholder.svg",
+      tags: ["python", "programming", "ebook"],
+      priority: "medium",
+    },
+    {
+      id: 43,
+      title: "Workshop Citation Management",
+      excerpt:
+        "Pelatihan manajemen sitasi menggunakan berbagai tools seperti Zotero, EndNote, dan Mendeley.",
+      category: "event",
+      author: "Pustakawan Senior",
+      date: "2023-10-03",
+      views: 345,
+      image: "/placeholder.svg",
+      tags: ["citation", "zotero", "endnote"],
+      priority: "medium",
+    },
+    {
+      id: 44,
+      title: "Renovasi Area Perpustakaan Lantai 2",
+      excerpt:
+        "Renovasi area perpustakaan lantai 2 untuk meningkatkan kenyamanan dan kapasitas ruang baca.",
+      category: "berita",
+      author: "Bagian Umum",
+      date: "2023-10-01",
+      views: 567,
+      image: "/placeholder.svg",
+      tags: ["renovasi", "lantai-2", "improvement"],
+      priority: "medium",
+    },
   ];
 
   const filteredNews = newsData.filter((news) => {
@@ -190,6 +660,28 @@ export default function News() {
         return 0;
     }
   });
+
+  // Pagination logic
+  const totalPages = Math.ceil(sortedNews.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentNews = sortedNews.slice(startIndex, endIndex);
+
+  // Reset to first page when filters change
+  const handleCategoryChange = (categoryId: string) => {
+    setSelectedCategory(categoryId);
+    setCurrentPage(1);
+  };
+
+  const handleSortChange = (sortValue: string) => {
+    setSelectedSort(sortValue);
+    setCurrentPage(1);
+  };
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+    setCurrentPage(1);
+  };
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -325,7 +817,7 @@ export default function News() {
       </section>
 
       {/* Search & Filter */}
-      <section className="py-8 bg-stis-gray-light border-b border-gray-200">
+      <section className="py-8 bg-white border-b border-gray-200">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
             <div className="flex flex-col lg:flex-row gap-6 items-center">
@@ -337,31 +829,15 @@ export default function News() {
                     type="text"
                     placeholder="Cari berita atau pengumuman..."
                     value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onChange={handleSearchChange}
                     className="pl-12 py-3 text-base rounded-xl border-2 border-gray-200 focus:border-stis-blue"
                   />
                 </div>
               </div>
 
-              {/* Filters */}
+              {/* Sort and Search Button */}
               <div className="flex gap-4 w-full lg:w-auto">
-                <Select
-                  value={selectedCategory}
-                  onValueChange={setSelectedCategory}
-                >
-                  <SelectTrigger className="w-full lg:w-48">
-                    <SelectValue placeholder="Kategori" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {categories.map((category) => (
-                      <SelectItem key={category.id} value={category.id}>
-                        {category.label} ({category.count})
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-
-                <Select value={selectedSort} onValueChange={setSelectedSort}>
+                <Select value={selectedSort} onValueChange={handleSortChange}>
                   <SelectTrigger className="w-full lg:w-36">
                     <SelectValue placeholder="Urutkan" />
                   </SelectTrigger>
@@ -380,6 +856,33 @@ export default function News() {
                   Cari
                 </Button>
               </div>
+            </div>
+
+            {/* Category Filter */}
+            <div className="flex gap-2 flex-wrap justify-center mt-6">
+              {categories.map((category) => (
+                <Button
+                  key={category.id}
+                  variant={
+                    selectedCategory === category.id ? "default" : "outline"
+                  }
+                  size="sm"
+                  onClick={() => handleCategoryChange(category.id)}
+                  className={`${
+                    selectedCategory === category.id
+                      ? "bg-stis-blue hover:bg-stis-blue-dark"
+                      : "border-stis-blue text-stis-blue hover:bg-stis-blue hover:text-white"
+                  }`}
+                >
+                  {category.label}
+                  <Badge
+                    variant="secondary"
+                    className="ml-2 text-xs px-1.5 py-0"
+                  >
+                    {category.count}
+                  </Badge>
+                </Button>
+              ))}
             </div>
           </div>
         </div>
@@ -403,7 +906,7 @@ export default function News() {
               {/* Grid View */}
               <TabsContent value="grid">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {sortedNews.map((news) => {
+                  {currentNews.map((news) => {
                     const CategoryIcon = getCategoryIcon(news.category);
                     return (
                       <Card
@@ -484,7 +987,7 @@ export default function News() {
               {/* List View */}
               <TabsContent value="list">
                 <div className="space-y-6">
-                  {sortedNews.map((news) => {
+                  {currentNews.map((news) => {
                     const CategoryIcon = getCategoryIcon(news.category);
                     return (
                       <Card
@@ -554,16 +1057,64 @@ export default function News() {
             </Tabs>
 
             {/* Pagination */}
-            <div className="flex items-center justify-center gap-2 mt-12">
-              <Button variant="outline" disabled>
-                Sebelumnya
-              </Button>
-              <Button variant="default" className="bg-stis-blue">
-                1
-              </Button>
-              <Button variant="outline">2</Button>
-              <Button variant="outline">3</Button>
-              <Button variant="outline">Selanjutnya</Button>
+            {totalPages > 1 && (
+              <div className="flex items-center justify-center gap-2 mt-12">
+                <Button
+                  variant="outline"
+                  disabled={currentPage === 1}
+                  onClick={() => setCurrentPage(currentPage - 1)}
+                >
+                  Sebelumnya
+                </Button>
+
+                {/* Page numbers */}
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                  (page) => {
+                    // Show first page, last page, current page, and pages around current page
+                    if (
+                      page === 1 ||
+                      page === totalPages ||
+                      (page >= currentPage - 1 && page <= currentPage + 1)
+                    ) {
+                      return (
+                        <Button
+                          key={page}
+                          variant={currentPage === page ? "default" : "outline"}
+                          className={currentPage === page ? "bg-stis-blue" : ""}
+                          onClick={() => setCurrentPage(page)}
+                        >
+                          {page}
+                        </Button>
+                      );
+                    } else if (
+                      page === currentPage - 2 ||
+                      page === currentPage + 2
+                    ) {
+                      return (
+                        <span key={page} className="px-2">
+                          ...
+                        </span>
+                      );
+                    }
+                    return null;
+                  },
+                )}
+
+                <Button
+                  variant="outline"
+                  disabled={currentPage === totalPages}
+                  onClick={() => setCurrentPage(currentPage + 1)}
+                >
+                  Selanjutnya
+                </Button>
+              </div>
+            )}
+
+            {/* Show pagination info */}
+            <div className="text-center mt-4 text-sm text-gray-500">
+              Menampilkan {startIndex + 1}-
+              {Math.min(endIndex, sortedNews.length)} dari {sortedNews.length}{" "}
+              berita
             </div>
           </div>
         </div>
