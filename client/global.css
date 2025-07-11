@@ -126,4 +126,78 @@
     color: #dc2626; /* red-600 */
     font-weight: 500;
   }
+
+  /* Mobile responsiveness improvements */
+  html {
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+  }
+
+  /* Ensure containers don't overflow on mobile */
+  .container {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Fix overflow issues */
+  html,
+  body {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+
+  /* Responsive images */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Responsive tables */
+  table {
+    max-width: 100%;
+    overflow-x: auto;
+    display: block;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 767px) {
+    table {
+      display: block;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+  }
+
+  /* Mobile-first text sizes */
+  @media (max-width: 640px) {
+    .text-4xl {
+      font-size: 2rem;
+      line-height: 2.5rem;
+    }
+
+    .text-5xl {
+      font-size: 2.25rem;
+      line-height: 2.75rem;
+    }
+
+    .text-6xl {
+      font-size: 2.5rem;
+      line-height: 3rem;
+    }
+  }
+
+  /* Fix button responsiveness */
+  @media (max-width: 640px) {
+    .flex-1.w-full.lg\\:w-auto {
+      width: 100%;
+    }
+
+    .flex.gap-4.w-full.lg\\:w-auto {
+      width: 100%;
+    }
+
+    .flex.gap-4.w-full.lg\\:w-auto button {
+      flex: 1;
+    }
+  }
 }
