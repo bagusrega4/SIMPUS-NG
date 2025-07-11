@@ -27,6 +27,7 @@ import {
 import Navigation from "@/components/Navigation";
 import HelpPopup from "@/components/HelpPopup";
 import { useAuth } from "@/contexts/AuthContext";
+import { useBorrowedBooks } from "@/contexts/BorrowedBooksContext";
 
 export default function BorrowingHistory() {
   const { isAuthenticated } = useAuth();
