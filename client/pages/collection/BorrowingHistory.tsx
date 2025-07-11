@@ -30,7 +30,8 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useBorrowedBooks } from "@/contexts/BorrowedBooksContext";
 
 export default function BorrowingHistory() {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
+  const { getBorrowedBooksByUser } = useBorrowedBooks();
 
   if (!isAuthenticated) {
     return (
