@@ -623,7 +623,7 @@ export default function Books() {
             </div>
 
             <div className="space-y-6">
-              {filteredBooks.map((book) => (
+              {currentBooks.map((book) => (
                 <Card
                   key={book.id}
                   className="border-0 shadow-lg hover:shadow-xl transition-shadow"
