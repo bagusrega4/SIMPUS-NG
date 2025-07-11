@@ -59,6 +59,8 @@ export default function Books() {
   const [selectedCategory, setSelectedCategory] = useState("semua");
   const [selectedLanguage, setSelectedLanguage] = useState("semua");
   const [selectedBook, setSelectedBook] = useState<any>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const booksPerPage = 5;
 
   const categories = [
     { id: "semua", label: "Semua Kategori", count: 15234 },
