@@ -631,8 +631,8 @@ export default function Books() {
                   <CardContent className="p-6">
                     <div className="flex flex-col lg:flex-row gap-6">
                       {/* Book Cover */}
-                      <div className="w-full lg:w-32 h-48 lg:h-40 bg-gradient-to-br from-stis-blue-light to-stis-gray-light rounded-lg flex items-center justify-center flex-shrink-0">
-                        <BookOpen className="w-12 h-12 text-stis-blue/40" />
+                      <div className="w-full sm:w-32 lg:w-32 h-32 sm:h-40 lg:h-40 bg-gradient-to-br from-stis-blue-light to-stis-gray-light rounded-lg flex items-center justify-center flex-shrink-0 mx-auto sm:mx-0">
+                        <BookOpen className="w-8 sm:w-12 h-8 sm:h-12 text-stis-blue/40" />
                       </div>
 
                       {/* Book Details */}
