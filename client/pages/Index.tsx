@@ -31,16 +31,60 @@ import {
 } from "@/components/ui/collapsible";
 import Navigation from "@/components/Navigation";
 import HelpPopup from "@/components/HelpPopup";
+import SearchResults from "@/components/SearchResults";
+import SearchSuggestions from "@/components/SearchSuggestions";
 
 export default function Index() {
   const [searchQuery, setSearchQuery] = useState("");
+  const [showSearchResults, setShowSearchResults] = useState(false);
+  const [showSuggestions, setShowSuggestions] = useState(false);
   const [openFAQ, setOpenFAQ] = useState<number | null>(null);
+
+  // Handle search functionality
+  const handleSearch = () => {
+    if (searchQuery.trim()) {
+      setShowSearchResults(true);
+      setShowSuggestions(false);
+    }
+  };
+
+  const handleSearchKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
+
+  const handleSuggestionClick = (suggestion: string) => {
+    setSearchQuery(suggestion);
+    setShowSearchResults(true);
+    setShowSuggestions(false);
+  };
+
+  const handleSearchFocus = () => {
+    setShowSuggestions(true);
+  };
+
+  const handleSearchBlur = () => {
+    // Delay hiding suggestions to allow clicking
+    setTimeout(() => setShowSuggestions(false), 150);
+  };
+
+  // Close search results when clicking Escape
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setShowSearchResults(false);
+      }
+    };
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, []);
 
   const helpItems = [
     {
-      question: "Bagaimana cara mencari buku di SIMPus?",
+      question: "Bagaimana cara mencari informasi di SIMPus?",
       answer:
-        "Gunakan kolom pencarian di atas untuk mencari buku berdasarkan judul, penulis, atau ISBN. Anda juga bisa menggunakan filter kategori.",
+        "Gunakan kolom pencarian di atas untuk mencari halaman, layanan, koleksi, informasi, dan konten lainnya di seluruh website SIMPus. Hasil pencarian akan menampilkan semua halaman yang relevan.",
     },
     {
       question: "Bagaimana cara mengakses layanan perpustakaan?",
@@ -174,10 +218,21 @@ export default function Index() {
                     <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                     <Input
                       type="text"
-                      placeholder="Telusuri koleksi buku, jurnal, dan sumber daya..."
+                      placeholder="Cari halaman, layanan, koleksi, informasi di seluruh website..."
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
+                      onKeyPress={handleSearchKeyPress}
+                      onFocus={handleSearchFocus}
+                      onBlur={handleSearchBlur}
                       className="w-full pl-12 py-3 text-base rounded-xl border-2 border-gray-200 focus:border-stis-blue"
+                    />
+
+                    {/* Search Suggestions */}
+                    <SearchSuggestions
+                      query={searchQuery}
+                      isVisible={showSuggestions && !showSearchResults}
+                      onSuggestionClick={handleSuggestionClick}
+                      onClose={() => setShowSuggestions(false)}
                     />
                   </div>
                 </div>
@@ -186,6 +241,7 @@ export default function Index() {
                 <div className="sm:w-auto w-full">
                   <Button
                     variant="outline"
+                    onClick={handleSearch}
                     className="w-full sm:w-auto border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white px-6 py-3"
                   >
                     <Search className="w-4 h-4 mr-2" />
@@ -522,6 +578,13 @@ export default function Index() {
           </div>
         </div>
       </footer>
+
+      {/* Search Results Modal */}
+      <SearchResults
+        query={searchQuery}
+        isOpen={showSearchResults}
+        onClose={() => setShowSearchResults(false)}
+      />
 
       {/* Help Popup */}
       <HelpPopup pageHelp={helpItems} />
