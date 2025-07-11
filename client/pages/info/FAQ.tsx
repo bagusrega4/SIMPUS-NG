@@ -286,7 +286,7 @@ export default function FAQ() {
               </div>
             </div>
 
-            {/* Category Filter */}
+                        {/* Category Filter */}
             <div className="flex gap-2 flex-wrap justify-center mt-6">
               {faqCategories.map((category) => (
                 <Button
@@ -312,7 +312,7 @@ export default function FAQ() {
                 </Button>
               ))}
             </div>
-            </div>
+          </div>
           </div>
         </div>
       </section>
