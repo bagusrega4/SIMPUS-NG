@@ -539,7 +539,7 @@ export default function Books() {
                     type="text"
                     placeholder="Cari judul buku, penulis, atau kata kunci..."
                     value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onChange={(e) => handleSearchChange(e.target.value)}
                     className="pl-12 py-3 text-base rounded-xl border-2 border-gray-200 focus:border-stis-blue"
                   />
                 </div>
