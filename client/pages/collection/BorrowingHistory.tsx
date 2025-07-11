@@ -102,7 +102,36 @@ export default function BorrowingHistory() {
     { type: "Terlambat", count: 2, icon: AlertCircle, color: "text-red-500" },
   ];
 
-  const currentBorrowings = [
+  // Get dynamically borrowed books from context
+  const contextBorrowedBooks = user ? getBorrowedBooksByUser(user.email) : [];
+
+  // Convert context books to current borrowings format
+  const dynamicBorrowings = contextBorrowedBooks.map((book, index) => {
+    const borrowDate = new Date(book.borrowedDate);
+    const dueDate = new Date(borrowDate.getTime() + 14 * 24 * 60 * 60 * 1000); // 14 days
+    const today = new Date();
+    const daysRemaining = Math.ceil(
+      (dueDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24),
+    );
+
+    return {
+      id: parseInt(book.id) + 100, // Offset to avoid conflicts with static data
+      title: book.title,
+      authors: [book.author],
+      isbn: `978-${Math.random().toString().substring(2, 15)}`, // Generate fake ISBN
+      call_number: `AUTO-${book.id}`,
+      borrowed_date: book.borrowedDate,
+      due_date: dueDate.toISOString().split("T")[0],
+      status: daysRemaining >= 0 ? "Dipinjam" : "Terlambat",
+      days_remaining: daysRemaining >= 0 ? daysRemaining : undefined,
+      days_overdue: daysRemaining < 0 ? Math.abs(daysRemaining) : undefined,
+      renewal_count: 0,
+      can_renew: true,
+      fine: daysRemaining < 0 ? Math.abs(daysRemaining) * 1000 : undefined,
+    };
+  });
+
+  const staticBorrowings = [
     {
       id: 1,
       title: "Statistika Dasar: Teori dan Aplikasi",
@@ -144,6 +173,9 @@ export default function BorrowingHistory() {
       can_renew: true,
     },
   ];
+
+  // Combine static and dynamic borrowings
+  const currentBorrowings = [...staticBorrowings, ...dynamicBorrowings];
 
   const borrowingHistory = [
     {
