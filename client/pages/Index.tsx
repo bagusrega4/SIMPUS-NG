@@ -147,25 +147,25 @@ export default function Index() {
         id="home"
         className="pt-16 bg-gradient-to-br from-stis-blue-light via-white to-stis-gray-light"
       >
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
               Berbagai Kebutuhan
               <span className="text-stis-blue block">
                 Perpustakaan Polstat STIS
               </span>
             </h2>
-            <p className="text-lg sm:text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg md:text-xl text-gray-600 mb-8 max-w-2xl mx-auto px-4">
               Dapatkan akses mudah ke layanan perpustakaan digital, koleksi
               buku, jurnal elektronik, dan berbagai fasilitas pembelajaran
               modern
             </p>
 
             {/* Search Box */}
-            <div className="max-w-6xl mx-auto">
-              <div className="flex flex-col lg:flex-row gap-6 items-center">
+            <div className="max-w-4xl mx-auto px-4">
+              <div className="flex flex-col sm:flex-row gap-4 items-stretch">
                 {/* Search */}
-                <div className="flex-1 w-full lg:w-auto">
+                <div className="flex-1">
                   <div className="relative">
                     <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                     <Input
@@ -173,16 +173,16 @@ export default function Index() {
                       placeholder="Telusuri koleksi buku, jurnal, dan sumber daya..."
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      className="pl-12 py-3 text-base rounded-xl border-2 border-gray-200 focus:border-stis-blue"
+                      className="w-full pl-12 py-3 text-base rounded-xl border-2 border-gray-200 focus:border-stis-blue"
                     />
                   </div>
                 </div>
 
                 {/* Search Button */}
-                <div className="flex gap-4 w-full lg:w-auto">
+                <div className="sm:w-auto w-full">
                   <Button
                     variant="outline"
-                    className="border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white"
+                    className="w-full sm:w-auto border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white px-6 py-3"
                   >
                     <Search className="w-4 h-4 mr-2" />
                     Cari
