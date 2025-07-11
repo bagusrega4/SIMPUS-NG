@@ -702,7 +702,7 @@ export default function Books() {
                           </div>
 
                           {/* Action Buttons */}
-                          <div className="flex flex-col gap-2 lg:w-32">
+                          <div className="flex flex-row sm:flex-col gap-2 w-full sm:w-auto lg:w-32">
                             <Button
                               size="sm"
                               className="bg-blue-600 hover:bg-blue-700"
