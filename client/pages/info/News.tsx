@@ -371,6 +371,14 @@ export default function News() {
                     <SelectItem value="populer">Populer</SelectItem>
                   </SelectContent>
                 </Select>
+
+                <Button
+                  variant="outline"
+                  className="border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white"
+                >
+                  <Search className="w-4 h-4 mr-2" />
+                  Cari
+                </Button>
               </div>
             </div>
           </div>
