@@ -231,19 +231,19 @@ export default function Index() {
       </section>
 
       {/* Services Section */}
-      <section className="py-20 bg-stis-gray-light">
+      <section className="py-12 sm:py-20 bg-stis-gray-light">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h3 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+          <div className="text-center mb-12 sm:mb-16">
+            <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               Fasilitas & Layanan
             </h3>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto px-4">
               Perpustakaan Polstat STIS menyediakan berbagai layanan dan
               fasilitas modern untuk mendukung kegiatan akademik Anda
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {services.map((service, index) => {
               const IconComponent = service.icon;
               return (
