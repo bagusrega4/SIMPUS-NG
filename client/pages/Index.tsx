@@ -218,7 +218,7 @@ export default function Index() {
                     <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                     <Input
                       type="text"
-                      placeholder="Cari halaman, layanan, koleksi, informasi di seluruh website..."
+                      placeholder="Cari koleksi buku, jurnal, e-book, berita, pengumuman, layanan..."
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
                       onKeyPress={handleSearchKeyPress}
@@ -307,16 +307,16 @@ export default function Index() {
             {services.map((service, index) => {
               const IconComponent = service.icon;
               return (
-                <Link key={index} to={service.href}>
-                  <Card className="group hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border-0 shadow-md cursor-pointer">
-                    <CardContent className="p-8 text-center">
+                <Link key={index} to={service.href} className="h-full">
+                  <Card className="group hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border-0 shadow-md cursor-pointer h-full">
+                    <CardContent className="p-8 text-center h-full flex flex-col">
                       <div className="w-16 h-16 bg-emerald-600/10 rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:bg-emerald-600/20 transition-colors">
                         <IconComponent className="w-8 h-8 text-stis-blue" />
                       </div>
                       <h4 className="text-xl font-semibold text-gray-900 mb-3 group-hover:text-stis-blue transition-colors">
                         {service.title}
                       </h4>
-                      <p className="text-gray-600 leading-relaxed">
+                      <p className="text-gray-600 leading-relaxed flex-grow">
                         {service.description}
                       </p>
                     </CardContent>
@@ -550,23 +550,6 @@ export default function Index() {
                   <span>PoliteknikStatistikaSTIS</span>
                 </a>
               </div>
-            </div>
-          </div>
-
-          {/* Map Section */}
-          <div className="mt-12 border-t border-white/20 pt-8">
-            <h5 className="text-lg font-semibold mb-6">Lokasi Polstat STIS</h5>
-            <div className="bg-white/10 rounded-lg p-4 mb-6">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.6665373493647!2d106.87052607502927!3d-6.194444394338147!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5390917b759%3A0x6b45e67356080477!2sPoliteknik%20Statistika%20STIS!5e0!3m2!1sid!2sid!4v1704067200000!5m2!1sid!2sid"
-                width="100%"
-                height="200"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                className="rounded-lg"
-              ></iframe>
             </div>
           </div>
 
