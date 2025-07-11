@@ -120,7 +120,7 @@
     @apply bg-background text-foreground;
   }
 
-    /* Red asterisk for required fields */
+  /* Red asterisk for required fields */
   .required-asterisk::after {
     content: " *";
     color: #dc2626; /* red-600 */
@@ -140,7 +140,8 @@
   }
 
   /* Fix overflow issues */
-  html, body {
+  html,
+  body {
     overflow-x: hidden;
     max-width: 100vw;
   }
@@ -185,7 +186,7 @@
     }
   }
 
-    /* Fix button responsiveness */
+  /* Fix button responsiveness */
   @media (max-width: 640px) {
     .flex-1.w-full.lg\\:w-auto {
       width: 100%;
@@ -235,5 +236,4 @@
   .overflow-x-hidden {
     overflow-x: hidden;
   }
-}
 }
