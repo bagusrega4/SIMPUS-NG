@@ -605,7 +605,8 @@ export default function Books() {
           <div className="max-w-6xl mx-auto">
             <div className="flex items-center justify-between mb-8">
               <h2 className="text-2xl font-bold text-gray-900">
-                Hasil Pencarian ({filteredBooks.length} buku)
+                Hasil Pencarian ({filteredBooks.length} buku) - Halaman{" "}
+                {currentPage} dari {totalPages}
               </h2>
               <Select defaultValue="terbaru">
                 <SelectTrigger className="w-48">
