@@ -1,7 +1,6 @@
 import { useState } from "react";
 import {
   MapPin,
-  Maximize2,
   BookOpen,
   Monitor,
   Users,
@@ -214,14 +213,6 @@ export default function Map() {
                         <h3 className="text-xl font-bold text-gray-900">
                           Denah Perpustakaan STIS
                         </h3>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          className="border-stis-blue text-stis-blue hover:bg-stis-blue hover:text-white"
-                        >
-                          <Maximize2 className="w-4 h-4 mr-2" />
-                          Perbesar
-                        </Button>
                       </div>
                     </div>
 
@@ -238,10 +229,10 @@ export default function Map() {
                             return (
                               <div
                                 key={facility.id}
-                                className={`absolute w-8 h-8 ${getFacilityColor(facility.type)} rounded-lg cursor-pointer transform -translate-x-1/2 -translate-y-1/2 hover:scale-110 transition-all flex items-center justify-center ${
+                                className={`absolute w-8 h-8 ${getFacilityColor(facility.type)} rounded-lg cursor-pointer transform -translate-x-1/2 -translate-y-1/2 hover:scale-110 hover:shadow-lg transition-all duration-200 flex items-center justify-center shadow-md ${
                                   selectedFacility === facility.id
-                                    ? "ring-4 ring-white ring-opacity-70 scale-110 z-10"
-                                    : ""
+                                    ? "ring-4 ring-stis-blue ring-opacity-50 scale-110 z-10 shadow-xl"
+                                    : "hover:ring-2 hover:ring-stis-blue hover:ring-opacity-30"
                                 }`}
                                 style={{
                                   left: `${facility.position.x}%`,

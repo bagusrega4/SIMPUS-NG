@@ -194,59 +194,6 @@ export default function News() {
         </div>
       </div>
 
-      {/* Search & Filter */}
-      <section className="py-8 bg-white border-b border-gray-200">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-6xl mx-auto">
-            <div className="flex flex-col lg:flex-row gap-6 items-center">
-              <div className="flex-1 w-full lg:w-auto">
-                <div className="relative">
-                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                  <Input
-                    type="text"
-                    placeholder="Cari berita, pengumuman, atau topik..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-12 py-3 text-base rounded-xl border-2 border-gray-200 focus:border-stis-blue"
-                  />
-                </div>
-              </div>
-
-              <div className="flex gap-4 w-full lg:w-auto">
-                <Select
-                  value={selectedCategory}
-                  onValueChange={setSelectedCategory}
-                >
-                  <SelectTrigger className="w-48">
-                    <SelectValue placeholder="Kategori" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {categories.map((category) => (
-                      <SelectItem key={category.id} value={category.id}>
-                        {category.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-
-                <Select value={selectedYear} onValueChange={setSelectedYear}>
-                  <SelectTrigger className="w-32">
-                    <SelectValue placeholder="Tahun" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {years.map((year) => (
-                      <SelectItem key={year} value={year}>
-                        {year === "semua" ? "Semua" : year}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Featured News */}
       <section className="py-16 bg-stis-gray-light">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -306,7 +253,10 @@ export default function News() {
                         <span>{featuredNews.views} views</span>
                       </div>
                     </div>
-                    <Button className="bg-stis-blue hover:bg-stis-blue-dark">
+                    <Button
+                      className="bg-stis-blue hover:bg-stis-blue-dark"
+                      onClick={() => navigate(`/info/news/${featuredNews.id}`)}
+                    >
                       Baca Selengkapnya
                       <ArrowRight className="w-4 h-4 ml-2" />
                     </Button>
@@ -314,6 +264,67 @@ export default function News() {
                 </div>
               </div>
             </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Search & Filter */}
+      <section className="py-8 bg-white border-b border-gray-200">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-6xl mx-auto">
+            <div className="flex flex-col lg:flex-row gap-6 items-center">
+              <div className="flex-1 w-full lg:w-auto">
+                <div className="relative">
+                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                  <Input
+                    type="text"
+                    placeholder="Cari berita, pengumuman, atau topik..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="pl-12 py-3 text-base rounded-xl border-2 border-gray-200 focus:border-stis-blue"
+                  />
+                </div>
+              </div>
+
+              <div className="flex gap-4 w-full lg:w-auto">
+                <Select
+                  value={selectedCategory}
+                  onValueChange={setSelectedCategory}
+                >
+                  <SelectTrigger className="w-48 focus:ring-stis-blue">
+                    <SelectValue placeholder="Kategori" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {categories.map((category) => (
+                      <SelectItem
+                        key={category.id}
+                        value={category.id}
+                        className="focus:bg-stis-blue/10 focus:text-stis-blue data-[highlighted]:bg-stis-blue/10 data-[highlighted]:text-stis-blue"
+                      >
+                        {category.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+
+                <Select value={selectedYear} onValueChange={setSelectedYear}>
+                  <SelectTrigger className="w-32 focus:ring-stis-blue">
+                    <SelectValue placeholder="Tahun" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {years.map((year) => (
+                      <SelectItem
+                        key={year}
+                        value={year}
+                        className="focus:bg-stis-blue/10 focus:text-stis-blue data-[highlighted]:bg-stis-blue/10 data-[highlighted]:text-stis-blue"
+                      >
+                        {year === "semua" ? "Semua" : year}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -389,6 +400,7 @@ export default function News() {
                             size="sm"
                             variant="outline"
                             className="w-full border-stis-blue text-stis-blue hover:bg-stis-blue hover:text-white group-hover:shadow-md"
+                            onClick={() => navigate(`/info/news/${item.id}`)}
                           >
                             Baca Selengkapnya
                             <ArrowRight className="w-3 h-3 ml-2" />

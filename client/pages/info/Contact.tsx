@@ -10,14 +10,12 @@ import {
   Instagram,
   Twitter,
   Youtube,
-  Globe,
   BookOpen,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import {
   Select,
   SelectContent,
@@ -25,6 +23,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { toast } from "@/hooks/use-toast";
 import Navigation from "@/components/Navigation";
 import HelpPopup from "@/components/HelpPopup";
 
@@ -109,30 +108,6 @@ export default function Contact() {
     },
   ];
 
-  const socialMedia = [
-    {
-      name: "Instagram",
-      icon: Instagram,
-      handle: "@perpustakaan_stis",
-      url: "https://instagram.com/perpustakaan_stis",
-      color: "text-pink-600",
-    },
-    {
-      name: "Twitter",
-      icon: Twitter,
-      handle: "@PerpusSTIS",
-      url: "https://twitter.com/PerpusSTIS",
-      color: "text-blue-400",
-    },
-    {
-      name: "YouTube",
-      icon: Youtube,
-      handle: "Perpustakaan STIS",
-      url: "https://youtube.com/@perpustakaanstis",
-      color: "text-red-600",
-    },
-  ];
-
   const categories = [
     "Pertanyaan Umum",
     "Layanan Sirkulasi",
@@ -153,6 +128,15 @@ export default function Contact() {
     e.preventDefault();
     // Handle form submission
     console.log("Form submitted:", formData);
+
+    // Show success popup
+    toast({
+      title: "Pesan Berhasil Dikirim!",
+      description:
+        "Tim kami akan segera merespons pesan Anda dalam 1x24 jam pada hari kerja.",
+      duration: 5000,
+    });
+
     // Reset form
     setFormData({
       name: "",
@@ -373,50 +357,6 @@ export default function Contact() {
                   ))}
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Social Media */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Ikuti Media Sosial Kami
-            </h2>
-            <p className="text-lg text-gray-600 mb-12">
-              Dapatkan update terbaru tentang layanan dan kegiatan perpustakaan
-            </p>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {socialMedia.map((social, index) => {
-                const IconComponent = social.icon;
-                return (
-                  <Card
-                    key={index}
-                    className="border-0 shadow-lg hover:shadow-xl transition-shadow group cursor-pointer"
-                  >
-                    <CardContent className="p-8 text-center">
-                      <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-gray-200 transition-colors">
-                        <IconComponent className={`w-8 h-8 ${social.color}`} />
-                      </div>
-                      <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                        {social.name}
-                      </h3>
-                      <p className="text-gray-600 mb-4">{social.handle}</p>
-                      <Button
-                        variant="outline"
-                        className="border-stis-blue text-stis-blue hover:bg-stis-blue hover:text-white"
-                        onClick={() => window.open(social.url, "_blank")}
-                      >
-                        <Globe className="w-4 h-4 mr-2" />
-                        Kunjungi
-                      </Button>
-                    </CardContent>
-                  </Card>
-                );
-              })}
             </div>
           </div>
         </div>

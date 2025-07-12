@@ -24,6 +24,7 @@ import Rules from "./pages/info/Rules";
 import Map from "./pages/info/Map";
 import FAQ from "./pages/info/FAQ";
 import News from "./pages/info/News";
+import NewsDetail from "./pages/info/NewsDetail";
 import Contact from "./pages/info/Contact";
 import Login from "./pages/Login";
 import UserProfile from "./pages/Profile";
@@ -65,6 +66,7 @@ const App = () => (
               <Route path="/info/map" element={<Map />} />
               <Route path="/info/faq" element={<FAQ />} />
               <Route path="/info/news" element={<News />} />
+              <Route path="/info/news/:id" element={<NewsDetail />} />
               <Route path="/info/contact" element={<Contact />} />
               <Route path="/login" element={<Login />} />
               <Route path="/profile" element={<UserProfile />} />
