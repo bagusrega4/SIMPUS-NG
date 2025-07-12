@@ -97,6 +97,8 @@ export default function BorrowingHistory() {
   const currentBorrowingsPerPage = 5;
   const [selectedBook, setSelectedBook] = useState<any>(null);
   const [showDetailModal, setShowDetailModal] = useState(false);
+  const [showQRISModal, setShowQRISModal] = useState(false);
+  const [paymentAmount, setPaymentAmount] = useState(0);
 
   const borrowingStats = [
     {
@@ -612,6 +614,11 @@ export default function BorrowingHistory() {
     });
   };
 
+  const handlePayment = (fine: number) => {
+    setPaymentAmount(fine);
+    setShowQRISModal(true);
+  };
+
   const filteredHistory = borrowingHistory.filter((item) => {
     const matchesSearch =
       item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -904,7 +911,11 @@ export default function BorrowingHistory() {
                                     Perpanjang
                                   </Button>
                                   {book.fine && (
-                                    <Button size="sm" variant="destructive">
+                                    <Button
+                                      size="sm"
+                                      variant="destructive"
+                                      onClick={() => handlePayment(book.fine)}
+                                    >
                                       Bayar Denda
                                     </Button>
                                   )}
@@ -1584,8 +1595,76 @@ export default function BorrowingHistory() {
                     </Button>
                   )}
                 {selectedBook.fine && (
-                  <Button variant="destructive">Bayar Denda</Button>
+                  <Button
+                    variant="destructive"
+                    onClick={() => handlePayment(selectedBook.fine)}
+                  >
+                    Bayar Denda
+                  </Button>
                 )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* QRIS Payment Modal */}
+      {showQRISModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg max-w-md w-full p-6">
+            <div className="text-center">
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                Pembayaran Denda
+              </h2>
+
+              <div className="bg-stis-blue-light rounded-lg p-4 mb-4">
+                <p className="text-lg font-semibold text-gray-900 mb-2">
+                  Jumlah yang harus dibayar:
+                </p>
+                <p className="text-2xl font-bold text-stis-blue">
+                  Rp {paymentAmount.toLocaleString()}
+                </p>
+              </div>
+
+              <div className="bg-white border-2 border-gray-200 rounded-lg p-4 mb-4">
+                <p className="text-sm text-gray-600 mb-3">
+                  Scan QRIS code untuk pembayaran:
+                </p>
+                {/* QRIS Code Placeholder */}
+                <div className="w-48 h-48 bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center mx-auto mb-3">
+                  <div className="text-center">
+                    <div className="text-6xl mb-2">📱</div>
+                    <p className="text-xs text-gray-500">QRIS Code</p>
+                  </div>
+                </div>
+                <p className="text-xs text-gray-500">
+                  Gunakan aplikasi mobile banking atau e-wallet Anda
+                </p>
+              </div>
+
+              <div className="space-y-2 text-sm text-gray-600 mb-6">
+                <p>• Pembayaran akan diverifikasi otomatis</p>
+                <p>• Notifikasi akan dikirim setelah pembayaran berhasil</p>
+                <p>• Simpan screenshot sebagai bukti pembayaran</p>
+              </div>
+
+              <div className="flex gap-3">
+                <Button
+                  variant="outline"
+                  onClick={() => setShowQRISModal(false)}
+                  className="flex-1"
+                >
+                  Tutup
+                </Button>
+                <Button
+                  onClick={() => {
+                    setShowQRISModal(false);
+                    alert("Pembayaran berhasil! Denda telah dibayar.");
+                  }}
+                  className="flex-1 bg-stis-blue hover:bg-stis-blue-dark"
+                >
+                  Konfirmasi Pembayaran
+                </Button>
               </div>
             </div>
           </div>

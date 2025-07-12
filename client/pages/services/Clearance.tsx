@@ -648,7 +648,7 @@ export default function Clearance() {
                             <Button
                               variant="outline"
                               size="sm"
-                              className="border-gray-300"
+                              className="border-gray-300 hover:bg-stis-blue hover:text-white hover:border-stis-blue"
                             >
                               <Printer className="w-4 h-4" />
                             </Button>

@@ -455,18 +455,30 @@ export default function Digital() {
                     </h3>
                     <div className="flex gap-2">
                       <Select defaultValue="terbaru">
-                        <SelectTrigger className="w-48">
+                        <SelectTrigger className="w-48 focus:ring-stis-blue">
                           <SelectValue placeholder="Urutkan" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="terbaru">Terbaru</SelectItem>
-                          <SelectItem value="populer">
+                          <SelectItem
+                            className="focus:bg-stis-blue/10 focus:text-stis-blue data-[highlighted]:bg-stis-blue/10 data-[highlighted]:text-stis-blue"
+                            value="terbaru"
+                          >
+                            Terbaru
+                          </SelectItem>
+                          <SelectItem
+                            className="focus:bg-stis-blue/10 focus:text-stis-blue data-[highlighted]:bg-stis-blue/10 data-[highlighted]:text-stis-blue"
+                            value="populer"
+                          >
                             Paling Populer
                           </SelectItem>
-                          <SelectItem value="rating">
+                          <SelectItem
+                            className="focus:bg-stis-blue/10 focus:text-stis-blue data-[highlighted]:bg-stis-blue/10 data-[highlighted]:text-stis-blue"
+                            value="rating"
+                          >
                             Rating Tertinggi
                           </SelectItem>
-                          <SelectItem value="judul">Judul A-Z</SelectItem>
+                          {/* <SelectItem
+                            className="focus:bg-stis-blue/10 focus:text-stis-blue data-[highlighted]:bg-stis-blue/10 data-[highlighted]:text-stis-blue" value="judul">Judul A-Z</SelectItem> */}
                         </SelectContent>
                       </Select>
                     </div>
@@ -591,16 +603,30 @@ export default function Digital() {
                     </h3>
                     <div className="flex gap-2">
                       <Select defaultValue="terbaru">
-                        <SelectTrigger className="w-48">
+                        <SelectTrigger className="w-48 focus:ring-stis-blue">
                           <SelectValue placeholder="Urutkan" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="terbaru">Terbaru</SelectItem>
-                          <SelectItem value="populer">
+                          <SelectItem
+                            className="focus:bg-stis-blue/10 focus:text-stis-blue data-[highlighted]:bg-stis-blue/10 data-[highlighted]:text-stis-blue"
+                            value="terbaru"
+                          >
+                            Terbaru
+                          </SelectItem>
+                          <SelectItem
+                            className="focus:bg-stis-blue/10 focus:text-stis-blue data-[highlighted]:bg-stis-blue/10 data-[highlighted]:text-stis-blue"
+                            value="populer"
+                          >
                             Paling Populer
                           </SelectItem>
-                          <SelectItem value="impact">Impact Factor</SelectItem>
-                          <SelectItem value="judul">Judul A-Z</SelectItem>
+                          <SelectItem
+                            className="focus:bg-stis-blue/10 focus:text-stis-blue data-[highlighted]:bg-stis-blue/10 data-[highlighted]:text-stis-blue"
+                            value="rating"
+                          >
+                            Rating Tertinggi
+                          </SelectItem>
+                          {/* <SelectItem
+                            className="focus:bg-stis-blue/10 focus:text-stis-blue data-[highlighted]:bg-stis-blue/10 data-[highlighted]:text-stis-blue" value="judul">Judul A-Z</SelectItem> */}
                         </SelectContent>
                       </Select>
                     </div>
