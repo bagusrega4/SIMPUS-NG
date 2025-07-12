@@ -310,9 +310,9 @@ export default function Structure() {
                     <h3 className="text-lg font-semibold text-gray-900 mb-1">
                       {member.name}
                     </h3>
-                    <Badge variant="outline" className="mb-3 text-xs">
+                    <p className="text-gray-600 mb-3 text-center">
                       {member.position}
-                    </Badge>
+                    </p>
                     <div className="space-y-2 text-sm text-gray-600 flex-grow">
                       <p>
                         <strong>Spesialisasi:</strong>

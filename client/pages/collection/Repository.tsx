@@ -31,6 +31,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import Navigation from "@/components/Navigation";
 import HelpPopup from "@/components/HelpPopup";
 
@@ -53,9 +59,9 @@ export default function Repository() {
     },
   ];
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("semua");
   const [selectedYear, setSelectedYear] = useState("semua");
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedItem, setSelectedItem] = useState<any>(null);
   const itemsPerPage = 5;
 
   const repositoryStats = [
@@ -65,37 +71,9 @@ export default function Repository() {
     { type: "Karya Ilmiah Dosen", count: 300, icon: Award },
   ];
 
-  const categories = [
-    { id: "semua", label: "Semua Kategori", count: 5257 },
-    { id: "tugas-akhir", label: "Tugas Akhir D4", count: 3456 },
-    { id: "penelitian-dosen", label: "Penelitian Dosen", count: 890 },
-    { id: "publikasi-jurnal", label: "Publikasi Jurnal", count: 567 },
-    { id: "prosiding", label: "Prosiding Seminar", count: 234 },
-    { id: "laporan-penelitian", label: "Laporan Penelitian", count: 110 },
-  ];
-
   const theses = [
     {
       id: 1,
-      title: "Analisis Regresi Berganda untuk Prediksi Inflasi Indonesia",
-      author: "Andi Pratama",
-      nim: "16.8888.1111",
-      supervisor: "Dr. Bambang Hermanto, M.Si",
-      department: "D-IV Statistika",
-      year: 2023,
-      pages: 125,
-      file_size: "2.4 MB",
-      downloads: 234,
-      views: 1567,
-      rating: 4.8,
-      keywords: ["regresi", "inflasi", "ekonomi", "prediksi"],
-      abstract:
-        "Penelitian ini menganalisis faktor-faktor yang mempengaruhi inflasi di Indonesia menggunakan metode regresi berganda...",
-      type: "tugas_akhir",
-      access: "open",
-    },
-    {
-      id: 2,
       title:
         "Implementasi Machine Learning dalam Analisis Sentimen Media Sosial",
       author: "Sari Dewi",
@@ -115,7 +93,7 @@ export default function Repository() {
       access: "open",
     },
     {
-      id: 3,
+      id: 2,
       title: "Penerapan Metode Sampling Sistematis pada Survei Rumah Tangga",
       author: "Budi Santoso",
       nim: "16.8888.3333",
@@ -134,7 +112,7 @@ export default function Repository() {
       access: "open",
     },
     {
-      id: 4,
+      id: 3,
       title: "Analisis Survival untuk Data Kesehatan Masyarakat",
       author: "Fitri Handayani",
       nim: "16.8888.4444",
@@ -158,7 +136,7 @@ export default function Repository() {
       access: "open",
     },
     {
-      id: 5,
+      id: 4,
       title: "Implementasi Algoritma Clustering untuk Segmentasi Pelanggan",
       author: "Rudi Hartono",
       nim: "16.8888.5555",
@@ -177,7 +155,7 @@ export default function Repository() {
       access: "open",
     },
     {
-      id: 6,
+      id: 5,
       title: "Analisis Time Series untuk Peramalan Harga Komoditas",
       author: "Lina Kusuma",
       nim: "16.8888.6666",
@@ -196,7 +174,7 @@ export default function Repository() {
       access: "open",
     },
     {
-      id: 7,
+      id: 6,
       title: "Penerapan Deep Learning untuk Klasifikasi Citra Medis",
       author: "Ahmad Fauzi",
       nim: "16.8888.7777",
@@ -215,7 +193,7 @@ export default function Repository() {
       access: "open",
     },
     {
-      id: 8,
+      id: 7,
       title: "Analisis Regresi Logistik untuk Prediksi Kredit Macet",
       author: "Dewi Sartika",
       nim: "16.8888.8888",
@@ -234,7 +212,7 @@ export default function Repository() {
       access: "restricted",
     },
     {
-      id: 9,
+      id: 8,
       title: "Implementasi Natural Language Processing untuk Chatbot",
       author: "Rizki Pratama",
       nim: "16.8888.9999",
@@ -253,7 +231,7 @@ export default function Repository() {
       access: "open",
     },
     {
-      id: 10,
+      id: 9,
       title: "Analisis Jaringan Sosial untuk Studi Penyebaran Informasi",
       author: "Maya Indrawati",
       nim: "16.8888.1010",
@@ -440,30 +418,22 @@ export default function Repository() {
     },
   ];
 
-  // Filter items based on search and filters
+  // Combine all items
   const allItems = [...theses, ...publications];
+
+  // Filter items based on search and year (like Books component)
   const filteredItems = allItems.filter((item) => {
     const matchesSearch =
       item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.author.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.keywords.some((keyword) =>
-        keyword.toLowerCase().includes(searchQuery.toLowerCase()),
-      ) ||
-      (item.abstract &&
-        item.abstract.toLowerCase().includes(searchQuery.toLowerCase()));
-
-    const matchesCategory =
-      selectedCategory === "semua" ||
-      (selectedCategory === "tugas-akhir" && item.type === "tugas_akhir") ||
-      (selectedCategory === "publikasi-jurnal" && item.type === "publikasi");
+      item.author.toLowerCase().includes(searchQuery.toLowerCase());
 
     const matchesYear =
       selectedYear === "semua" || item.year.toString() === selectedYear;
 
-    return matchesSearch && matchesCategory && matchesYear;
+    return matchesSearch && matchesYear;
   });
 
-  // Pagination calculations
+  // Pagination calculations (like Books component)
   const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
@@ -549,26 +519,6 @@ export default function Repository() {
                   />
                 </div>
               </div>
-
-              <div className="flex gap-4 w-full lg:w-auto">
-                <Select
-                  value={selectedYear}
-                  onValueChange={(value) => {
-                    setSelectedYear(value);
-                    setCurrentPage(1);
-                  }}
-                >
-                  <SelectTrigger className="w-48">
-                    <SelectValue placeholder="Tahun" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="semua">Semua Tahun</SelectItem>
-                    <SelectItem value="2023">2023</SelectItem>
-                    <SelectItem value="2022">2022</SelectItem>
-                    <SelectItem value="2021">2021</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
             </div>
           </div>
         </div>
@@ -584,24 +534,11 @@ export default function Repository() {
                   Repository Items ({filteredItems.length} items) - Halaman{" "}
                   {currentPage} dari {totalPages}
                 </h3>
-                <Select defaultValue="terbaru">
-                  <SelectTrigger className="w-48">
-                    <SelectValue placeholder="Urutkan" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="terbaru">Terbaru</SelectItem>
-                    <SelectItem value="judul">Judul A-Z</SelectItem>
-                    <SelectItem value="penulis">Penulis A-Z</SelectItem>
-                    <SelectItem value="downloads">
-                      Paling Banyak Diunduh
-                    </SelectItem>
-                  </SelectContent>
-                </Select>
               </div>
               <div className="space-y-6">
-                {theses.map((thesis) => (
+                {currentItems.map((item) => (
                   <Card
-                    key={thesis.id}
+                    key={item.id}
                     className="border-0 shadow-lg hover:shadow-xl transition-shadow"
                   >
                     <CardContent className="p-6">
@@ -615,49 +552,74 @@ export default function Repository() {
                             <div className="flex-1">
                               <div className="flex items-center gap-2 mb-2">
                                 <Badge variant="secondary" className="text-xs">
-                                  {thesis.department}
+                                  {item.type === "tugas_akhir"
+                                    ? (item as any).department || "Tugas Akhir"
+                                    : (item as any).journal || "Publikasi"}
                                 </Badge>
                                 <Badge variant="outline" className="text-xs">
-                                  {thesis.year}
+                                  {item.year}
                                 </Badge>
                               </div>
 
                               <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                                {thesis.title}
+                                {item.title}
                               </h3>
 
                               <div className="space-y-2 text-sm text-gray-600 mb-4">
                                 <div className="flex items-center gap-2">
                                   <User className="w-4 h-4" />
                                   <span>
-                                    {thesis.author} ({thesis.nim})
+                                    {item.author}{" "}
+                                    {(item as any).nim &&
+                                      `(${(item as any).nim})`}
                                   </span>
                                 </div>
-                                <div className="flex items-center gap-2">
-                                  <GraduationCap className="w-4 h-4" />
-                                  <span>Pembimbing: {thesis.supervisor}</span>
-                                </div>
+                                {(item as any).supervisor && (
+                                  <div className="flex items-center gap-2">
+                                    <GraduationCap className="w-4 h-4" />
+                                    <span>
+                                      Pembimbing: {(item as any).supervisor}
+                                    </span>
+                                  </div>
+                                )}
+                                {(item as any).journal && (
+                                  <div className="flex items-center gap-2">
+                                    <BookOpen className="w-4 h-4" />
+                                    <span>
+                                      {(item as any).journal}{" "}
+                                      {(item as any).volume}
+                                    </span>
+                                  </div>
+                                )}
+                                {(item as any).doi && (
+                                  <div className="flex items-center gap-2">
+                                    <FileText className="w-4 h-4" />
+                                    <span>DOI: {(item as any).doi}</span>
+                                  </div>
+                                )}
                               </div>
 
                               <p className="text-gray-600 text-sm leading-relaxed mb-4">
-                                {thesis.abstract}
+                                {item.abstract}
                               </p>
 
                               <div className="flex items-center gap-4 text-xs text-gray-500">
                                 <div className="flex items-center gap-1">
                                   <Star className="w-3 h-3 text-yellow-400 fill-current" />
-                                  <span>{thesis.rating}</span>
+                                  <span>{item.rating}</span>
                                 </div>
                                 <div className="flex items-center gap-1">
                                   <Eye className="w-3 h-3" />
-                                  <span>{thesis.views} views</span>
+                                  <span>{item.views} views</span>
                                 </div>
                                 <div className="flex items-center gap-1">
                                   <Download className="w-3 h-3" />
-                                  <span>{thesis.downloads} downloads</span>
+                                  <span>{item.downloads} downloads</span>
                                 </div>
                                 <span>
-                                  {thesis.pages} halaman • {thesis.file_size}
+                                  {item.pages ? `${item.pages} halaman` : ""}{" "}
+                                  {(item as any).file_size &&
+                                    `�� ${(item as any).file_size}`}
                                 </span>
                               </div>
                             </div>
@@ -666,9 +628,10 @@ export default function Repository() {
                               <Button
                                 size="sm"
                                 className="bg-stis-blue hover:bg-stis-blue-dark"
+                                onClick={() => setSelectedItem(item)}
                               >
                                 <Eye className="w-4 h-4 mr-2" />
-                                Lihat
+                                Detail
                               </Button>
                               <Button
                                 size="sm"
@@ -820,6 +783,185 @@ export default function Repository() {
           </div>
         </div>
       </footer>
+
+      {/* Detail Dialog */}
+      {selectedItem && (
+        <Dialog
+          open={!!selectedItem}
+          onOpenChange={() => setSelectedItem(null)}
+        >
+          <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle className="text-xl font-bold">
+                {selectedItem.title}
+              </DialogTitle>
+            </DialogHeader>
+            <div className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="md:col-span-1">
+                  <div className="aspect-[3/4] bg-gradient-to-br from-stis-blue-light to-stis-gray-light rounded-lg flex items-center justify-center">
+                    <FileText className="w-16 h-16 text-stis-blue/40" />
+                  </div>
+                </div>
+                <div className="md:col-span-2 space-y-4">
+                  <div>
+                    <h3 className="font-semibold text-gray-900 mb-3">
+                      Informasi{" "}
+                      {selectedItem.type === "tugas_akhir"
+                        ? "Tugas Akhir"
+                        : "Publikasi"}
+                    </h3>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Penulis:</span>
+                        <span className="font-medium">
+                          {selectedItem.author}
+                        </span>
+                      </div>
+                      {(selectedItem as any).nim && (
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">NIM:</span>
+                          <span className="font-medium">
+                            {(selectedItem as any).nim}
+                          </span>
+                        </div>
+                      )}
+                      {(selectedItem as any).supervisor && (
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">Pembimbing:</span>
+                          <span className="font-medium">
+                            {(selectedItem as any).supervisor}
+                          </span>
+                        </div>
+                      )}
+                      {(selectedItem as any).department && (
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">Program Studi:</span>
+                          <span className="font-medium">
+                            {(selectedItem as any).department}
+                          </span>
+                        </div>
+                      )}
+                      {(selectedItem as any).journal && (
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">Jurnal:</span>
+                          <span className="font-medium">
+                            {(selectedItem as any).journal}
+                          </span>
+                        </div>
+                      )}
+                      {(selectedItem as any).volume && (
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">Volume:</span>
+                          <span className="font-medium">
+                            {(selectedItem as any).volume}
+                          </span>
+                        </div>
+                      )}
+                      {(selectedItem as any).doi && (
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">DOI:</span>
+                          <span className="font-medium text-blue-600">
+                            {(selectedItem as any).doi}
+                          </span>
+                        </div>
+                      )}
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Tahun:</span>
+                        <span className="font-medium">{selectedItem.year}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Halaman:</span>
+                        <span className="font-medium">
+                          {selectedItem.pages} halaman
+                        </span>
+                      </div>
+                      {(selectedItem as any).file_size && (
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">Ukuran File:</span>
+                          <span className="font-medium">
+                            {(selectedItem as any).file_size}
+                          </span>
+                        </div>
+                      )}
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Rating:</span>
+                        <div className="flex items-center gap-1">
+                          <Star className="w-4 h-4 text-yellow-400 fill-current" />
+                          <span className="font-medium">
+                            {selectedItem.rating}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Views:</span>
+                        <span className="font-medium">
+                          {selectedItem.views.toLocaleString()}
+                        </span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Downloads:</span>
+                        <span className="font-medium">
+                          {selectedItem.downloads.toLocaleString()}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <h3 className="font-semibold text-gray-900 mb-2">
+                      Kata Kunci
+                    </h3>
+                    <div className="flex flex-wrap gap-2">
+                      {selectedItem.keywords.map(
+                        (keyword: string, index: number) => (
+                          <Badge
+                            key={index}
+                            variant="secondary"
+                            className="text-xs"
+                          >
+                            {keyword}
+                          </Badge>
+                        ),
+                      )}
+                    </div>
+                  </div>
+
+                  <div>
+                    <h3 className="font-semibold text-gray-900 mb-2">
+                      Abstrak
+                    </h3>
+                    <p className="text-sm text-gray-600 leading-relaxed">
+                      {selectedItem.abstract}
+                    </p>
+                  </div>
+
+                  <div className="flex gap-3 pt-4">
+                    <Button className="flex-1 bg-stis-blue hover:bg-stis-blue-dark">
+                      <Eye className="w-4 h-4 mr-2" />
+                      Baca Online
+                    </Button>
+                    <Button
+                      variant="outline"
+                      className="border-stis-blue text-stis-blue hover:bg-stis-blue hover:text-white"
+                    >
+                      <Download className="w-4 h-4 mr-2" />
+                      Unduh PDF
+                    </Button>
+                    <Button
+                      variant="outline"
+                      className="border-gray-300 text-gray-700 hover:bg-red-500 hover:text-white hover:border-red-500"
+                      onClick={() => setSelectedItem(null)}
+                    >
+                      Tutup
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
+      )}
 
       <HelpPopup pageHelp={helpItems} />
     </div>
