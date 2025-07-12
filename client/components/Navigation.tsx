@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { BookOpen, Menu, X, ChevronDown, User, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 
 interface DropdownItem {
@@ -168,6 +168,12 @@ export default function Navigation() {
     setActiveDropdown(activeDropdown === label ? null : label);
   };
 
+  const handleNavigation = (href: string) => {
+    navigate(href);
+    setActiveDropdown(null);
+    setIsMenuOpen(false);
+  };
+
   const handleAuthAction = () => {
     if (isAuthenticated) {
       logout();
@@ -195,17 +201,20 @@ export default function Navigation() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-16 relative">
           {/* Logo */}
-          <a href="/" className="flex items-center space-x-3">
+          <Link to="/" className="flex items-center space-x-3">
             <div className="w-10 h-10 bg-stis-blue rounded-lg flex items-center justify-center">
               <BookOpen className="w-6 h-6 text-white" />
             </div>
-            <div>
+            <div className="hidden sm:block">
               <h1 className="text-xl font-bold text-stis-blue">SIMPus</h1>
               <p className="text-xs text-gray-600">Polstat STIS</p>
             </div>
-          </a>
+            <div className="sm:hidden">
+              <h1 className="text-lg font-bold text-stis-blue">SIMPus</h1>
+            </div>
+          </Link>
 
           {/* Desktop Navigation */}
           <nav
@@ -231,8 +240,8 @@ export default function Navigation() {
                     />
                   </button>
                 ) : (
-                  <a
-                    href={item.href}
+                  <button
+                    onClick={() => handleNavigation(item.href!)}
                     className={`px-4 py-2 transition-colors font-medium rounded-lg hover:bg-gray-50 ${
                       isActiveRoute(item.href)
                         ? "text-stis-blue bg-stis-blue-light"
@@ -240,17 +249,17 @@ export default function Navigation() {
                     }`}
                   >
                     {item.label}
-                  </a>
+                  </button>
                 )}
 
                 {/* Dropdown Menu */}
                 {item.dropdown && activeDropdown === item.label && (
                   <div className="absolute top-full left-0 mt-2 w-80 bg-white rounded-xl shadow-lg border border-gray-200 py-2 z-50">
                     {item.dropdown.map((dropdownItem) => (
-                      <a
+                      <button
                         key={dropdownItem.label}
-                        href={dropdownItem.href}
-                        className="block px-4 py-3 hover:bg-gray-50 transition-colors"
+                        onClick={() => handleNavigation(dropdownItem.href)}
+                        className="w-full text-left block px-4 py-3 hover:bg-gray-50 transition-colors"
                       >
                         <div className="font-medium text-gray-900 mb-1">
                           {dropdownItem.label}
@@ -260,7 +269,7 @@ export default function Navigation() {
                             {dropdownItem.description}
                           </div>
                         )}
-                      </a>
+                      </button>
                     ))}
                   </div>
                 )}
@@ -323,7 +332,7 @@ export default function Navigation() {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="lg:hidden p-2 rounded-lg hover:bg-gray-100"
+              className="lg:hidden p-2 rounded-lg hover:bg-gray-100 z-50 relative"
               aria-label="Toggle menu"
             >
               {isMenuOpen ? (
@@ -337,8 +346,8 @@ export default function Navigation() {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="lg:hidden py-4 border-t border-gray-200">
-            <nav className="space-y-2">
+          <div className="lg:hidden py-4 border-t border-gray-200 bg-white/95 backdrop-blur-md">
+            <nav className="space-y-2 max-h-96 overflow-y-auto">
               {navItems.map((item) => (
                 <div key={item.label}>
                   {item.dropdown ? (
@@ -357,26 +366,32 @@ export default function Navigation() {
                       {activeDropdown === item.label && (
                         <div className="pl-4 mt-2 space-y-2">
                           {item.dropdown.map((dropdownItem) => (
-                            <a
+                            <Link
                               key={dropdownItem.label}
-                              href={dropdownItem.href}
-                              className="block px-4 py-2 text-sm text-gray-600 hover:text-stis-blue transition-colors rounded-lg hover:bg-gray-50"
-                              onClick={() => setIsMenuOpen(false)}
+                              to={dropdownItem.href}
+                              onClick={() => {
+                                setActiveDropdown(null);
+                                setIsMenuOpen(false);
+                              }}
+                              className="w-full text-left block px-4 py-2 text-sm text-gray-600 hover:text-stis-blue transition-colors rounded-lg hover:bg-gray-50"
                             >
                               {dropdownItem.label}
-                            </a>
+                            </Link>
                           ))}
                         </div>
                       )}
                     </div>
                   ) : (
-                    <a
-                      href={item.href}
-                      className="block px-4 py-3 text-gray-700 hover:text-stis-blue transition-colors font-medium rounded-lg hover:bg-gray-50"
-                      onClick={() => setIsMenuOpen(false)}
+                    <Link
+                      to={item.href!}
+                      onClick={() => {
+                        setActiveDropdown(null);
+                        setIsMenuOpen(false);
+                      }}
+                      className="w-full text-left block px-4 py-3 text-gray-700 hover:text-stis-blue transition-colors font-medium rounded-lg hover:bg-gray-50"
                     >
                       {item.label}
-                    </a>
+                    </Link>
                   )}
                 </div>
               ))}

@@ -99,6 +99,8 @@ export default function BorrowingHistory() {
   const [showDetailModal, setShowDetailModal] = useState(false);
   const [showQRISModal, setShowQRISModal] = useState(false);
   const [paymentAmount, setPaymentAmount] = useState(0);
+  const [showExtensionModal, setShowExtensionModal] = useState(false);
+  const [extensionBook, setExtensionBook] = useState<any>(null);
 
   const borrowingStats = [
     {
@@ -619,6 +621,11 @@ export default function BorrowingHistory() {
     setShowQRISModal(true);
   };
 
+  const handleExtendBook = (book: any) => {
+    setExtensionBook(book);
+    setShowExtensionModal(true);
+  };
+
   const filteredHistory = borrowingHistory.filter((item) => {
     const matchesSearch =
       item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -906,6 +913,7 @@ export default function BorrowingHistory() {
                                       !book.can_renew ||
                                       book.status === "Terlambat"
                                     }
+                                    onClick={() => handleExtendBook(book)}
                                   >
                                     <RotateCcw className="w-4 h-4 mr-2" />
                                     Perpanjang
@@ -1652,7 +1660,7 @@ export default function BorrowingHistory() {
                 <Button
                   variant="outline"
                   onClick={() => setShowQRISModal(false)}
-                  className="flex-1"
+                  className="flex-1 border-blue-600 text-blue-600 hover:bg-red-600 hover:text-white hover:border-red-600"
                 >
                   Tutup
                 </Button>
@@ -1666,6 +1674,129 @@ export default function BorrowingHistory() {
                   Konfirmasi Pembayaran
                 </Button>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Book Extension Modal */}
+      {showExtensionModal && extensionBook && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg max-w-lg w-full p-6">
+            <div className="mb-6">
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                Perpanjangan Peminjaman
+              </h2>
+              <p className="text-gray-600">
+                Ajukan perpanjangan peminjaman untuk buku berikut:
+              </p>
+            </div>
+
+            <div className="bg-stis-blue-light rounded-lg p-4 mb-6">
+              <h3 className="font-semibold text-gray-900 mb-2">
+                {extensionBook.title}
+              </h3>
+              <div className="space-y-1 text-sm text-gray-600">
+                <p>
+                  <strong>Penulis:</strong> {extensionBook.authors.join(", ")}
+                </p>
+                <p>
+                  <strong>Tanggal Pinjam:</strong>{" "}
+                  {formatDate(extensionBook.borrowed_date)}
+                </p>
+                <p>
+                  <strong>Jatuh Tempo Saat Ini:</strong>{" "}
+                  {formatDate(extensionBook.due_date)}
+                </p>
+                <p>
+                  <strong>Perpanjangan ke:</strong>{" "}
+                  {extensionBook.renewal_count + 1}/2
+                </p>
+              </div>
+            </div>
+
+            <div className="space-y-4 mb-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Alasan Perpanjangan <span className="text-red-500">*</span>
+                </label>
+                <select className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-stis-blue focus:border-stis-blue">
+                  <option value="">Pilih alasan perpanjangan</option>
+                  <option value="masih_digunakan">
+                    Masih membutuhkan buku untuk penelitian
+                  </option>
+                  <option value="belum_selesai">Belum selesai membaca</option>
+                  <option value="tugas_akhir">
+                    Diperlukan untuk tugas akhir/skripsi
+                  </option>
+                  <option value="referensi_tambahan">
+                    Memerlukan sebagai referensi tambahan
+                  </option>
+                  <option value="lainnya">Alasan lainnya</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Durasi Perpanjangan
+                </label>
+                <select className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-stis-blue focus:border-stis-blue">
+                  <option value="7">7 hari</option>
+                  <option value="14" selected>
+                    14 hari (standar)
+                  </option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Catatan Tambahan (Opsional)
+                </label>
+                <textarea
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-stis-blue focus:border-stis-blue"
+                  rows={3}
+                  placeholder="Berikan catatan tambahan jika diperlukan..."
+                ></textarea>
+              </div>
+            </div>
+
+            <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
+              <div className="flex items-start gap-3">
+                <AlertCircle className="w-5 h-5 text-yellow-600 mt-0.5" />
+                <div className="text-sm">
+                  <p className="font-medium text-yellow-800 mb-1">Perhatian:</p>
+                  <ul className="text-yellow-700 space-y-1">
+                    <li>• Perpanjangan maksimal 2 kali per buku</li>
+                    <li>• Perpanjangan tidak dapat dilakukan jika ada denda</li>
+                    <li>
+                      • Buku yang direservasi orang lain tidak dapat
+                      diperpanjang
+                    </li>
+                    <li>• Konfirmasi perpanjangan akan dikirim via email</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex gap-3">
+              <Button
+                variant="outline"
+                onClick={() => setShowExtensionModal(false)}
+                className="flex-1 border-blue-600 text-blue-600 hover:bg-red-600 hover:text-white hover:border-red-600"
+              >
+                Batal
+              </Button>
+              <Button
+                onClick={() => {
+                  setShowExtensionModal(false);
+                  alert(
+                    `Pengajuan perpanjangan untuk "${extensionBook.title}" berhasil dikirim! Konfirmasi akan dikirim via email.`,
+                  );
+                }}
+                className="flex-1 bg-stis-blue hover:bg-stis-blue-dark"
+              >
+                Ajukan Perpanjangan
+              </Button>
             </div>
           </div>
         </div>
