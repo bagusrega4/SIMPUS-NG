@@ -18,6 +18,7 @@ import {
   Instagram,
   Twitter,
   Youtube,
+  X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -85,6 +86,8 @@ export default function ReadingHistory() {
   const [selectedCategory, setSelectedCategory] = useState("semua");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
+  const [selectedBook, setSelectedBook] = useState<any>(null);
+  const [showDetailModal, setShowDetailModal] = useState(false);
 
   const readingStats = [
     {
@@ -831,6 +834,10 @@ export default function ReadingHistory() {
                                   <Button
                                     size="sm"
                                     className="bg-stis-blue hover:bg-stis-blue-dark"
+                                    onClick={() => {
+                                      setSelectedBook(book);
+                                      setShowDetailModal(true);
+                                    }}
                                   >
                                     <Eye className="w-4 h-4 mr-2" />
                                     Detail
@@ -1083,6 +1090,185 @@ export default function ReadingHistory() {
           </div>
         </div>
       </footer>
+
+      {/* Book Detail Modal */}
+      {showDetailModal && selectedBook && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-bold text-gray-900">
+                  Detail Buku
+                </h2>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setShowDetailModal(false)}
+                  className="hover:bg-gray-100"
+                >
+                  <X className="w-5 h-5" />
+                </Button>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                {/* Book Cover */}
+                <div className="w-full h-64 bg-gradient-to-br from-stis-blue-light to-stis-gray-light rounded-lg flex items-center justify-center relative">
+                  <BookOpen className="w-16 h-16 text-stis-blue/40" />
+                  {selectedBook.favorite && (
+                    <div className="absolute -top-2 -right-2 w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center">
+                      <Star className="w-4 h-4 text-white fill-current" />
+                    </div>
+                  )}
+                </div>
+
+                {/* Book Information */}
+                <div className="md:col-span-2 space-y-4">
+                  <div>
+                    <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                      {selectedBook.title}
+                    </h3>
+                    <p className="text-gray-600">
+                      oleh {selectedBook.authors.join(", ")}
+                    </p>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <h4 className="font-medium text-gray-900 mb-2">
+                        Informasi Umum
+                      </h4>
+                      <div className="space-y-2 text-sm">
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">Kategori:</span>
+                          <span className="font-medium">
+                            {selectedBook.category}
+                          </span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">Jenis:</span>
+                          <span className="font-medium">
+                            {selectedBook.type}
+                          </span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">Progress:</span>
+                          <span className="font-medium">
+                            {selectedBook.progress}%
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <h4 className="font-medium text-gray-900 mb-2">
+                        Detail Membaca
+                      </h4>
+                      <div className="space-y-2 text-sm">
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">Mulai Baca:</span>
+                          <span className="font-medium">
+                            {formatDate(selectedBook.started_date)}
+                          </span>
+                        </div>
+                        {selectedBook.finished_date && (
+                          <div className="flex justify-between">
+                            <span className="text-gray-600">Selesai:</span>
+                            <span className="font-medium">
+                              {formatDate(selectedBook.finished_date)}
+                            </span>
+                          </div>
+                        )}
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">Waktu Baca:</span>
+                          <span className="font-medium">
+                            {selectedBook.reading_time} jam
+                          </span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">Halaman:</span>
+                          <span className="font-medium">
+                            {selectedBook.pages_read}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Rating */}
+                  {selectedBook.rating && (
+                    <div>
+                      <h4 className="font-medium text-gray-900 mb-2">Rating</h4>
+                      <div className="flex items-center gap-2">
+                        <div className="flex">
+                          {[1, 2, 3, 4, 5].map((star) => (
+                            <Star
+                              key={star}
+                              className={`w-5 h-5 ${
+                                star <= selectedBook.rating
+                                  ? "text-yellow-400 fill-current"
+                                  : "text-gray-300"
+                              }`}
+                            />
+                          ))}
+                        </div>
+                        <span className="text-sm text-gray-600">
+                          {selectedBook.rating}/5 bintang
+                        </span>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Progress Bar */}
+                  <div>
+                    <h4 className="font-medium text-gray-900 mb-2">
+                      Progress Membaca
+                    </h4>
+                    <div className="w-full bg-gray-200 rounded-full h-3">
+                      <div
+                        className={`h-3 rounded-full transition-all duration-300 ${getProgressColor(selectedBook.progress)}`}
+                        style={{ width: `${selectedBook.progress}%` }}
+                      ></div>
+                    </div>
+                    <p className="text-sm text-gray-600 mt-1">
+                      {selectedBook.progress}% dari total buku
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Notes */}
+              {selectedBook.notes && (
+                <div className="mb-6">
+                  <h4 className="font-medium text-gray-900 mb-2">
+                    Catatan Pribadi
+                  </h4>
+                  <div className="bg-gray-50 rounded-lg p-4">
+                    <p className="text-gray-700 italic">
+                      "{selectedBook.notes}"
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {/* Action Buttons */}
+              <div className="flex gap-3 justify-end">
+                <Button
+                  variant="outline"
+                  onClick={() => setShowDetailModal(false)}
+                  className="border-gray-300 text-gray-700 hover:bg-gray-50"
+                >
+                  Tutup
+                </Button>
+                {selectedBook.progress < 100 && (
+                  <Button className="bg-stis-blue hover:bg-stis-blue-dark">
+                    Lanjut Baca
+                  </Button>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Help Popup */}
       <HelpPopup pageHelp={helpItems} />
