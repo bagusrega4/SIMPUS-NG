@@ -16,7 +16,6 @@ import {
   Instagram,
   Twitter,
   Youtube,
-  X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -721,16 +720,34 @@ export default function BorrowingHistory() {
                             setCurrentBorrowingsPage(1);
                           }}
                         >
-                          <SelectTrigger className="w-full lg:w-48">
+                          <SelectTrigger className="w-full lg:w-48 focus:ring-stis-blue">
                             <SelectValue placeholder="Status Pinjaman" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="semua">Semua Status</SelectItem>
-                            <SelectItem value="dipinjam">Dipinjam</SelectItem>
-                            <SelectItem value="segera-jatuh-tempo">
+                            <SelectItem
+                              className="focus:bg-stis-blue/10 focus:text-stis-blue data-[highlighted]:bg-stis-blue/10 data-[highlighted]:text-stis-blue"
+                              value="semua"
+                            >
+                              Semua Status
+                            </SelectItem>
+                            <SelectItem
+                              className="focus:bg-stis-blue/10 focus:text-stis-blue data-[highlighted]:bg-stis-blue/10 data-[highlighted]:text-stis-blue"
+                              value="dipinjam"
+                            >
+                              Dipinjam
+                            </SelectItem>
+                            <SelectItem
+                              className="focus:bg-stis-blue/10 focus:text-stis-blue data-[highlighted]:bg-stis-blue/10 data-[highlighted]:text-stis-blue"
+                              value="segera-jatuh-tempo"
+                            >
                               Segera Jatuh Tempo
                             </SelectItem>
-                            <SelectItem value="terlambat">Terlambat</SelectItem>
+                            <SelectItem
+                              className="focus:bg-stis-blue/10 focus:text-stis-blue data-[highlighted]:bg-stis-blue/10 data-[highlighted]:text-stis-blue"
+                              value="terlambat"
+                            >
+                              Terlambat
+                            </SelectItem>
                           </SelectContent>
                         </Select>
 
@@ -741,15 +758,26 @@ export default function BorrowingHistory() {
                             setCurrentBorrowingsPage(1);
                           }}
                         >
-                          <SelectTrigger className="w-full lg:w-40">
+                          <SelectTrigger className="w-full lg:w-40 focus:ring-stis-blue">
                             <SelectValue placeholder="Perpanjangan" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="semua">Semua</SelectItem>
-                            <SelectItem value="bisa-diperpanjang">
+                            <SelectItem
+                              className="focus:bg-stis-blue/10 focus:text-stis-blue data-[highlighted]:bg-stis-blue/10 data-[highlighted]:text-stis-blue"
+                              value="semua"
+                            >
+                              Semua
+                            </SelectItem>
+                            <SelectItem
+                              className="focus:bg-stis-blue/10 focus:text-stis-blue data-[highlighted]:bg-stis-blue/10 data-[highlighted]:text-stis-blue"
+                              value="bisa-diperpanjang"
+                            >
                               Bisa Diperpanjang
                             </SelectItem>
-                            <SelectItem value="tidak-bisa">
+                            <SelectItem
+                              className="focus:bg-stis-blue/10 focus:text-stis-blue data-[highlighted]:bg-stis-blue/10 data-[highlighted]:text-stis-blue"
+                              value="tidak-bisa"
+                            >
                               Tidak Bisa
                             </SelectItem>
                           </SelectContent>
@@ -989,15 +1017,28 @@ export default function BorrowingHistory() {
                             setCurrentPage(1);
                           }}
                         >
-                          <SelectTrigger className="w-full lg:w-48">
+                          <SelectTrigger className="w-full lg:w-48 focus:ring-stis-blue">
                             <SelectValue placeholder="Status Pengembalian" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="semua">Semua Status</SelectItem>
-                            <SelectItem value="tepat-waktu">
+                            <SelectItem
+                              className="focus:bg-stis-blue/10 focus:text-stis-blue data-[highlighted]:bg-stis-blue/10 data-[highlighted]:text-stis-blue"
+                              value="semua"
+                            >
+                              Semua Status
+                            </SelectItem>
+                            <SelectItem
+                              className="focus:bg-stis-blue/10 focus:text-stis-blue data-[highlighted]:bg-stis-blue/10 data-[highlighted]:text-stis-blue"
+                              value="tepat-waktu"
+                            >
                               Tepat Waktu
                             </SelectItem>
-                            <SelectItem value="terlambat">Terlambat</SelectItem>
+                            <SelectItem
+                              className="focus:bg-stis-blue/10 focus:text-stis-blue data-[highlighted]:bg-stis-blue/10 data-[highlighted]:text-stis-blue"
+                              value="terlambat"
+                            >
+                              Terlambat
+                            </SelectItem>
                           </SelectContent>
                         </Select>
 
@@ -1008,14 +1049,34 @@ export default function BorrowingHistory() {
                             setCurrentPage(1);
                           }}
                         >
-                          <SelectTrigger className="w-full lg:w-40">
+                          <SelectTrigger className="w-full lg:w-40 focus:ring-stis-blue">
                             <SelectValue placeholder="Periode" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="semua">Semua</SelectItem>
-                            <SelectItem value="bulan-ini">Bulan Ini</SelectItem>
-                            <SelectItem value="3-bulan">3 Bulan</SelectItem>
-                            <SelectItem value="tahun-ini">Tahun Ini</SelectItem>
+                            <SelectItem
+                              className="focus:bg-stis-blue/10 focus:text-stis-blue data-[highlighted]:bg-stis-blue/10 data-[highlighted]:text-stis-blue"
+                              value="semua"
+                            >
+                              Semua
+                            </SelectItem>
+                            <SelectItem
+                              className="focus:bg-stis-blue/10 focus:text-stis-blue data-[highlighted]:bg-stis-blue/10 data-[highlighted]:text-stis-blue"
+                              value="bulan-ini"
+                            >
+                              Bulan Ini
+                            </SelectItem>
+                            <SelectItem
+                              className="focus:bg-stis-blue/10 focus:text-stis-blue data-[highlighted]:bg-stis-blue/10 data-[highlighted]:text-stis-blue"
+                              value="3-bulan"
+                            >
+                              3 Bulan
+                            </SelectItem>
+                            <SelectItem
+                              className="focus:bg-stis-blue/10 focus:text-stis-blue data-[highlighted]:bg-stis-blue/10 data-[highlighted]:text-stis-blue"
+                              value="tahun-ini"
+                            >
+                              Tahun Ini
+                            </SelectItem>
                           </SelectContent>
                         </Select>
 
@@ -1036,14 +1097,34 @@ export default function BorrowingHistory() {
                       {currentPage} dari {totalPages}
                     </h3>
                     <Select defaultValue="terbaru">
-                      <SelectTrigger className="w-48">
+                      <SelectTrigger className="w-48 focus:ring-stis-blue">
                         <SelectValue placeholder="Urutkan" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="terbaru">Terbaru</SelectItem>
-                        <SelectItem value="terlama">Terlama</SelectItem>
-                        <SelectItem value="judul">Judul</SelectItem>
-                        <SelectItem value="status">Status</SelectItem>
+                        <SelectItem
+                          className="focus:bg-stis-blue/10 focus:text-stis-blue data-[highlighted]:bg-stis-blue/10 data-[highlighted]:text-stis-blue"
+                          value="terbaru"
+                        >
+                          Terbaru
+                        </SelectItem>
+                        <SelectItem
+                          className="focus:bg-stis-blue/10 focus:text-stis-blue data-[highlighted]:bg-stis-blue/10 data-[highlighted]:text-stis-blue"
+                          value="terlama"
+                        >
+                          Terlama
+                        </SelectItem>
+                        <SelectItem
+                          className="focus:bg-stis-blue/10 focus:text-stis-blue data-[highlighted]:bg-stis-blue/10 data-[highlighted]:text-stis-blue"
+                          value="judul"
+                        >
+                          Judul
+                        </SelectItem>
+                        <SelectItem
+                          className="focus:bg-stis-blue/10 focus:text-stis-blue data-[highlighted]:bg-stis-blue/10 data-[highlighted]:text-stis-blue"
+                          value="status"
+                        >
+                          Status
+                        </SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -1304,18 +1385,10 @@ export default function BorrowingHistory() {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-6">
-              <div className="flex items-center justify-between mb-6">
+              <div className="mb-6">
                 <h2 className="text-2xl font-bold text-gray-900">
                   Detail Buku Pinjaman
                 </h2>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => setShowDetailModal(false)}
-                  className="hover:bg-gray-100"
-                >
-                  <X className="w-5 h-5" />
-                </Button>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
@@ -1500,7 +1573,7 @@ export default function BorrowingHistory() {
                 <Button
                   variant="outline"
                   onClick={() => setShowDetailModal(false)}
-                  className="border-gray-300 text-gray-700 hover:bg-gray-50"
+                  className="border-blue-600 text-blue-600 hover:bg-red-600 hover:text-white hover:border-red-600"
                 >
                   Tutup
                 </Button>

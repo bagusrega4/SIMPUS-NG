@@ -11,6 +11,8 @@ import {
   FileText,
   Printer,
   ArrowRight,
+  ChevronDown,
+  ChevronUp,
   BookOpen,
   Phone,
   MapPin,
@@ -53,6 +55,7 @@ export default function Clearance() {
     program_studi: "",
     tahun_lulus: "",
   });
+  const [isAgreementChecked, setIsAgreementChecked] = useState(false);
 
   const requirements = [
     {
@@ -380,13 +383,11 @@ export default function Clearance() {
                           </div>
 
                           <div className="flex-shrink-0">
-                            <ArrowRight
-                              className={`w-6 h-6 ${
-                                activeStep === index
-                                  ? "text-stis-blue"
-                                  : "text-gray-400"
-                              }`}
-                            />
+                            {activeStep === index ? (
+                              <ChevronUp className="w-6 h-6 text-stis-blue" />
+                            ) : (
+                              <ChevronDown className="w-6 h-6 text-gray-400" />
+                            )}
                           </div>
                         </div>
                       </CardContent>
@@ -412,8 +413,11 @@ export default function Clearance() {
                     <form onSubmit={handleSubmit} className="space-y-6">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                          <Label htmlFor="nama" className="text-sm font-medium">
-                            Nama Lengkap *
+                          <Label
+                            htmlFor="nama"
+                            className="text-sm font-medium required-asterisk"
+                          >
+                            Nama Lengkap
                           </Label>
                           <Input
                             id="nama"
@@ -429,8 +433,11 @@ export default function Clearance() {
                         </div>
 
                         <div>
-                          <Label htmlFor="nim" className="text-sm font-medium">
-                            NIM/NIP *
+                          <Label
+                            htmlFor="nim"
+                            className="text-sm font-medium required-asterisk"
+                          >
+                            NIM/NIP
                           </Label>
                           <Input
                             id="nim"
@@ -448,9 +455,9 @@ export default function Clearance() {
                         <div>
                           <Label
                             htmlFor="email"
-                            className="text-sm font-medium"
+                            className="text-sm font-medium required-asterisk"
                           >
-                            Email *
+                            Email
                           </Label>
                           <Input
                             id="email"
@@ -468,9 +475,9 @@ export default function Clearance() {
                         <div>
                           <Label
                             htmlFor="program_studi"
-                            className="text-sm font-medium"
+                            className="text-sm font-medium required-asterisk"
                           >
-                            Program Studi *
+                            Program Studi
                           </Label>
                           <select
                             id="program_studi"
@@ -493,9 +500,9 @@ export default function Clearance() {
                         <div>
                           <Label
                             htmlFor="tahun_lulus"
-                            className="text-sm font-medium"
+                            className="text-sm font-medium required-asterisk"
                           >
-                            Tahun Lulus *
+                            Tahun Lulus
                           </Label>
                           <Input
                             id="tahun_lulus"
@@ -550,6 +557,10 @@ export default function Clearance() {
                           <input
                             type="checkbox"
                             id="agreement"
+                            checked={isAgreementChecked}
+                            onChange={(e) =>
+                              setIsAgreementChecked(e.target.checked)
+                            }
                             required
                             className="mt-1"
                           />
@@ -566,21 +577,13 @@ export default function Clearance() {
                         </div>
                       </div>
 
-                      <div className="flex gap-4">
-                        <Button
-                          type="button"
-                          variant="outline"
-                          className="flex-1"
-                        >
-                          Draft
-                        </Button>
-                        <Button
-                          type="submit"
-                          className="flex-1 bg-stis-blue hover:bg-stis-blue-dark"
-                        >
-                          Submit Pengajuan
-                        </Button>
-                      </div>
+                      <Button
+                        type="submit"
+                        disabled={!isAgreementChecked}
+                        className="w-full bg-stis-blue hover:bg-stis-blue-dark disabled:bg-gray-400 disabled:cursor-not-allowed"
+                      >
+                        Submit Pengajuan
+                      </Button>
                     </form>
                   </CardContent>
                 </Card>
