@@ -252,7 +252,7 @@ export default function BorrowBook() {
                 onClick={() => navigate(-1)}
                 variant="outline"
                 size="sm"
-                className="mr-4"
+                className="mr-4 border-stis-blue text-stis-blue hover:bg-stis-blue hover:text-white"
               >
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Kembali
@@ -355,6 +355,10 @@ export default function BorrowBook() {
                               handleInputChange("borrowDate", e.target.value)
                             }
                             className="mt-1"
+                            style={{
+                              colorScheme: "light",
+                              position: "relative",
+                            }}
                             required
                           />
                         </div>
@@ -519,7 +523,7 @@ export default function BorrowBook() {
                           type="button"
                           variant="outline"
                           onClick={() => navigate(-1)}
-                          className="flex-1"
+                          className="flex-1 border-gray-300 text-gray-700 hover:bg-red-600 hover:text-white hover:border-red-600"
                         >
                           Batal
                         </Button>

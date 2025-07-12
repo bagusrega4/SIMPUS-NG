@@ -17,7 +17,13 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import {
   Dialog,
   DialogContent,
@@ -52,17 +58,18 @@ export default function Books() {
   ];
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("semua");
+  const [selectedLanguage, setSelectedLanguage] = useState("semua");
   const [selectedBook, setSelectedBook] = useState<any>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const booksPerPage = 5;
 
   const categories = [
-    { id: "semua", label: "Semua Kategori", count: 62 },
+    { id: "semua", label: "Semua Kategori", count: 50 },
     { id: "statistika", label: "Statistika", count: 10 },
     { id: "matematika", label: "Matematika", count: 10 },
-    { id: "ekonomi", label: "Ekonometrika", count: 5 },
-    { id: "komputasi", label: "Komputasi Statistik", count: 15 },
-    { id: "metodologi", label: "Metodologi Penelitian", count: 22 },
+    { id: "ekonomi", label: "Ekonometrika", count: 10 },
+    { id: "komputasi", label: "Komputasi Statistik", count: 10 },
+    { id: "metodologi", label: "Metodologi Penelitian", count: 10 },
   ];
 
   const books = [
@@ -448,7 +455,7 @@ export default function Books() {
       description:
         "Comprehensive introduction to abstract algebra including groups, rings, and fields.",
     },
-    // Ekonometrika (5 books)
+    // Ekonometrika (10 books)
     {
       id: 21,
       title: "Ekonometrika: Dasar dan Aplikasinya",
@@ -544,9 +551,104 @@ export default function Books() {
       description:
         "Methods and applications of microeconometrics using cross-sectional and panel data.",
     },
-    // Komputasi Statistik (15 books)
     {
       id: 26,
+      title: "Ekonometrika Finansial",
+      authors: ["Dr. Chris Brooks"],
+      publisher: "Cambridge University Press",
+      year: 2023,
+      edition: "4th Edition",
+      pages: 740,
+      isbn: "978-110-884-640-5",
+      category: "Ekonometrika",
+      language: "English",
+      location: "Rak C3.1.2",
+      status: "Tersedia",
+      copies: 10,
+      available: 8,
+      rating: 4.7,
+      description:
+        "Econometric methods for financial data analysis including volatility modeling and risk management.",
+    },
+    {
+      id: 27,
+      title: "Regresi Berganda dengan STATA",
+      authors: ["Dr. Imam Ghozali"],
+      publisher: "Badan Penerbit Undip",
+      year: 2022,
+      edition: "Edisi ke-3",
+      pages: 356,
+      isbn: "978-602-456-890-1",
+      category: "Ekonometrika",
+      language: "Indonesia",
+      location: "Rak C1.4.1",
+      status: "Tersedia",
+      copies: 11,
+      available: 9,
+      rating: 4.4,
+      description:
+        "Panduan praktis analisis regresi berganda menggunakan software STATA untuk penelitian ekonomi.",
+    },
+    {
+      id: 28,
+      title: "Cointegration Analysis",
+      authors: ["Søren Johansen"],
+      publisher: "Oxford University Press",
+      year: 2023,
+      edition: "2nd Edition",
+      pages: 368,
+      isbn: "978-019-884-429-7",
+      category: "Ekonometrika",
+      language: "English",
+      location: "Rak C2.3.4",
+      status: "Tersedia",
+      copies: 6,
+      available: 4,
+      rating: 4.8,
+      description:
+        "Advanced methods for cointegration analysis in economic time series data.",
+    },
+    {
+      id: 29,
+      title: "Ekonometrika Spasial",
+      authors: ["Dr. Luc Anselin"],
+      publisher: "Springer",
+      year: 2022,
+      edition: "3rd Edition",
+      pages: 425,
+      isbn: "978-642-224-896-3",
+      category: "Ekonometrika",
+      language: "English",
+      location: "Rak C3.2.1",
+      status: "Tersedia",
+      copies: 7,
+      available: 5,
+      rating: 4.5,
+      description:
+        "Spatial econometric methods for analyzing cross-sectional and panel data with spatial dependencies.",
+    },
+    {
+      id: 30,
+      title: "Bayesian Econometrics",
+      authors: ["Gary Koop"],
+      publisher: "Wiley",
+      year: 2023,
+      edition: "2nd Edition",
+      pages: 312,
+      isbn: "978-111-974-568-2",
+      category: "Ekonometrika",
+      language: "English",
+      location: "Rak C3.3.3",
+      status: "Tersedia",
+      copies: 5,
+      available: 3,
+      rating: 4.6,
+      description:
+        "Introduction to Bayesian methods in econometrics with practical applications and computational techniques.",
+    },
+    // Komputasi Statistik (10 books)
+    {
+      id: 31,
       title: "R for Data Science",
       authors: ["Hadley Wickham", "Garrett Grolemund"],
       publisher: "O'Reilly Media",
@@ -565,7 +667,7 @@ export default function Books() {
         "Learn how to use R to turn raw data into insight, knowledge, and understanding with practical examples.",
     },
     {
-      id: 27,
+      id: 32,
       title: "Python for Data Analysis",
       authors: ["Wes McKinney"],
       publisher: "O'Reilly Media",
@@ -584,7 +686,7 @@ export default function Books() {
         "Data manipulation and analysis with pandas, NumPy, and IPython in the Python programming ecosystem.",
     },
     {
-      id: 28,
+      id: 33,
       title: "Machine Learning: A Probabilistic Perspective",
       authors: ["Kevin P. Murphy"],
       publisher: "MIT Press",
@@ -603,7 +705,7 @@ export default function Books() {
         "Comprehensive introduction to machine learning from a probabilistic perspective covering supervised and unsupervised learning.",
     },
     {
-      id: 29,
+      id: 34,
       title: "Analisis Data dengan SPSS",
       authors: ["Dr. Imam Ghozali"],
       publisher: "Badan Penerbit Undip",
@@ -622,7 +724,7 @@ export default function Books() {
         "Panduan praktis analisis data menggunakan SPSS untuk penelitian kuantitatif dan pengujian hipotesis.",
     },
     {
-      id: 30,
+      id: 35,
       title: "Introduction to Algorithms",
       authors: ["Thomas H. Cormen", "Charles E. Leiserson", "Ronald L. Rivest"],
       publisher: "MIT Press",
@@ -641,7 +743,7 @@ export default function Books() {
         "Comprehensive introduction to algorithms and data structures with rigorous mathematical analysis.",
     },
     {
-      id: 31,
+      id: 36,
       title: "Statistical Computing with R",
       authors: ["Maria Rizzo"],
       publisher: "Chapman & Hall",
@@ -660,7 +762,7 @@ export default function Books() {
         "Introduction to statistical computing using R with emphasis on simulation and computational methods.",
     },
     {
-      id: 32,
+      id: 37,
       title: "Deep Learning",
       authors: ["Ian Goodfellow", "Yoshua Bengio", "Aaron Courville"],
       publisher: "MIT Press",
@@ -679,7 +781,7 @@ export default function Books() {
         "Comprehensive introduction to deep learning methods and applications in artificial intelligence.",
     },
     {
-      id: 33,
+      id: 38,
       title: "Data Mining dengan Weka",
       authors: ["Dr. Kusrini", "Dr. Emha Taufiq Luthfi"],
       publisher: "Andi",
@@ -698,7 +800,7 @@ export default function Books() {
         "Panduan praktis data mining menggunakan software Weka untuk analisis pola data.",
     },
     {
-      id: 34,
+      id: 39,
       title: "Computational Statistics",
       authors: ["Geof Givens", "Jennifer Hoeting"],
       publisher: "Wiley",
@@ -717,7 +819,7 @@ export default function Books() {
         "Modern computational methods for statistical analysis and data science applications.",
     },
     {
-      id: 35,
+      id: 40,
       title: "Big Data Analytics dengan Apache Spark",
       authors: ["Dr. Sandy Kosasih"],
       publisher: "Informatika",
@@ -735,102 +837,7 @@ export default function Books() {
       description:
         "Panduan analisis big data menggunakan Apache Spark untuk pemrosesan data skala besar.",
     },
-    {
-      id: 36,
-      title: "Database Systems: Design and Implementation",
-      authors: ["Raghu Ramakrishnan", "Johannes Gehrke"],
-      publisher: "McGraw-Hill",
-      year: 2023,
-      edition: "4th Edition",
-      pages: 896,
-      isbn: "978-007-246-535-6",
-      category: "Komputasi Statistik",
-      language: "English",
-      location: "Rak D3.3.1",
-      status: "Tersedia",
-      copies: 8,
-      available: 6,
-      rating: 4.6,
-      description:
-        "Comprehensive guide to database design and implementation with focus on modern data management techniques.",
-    },
-    {
-      id: 37,
-      title: "Visualisasi Data dengan Tableau",
-      authors: ["Dr. Ryan Sleeper"],
-      publisher: "Wiley",
-      year: 2022,
-      edition: "2nd Edition",
-      pages: 384,
-      isbn: "978-111-954-321-8",
-      category: "Komputasi Statistik",
-      language: "Indonesia",
-      location: "Rak D2.5.3",
-      status: "Tersedia",
-      copies: 7,
-      available: 5,
-      rating: 4.4,
-      description:
-        "Panduan lengkap visualisasi data menggunakan Tableau untuk analisis bisnis dan presentasi data.",
-    },
-    {
-      id: 38,
-      title: "Advanced Excel for Data Analysis",
-      authors: ["Conrad Carlberg"],
-      publisher: "Que Publishing",
-      year: 2023,
-      edition: "3rd Edition",
-      pages: 512,
-      isbn: "978-013-567-890-2",
-      category: "Komputasi Statistik",
-      language: "English",
-      location: "Rak D1.5.2",
-      status: "Tersedia",
-      copies: 12,
-      available: 10,
-      rating: 4.3,
-      description:
-        "Advanced Excel techniques for statistical analysis and data modeling in business environments.",
-    },
-    {
-      id: 39,
-      title: "SAS Programming: The One-Day Course",
-      authors: ["Reed College"],
-      publisher: "SAS Institute",
-      year: 2022,
-      edition: "5th Edition",
-      pages: 288,
-      isbn: "978-162-960-789-4",
-      category: "Komputasi Statistik",
-      language: "English",
-      location: "Rak D3.4.1",
-      status: "Tersedia",
-      copies: 6,
-      available: 4,
-      rating: 4.5,
-      description:
-        "Comprehensive introduction to SAS programming for statistical analysis and data management.",
-    },
-    {
-      id: 40,
-      title: "Aplikasi Machine Learning dengan Scikit-Learn",
-      authors: ["Dr. Andreas Mueller", "Dr. Sarah Guido"],
-      publisher: "O'Reilly Media",
-      year: 2023,
-      edition: "2nd Edition",
-      pages: 432,
-      isbn: "978-149-205-678-5",
-      category: "Komputasi Statistik",
-      language: "Indonesia",
-      location: "Rak D4.1.2",
-      status: "Dipinjam",
-      copies: 9,
-      available: 0,
-      rating: 4.7,
-      description:
-        "Panduan praktis implementasi machine learning menggunakan Python dan Scikit-Learn untuk pemecahan masalah dunia nyata.",
-    },
-    // Metodologi Penelitian (22 books)
+    // Metodologi Penelitian (10 books)
     {
       id: 41,
       title: "Metode Penelitian Kuantitatif",
@@ -1021,234 +1028,6 @@ export default function Books() {
       description:
         "Advanced methods for meta-analysis using structural equation modeling techniques.",
     },
-    {
-      id: 51,
-      title: "Etnografi: Metode Penelitian Kualitatif",
-      authors: ["Dr. James Spradley"],
-      publisher: "Tiara Wacana",
-      year: 2022,
-      edition: "Edisi ke-2",
-      pages: 256,
-      isbn: "978-979-333-678-4",
-      category: "Metodologi Penelitian",
-      language: "Indonesia",
-      location: "Rak E1.5.1",
-      status: "Tersedia",
-      copies: 6,
-      available: 4,
-      rating: 4.4,
-      description:
-        "Panduan metodologi etnografi untuk penelitian antropologi dan sosiologi dengan pendekatan partisipatif.",
-    },
-    {
-      id: 52,
-      title: "Action Research: Improving Schools and Practice",
-      authors: ["Jean McNiff"],
-      publisher: "Routledge",
-      year: 2023,
-      edition: "4th Edition",
-      pages: 320,
-      isbn: "978-041-573-456-8",
-      category: "Metodologi Penelitian",
-      language: "English",
-      location: "Rak E2.4.2",
-      status: "Tersedia",
-      copies: 7,
-      available: 5,
-      rating: 4.3,
-      description:
-        "Comprehensive guide to action research methodology for educational and organizational improvement.",
-    },
-    {
-      id: 53,
-      title: "Grounded Theory: Dasar-dasar Penelitian Kualitatif",
-      authors: ["Dr. Anselm Strauss", "Dr. Juliet Corbin"],
-      publisher: "Pustaka Pelajar",
-      year: 2022,
-      edition: "Edisi ke-3",
-      pages: 342,
-      isbn: "978-602-229-567-3",
-      category: "Metodologi Penelitian",
-      language: "Indonesia",
-      location: "Rak E1.6.3",
-      status: "Tersedia",
-      copies: 9,
-      available: 7,
-      rating: 4.6,
-      description:
-        "Panduan lengkap metodologi grounded theory untuk pengembangan teori dari data empiris.",
-    },
-    {
-      id: 54,
-      title: "Case Study Research: Design and Methods",
-      authors: ["Robert K. Yin"],
-      publisher: "SAGE Publications",
-      year: 2023,
-      edition: "6th Edition",
-      pages: 368,
-      isbn: "978-150-637-889-9",
-      category: "Metodologi Penelitian",
-      language: "English",
-      location: "Rak E3.4.1",
-      status: "Tersedia",
-      copies: 8,
-      available: 6,
-      rating: 4.7,
-      description:
-        "Comprehensive guide to case study research methodology with practical examples and applications.",
-    },
-    {
-      id: 55,
-      title: "Fenomenologi: Metode Penelitian Kualitatif",
-      authors: ["Dr. Clark Moustakas"],
-      publisher: "Pustaka Pelajar",
-      year: 2022,
-      edition: "Edisi ke-2",
-      pages: 278,
-      isbn: "978-602-229-678-7",
-      category: "Metodologi Penelitian",
-      language: "Indonesia",
-      location: "Rak E1.7.2",
-      status: "Dipinjam",
-      copies: 6,
-      available: 0,
-      rating: 4.4,
-      description:
-        "Panduan metodologi fenomenologi untuk penelitian pengalaman hidup dan makna subjektif.",
-    },
-    {
-      id: 56,
-      title: "Mixed Methods Research: A Guide to the Field",
-      authors: ["Vicki Plano Clark", "Nataliya Ivankova"],
-      publisher: "SAGE Publications",
-      year: 2023,
-      edition: "2nd Edition",
-      pages: 456,
-      isbn: "978-150-637-999-5",
-      category: "Metodologi Penelitian",
-      language: "English",
-      location: "Rak E3.5.3",
-      status: "Tersedia",
-      copies: 7,
-      available: 5,
-      rating: 4.5,
-      description:
-        "Comprehensive guide to mixed methods research combining quantitative and qualitative approaches.",
-    },
-    {
-      id: 57,
-      title: "Analisis Konten: Pengantar Teori dan Praktik",
-      authors: ["Dr. Klaus Krippendorff"],
-      publisher: "Rajawali Pers",
-      year: 2022,
-      edition: "Edisi ke-4",
-      pages: 456,
-      isbn: "978-979-769-234-8",
-      category: "Metodologi Penelitian",
-      language: "Indonesia",
-      location: "Rak E2.5.1",
-      status: "Tersedia",
-      copies: 8,
-      available: 6,
-      rating: 4.3,
-      description:
-        "Panduan analisis konten untuk penelitian komunikasi dan media dengan pendekatan kuantitatif dan kualitatif.",
-    },
-    {
-      id: 58,
-      title: "Longitudinal Data Analysis",
-      authors: ["Judith Singer", "John Willett"],
-      publisher: "Oxford University Press",
-      year: 2023,
-      edition: "2nd Edition",
-      pages: 644,
-      isbn: "978-019-957-123-6",
-      category: "Metodologi Penelitian",
-      language: "English",
-      location: "Rak E4.1.2",
-      status: "Tersedia",
-      copies: 5,
-      available: 3,
-      rating: 4.8,
-      description:
-        "Advanced methods for analyzing longitudinal data with applications in education and social sciences.",
-    },
-    {
-      id: 59,
-      title: "Penelitian Tindakan Kelas untuk Guru",
-      authors: ["Dr. Suharsimi Arikunto"],
-      publisher: "Bumi Aksara",
-      year: 2022,
-      edition: "Edisi ke-6",
-      pages: 284,
-      isbn: "978-602-444-789-3",
-      category: "Metodologi Penelitian",
-      language: "Indonesia",
-      location: "Rak E1.8.4",
-      status: "Tersedia",
-      copies: 12,
-      available: 10,
-      rating: 4.2,
-      description:
-        "Panduan praktis penelitian tindakan kelas untuk peningkatan kualitas pembelajaran di sekolah.",
-    },
-    {
-      id: 60,
-      title: "Narrative Analysis: Reading, Writing and Thinking",
-      authors: ["Catherine Riessman"],
-      publisher: "SAGE Publications",
-      year: 2023,
-      edition: "2nd Edition",
-      pages: 288,
-      isbn: "978-150-638-111-0",
-      category: "Metodologi Penelitian",
-      language: "English",
-      location: "Rak E3.6.1",
-      status: "Tersedia",
-      copies: 6,
-      available: 4,
-      rating: 4.4,
-      description:
-        "Comprehensive guide to narrative analysis methodology for qualitative research in social sciences.",
-    },
-    {
-      id: 61,
-      title: "Statistik untuk Penelitian Pendidikan",
-      authors: ["Dr. Anas Sudijono"],
-      publisher: "Rajawali Pers",
-      year: 2022,
-      edition: "Edisi ke-8",
-      pages: 398,
-      isbn: "978-979-769-345-1",
-      category: "Metodologi Penelitian",
-      language: "Indonesia",
-      location: "Rak E2.6.3",
-      status: "Tersedia",
-      copies: 14,
-      available: 12,
-      rating: 4.1,
-      description:
-        "Panduan statistik dasar untuk penelitian pendidikan dengan contoh aplikasi dalam konteks sekolah.",
-    },
-    {
-      id: 62,
-      title: "Discourse Analysis: An Introduction",
-      authors: ["James Paul Gee"],
-      publisher: "Routledge",
-      year: 2023,
-      edition: "5th Edition",
-      pages: 224,
-      isbn: "978-041-574-567-2",
-      category: "Metodologi Penelitian",
-      language: "English",
-      location: "Rak E3.7.2",
-      status: "Dipinjam",
-      copies: 7,
-      available: 0,
-      rating: 4.5,
-      description:
-        "Introduction to discourse analysis methodology for studying language in social contexts and communication.",
-    },
   ];
 
   const filteredBooks = books.filter((book) => {
@@ -1257,22 +1036,14 @@ export default function Books() {
       book.authors.some((author) =>
         author.toLowerCase().includes(searchQuery.toLowerCase()),
       );
-
-    // Map category IDs to actual book category names
-    const categoryMap = {
-      semua: "semua",
-      statistika: "Statistika",
-      matematika: "Matematika",
-      ekonomi: "Ekonometrika",
-      komputasi: "Komputasi Statistik",
-      metodologi: "Metodologi Penelitian",
-    };
-
     const matchesCategory =
       selectedCategory === "semua" ||
-      book.category === categoryMap[selectedCategory];
+      book.category.toLowerCase() === selectedCategory;
+    const matchesLanguage =
+      selectedLanguage === "semua" ||
+      book.language.toLowerCase() === selectedLanguage;
 
-    return matchesSearch && matchesCategory;
+    return matchesSearch && matchesCategory && matchesLanguage;
   });
 
   // Pagination calculations
@@ -1286,6 +1057,8 @@ export default function Books() {
     setCurrentPage(1);
     if (filterType === "category") {
       setSelectedCategory(value);
+    } else if (filterType === "language") {
+      setSelectedLanguage(value);
     }
   };
 
@@ -1298,47 +1071,6 @@ export default function Books() {
       callNumber: book.call_number,
     });
     navigate(`/borrow-book?${params.toString()}`);
-  };
-
-  // Generate pagination numbers with ellipsis
-  const generatePaginationNumbers = () => {
-    const delta = 2; // Number of pages to show around current page
-    const range = [];
-    const rangeWithDots = [];
-
-    // Always include first page
-    range.push(1);
-
-    // Add pages around current page
-    for (
-      let i = Math.max(2, currentPage - delta);
-      i <= Math.min(totalPages - 1, currentPage + delta);
-      i++
-    ) {
-      range.push(i);
-    }
-
-    // Always include last page if more than 1 page
-    if (totalPages > 1) {
-      range.push(totalPages);
-    }
-
-    // Remove duplicates and sort
-    const uniqueRange = [...new Set(range)].sort((a, b) => a - b);
-
-    // Add ellipsis where needed
-    let prev = 0;
-    for (const page of uniqueRange) {
-      if (page - prev === 2) {
-        rangeWithDots.push(prev + 1);
-      } else if (page - prev !== 1) {
-        rangeWithDots.push("...");
-      }
-      rangeWithDots.push(page);
-      prev = page;
-    }
-
-    return rangeWithDots;
   };
 
   return (
@@ -1404,7 +1136,6 @@ export default function Books() {
               {categories.map((category) => (
                 <Card
                   key={category.id}
-                  // className={`cursor-pointer transition-all hover:shadow-lg hover:bg-stis-blue group ${
                   className={`cursor-pointer transition-all hover:shadow-lg ${
                     selectedCategory === category.id
                       ? "ring-2 ring-stis-blue bg-stis-blue-light"
@@ -1413,16 +1144,10 @@ export default function Books() {
                   onClick={() => handleFilterChange("category", category.id)}
                 >
                   <CardContent className="p-4 text-center">
-                    <div
-                      className={`text-xl font-bold mb-1 transition-colors ${
-                        selectedCategory === category.id
-                          ? "text-stis-blue"
-                          : "text-stis-blue group-hover:text-white"
-                      }`}
-                    >
+                    <div className="text-xl font-bold text-stis-blue mb-1">
                       {category.count.toLocaleString()}
                     </div>
-                    <div className="text-xs text-gray-600 group-hover:text-white transition-colors">
+                    <div className="text-xs text-gray-600">
                       {category.label}
                     </div>
                   </CardContent>
@@ -1437,11 +1162,23 @@ export default function Books() {
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
-            <div className="mb-8">
+            <div className="flex items-center justify-between mb-8">
               <h2 className="text-2xl font-bold text-gray-900">
                 Hasil Pencarian ({filteredBooks.length} buku) - Halaman{" "}
                 {currentPage} dari {totalPages}
               </h2>
+              <Select defaultValue="terbaru">
+                <SelectTrigger className="w-48">
+                  <SelectValue placeholder="Urutkan berdasarkan" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="terbaru">Terbaru</SelectItem>
+                  <SelectItem value="judul">Judul</SelectItem>
+                  <SelectItem value="penulis">Penulis</SelectItem>
+                  <SelectItem value="rating">Rating Tertinggi</SelectItem>
+                  <SelectItem value="tahun">Tahun Terbit</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
 
             <div className="space-y-6">
@@ -1572,20 +1309,8 @@ export default function Books() {
                   Sebelumnya
                 </Button>
 
-                {generatePaginationNumbers().map((item, index) => {
-                  if (item === "...") {
-                    return (
-                      <span
-                        key={`ellipsis-${index}`}
-                        className="px-3 py-2 text-gray-500"
-                      >
-                        ...
-                      </span>
-                    );
-                  }
-
-                  const page = item as number;
-                  return (
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                  (page) => (
                     <Button
                       key={page}
                       variant={currentPage === page ? "default" : "outline"}
@@ -1598,8 +1323,8 @@ export default function Books() {
                     >
                       {page}
                     </Button>
-                  );
-                })}
+                  ),
+                )}
 
                 <Button
                   variant="outline"

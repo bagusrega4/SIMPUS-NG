@@ -17,7 +17,13 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import {
   Dialog,
   DialogContent,
@@ -52,6 +58,7 @@ export default function Books() {
   ];
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("semua");
+  const [selectedLanguage, setSelectedLanguage] = useState("semua");
   const [selectedBook, setSelectedBook] = useState<any>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const booksPerPage = 5;
@@ -1257,22 +1264,14 @@ export default function Books() {
       book.authors.some((author) =>
         author.toLowerCase().includes(searchQuery.toLowerCase()),
       );
-
-    // Map category IDs to actual book category names
-    const categoryMap = {
-      semua: "semua",
-      statistika: "Statistika",
-      matematika: "Matematika",
-      ekonomi: "Ekonometrika",
-      komputasi: "Komputasi Statistik",
-      metodologi: "Metodologi Penelitian",
-    };
-
     const matchesCategory =
       selectedCategory === "semua" ||
-      book.category === categoryMap[selectedCategory];
+      book.category.toLowerCase() === selectedCategory;
+    const matchesLanguage =
+      selectedLanguage === "semua" ||
+      book.language.toLowerCase() === selectedLanguage;
 
-    return matchesSearch && matchesCategory;
+    return matchesSearch && matchesCategory && matchesLanguage;
   });
 
   // Pagination calculations
@@ -1286,6 +1285,8 @@ export default function Books() {
     setCurrentPage(1);
     if (filterType === "category") {
       setSelectedCategory(value);
+    } else if (filterType === "language") {
+      setSelectedLanguage(value);
     }
   };
 
@@ -1298,47 +1299,6 @@ export default function Books() {
       callNumber: book.call_number,
     });
     navigate(`/borrow-book?${params.toString()}`);
-  };
-
-  // Generate pagination numbers with ellipsis
-  const generatePaginationNumbers = () => {
-    const delta = 2; // Number of pages to show around current page
-    const range = [];
-    const rangeWithDots = [];
-
-    // Always include first page
-    range.push(1);
-
-    // Add pages around current page
-    for (
-      let i = Math.max(2, currentPage - delta);
-      i <= Math.min(totalPages - 1, currentPage + delta);
-      i++
-    ) {
-      range.push(i);
-    }
-
-    // Always include last page if more than 1 page
-    if (totalPages > 1) {
-      range.push(totalPages);
-    }
-
-    // Remove duplicates and sort
-    const uniqueRange = [...new Set(range)].sort((a, b) => a - b);
-
-    // Add ellipsis where needed
-    let prev = 0;
-    for (const page of uniqueRange) {
-      if (page - prev === 2) {
-        rangeWithDots.push(prev + 1);
-      } else if (page - prev !== 1) {
-        rangeWithDots.push("...");
-      }
-      rangeWithDots.push(page);
-      prev = page;
-    }
-
-    return rangeWithDots;
   };
 
   return (
@@ -1404,8 +1364,7 @@ export default function Books() {
               {categories.map((category) => (
                 <Card
                   key={category.id}
-                  // className={`cursor-pointer transition-all hover:shadow-lg hover:bg-stis-blue group ${
-                  className={`cursor-pointer transition-all hover:shadow-lg ${
+                  className={`cursor-pointer transition-all hover:shadow-lg hover:bg-stis-blue hover:text-white ${
                     selectedCategory === category.id
                       ? "ring-2 ring-stis-blue bg-stis-blue-light"
                       : ""
@@ -1414,15 +1373,11 @@ export default function Books() {
                 >
                   <CardContent className="p-4 text-center">
                     <div
-                      className={`text-xl font-bold mb-1 transition-colors ${
-                        selectedCategory === category.id
-                          ? "text-stis-blue"
-                          : "text-stis-blue group-hover:text-white"
-                      }`}
+                      className={`text-xl font-bold mb-1 ${selectedCategory === category.id ? "text-stis-blue" : "text-stis-blue group-hover:text-white"}`}
                     >
                       {category.count.toLocaleString()}
                     </div>
-                    <div className="text-xs text-gray-600 group-hover:text-white transition-colors">
+                    <div className="text-xs text-gray-600 group-hover:text-white">
                       {category.label}
                     </div>
                   </CardContent>
@@ -1437,11 +1392,23 @@ export default function Books() {
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
-            <div className="mb-8">
+            <div className="flex items-center justify-between mb-8">
               <h2 className="text-2xl font-bold text-gray-900">
                 Hasil Pencarian ({filteredBooks.length} buku) - Halaman{" "}
                 {currentPage} dari {totalPages}
               </h2>
+              <Select defaultValue="terbaru">
+                <SelectTrigger className="w-48">
+                  <SelectValue placeholder="Urutkan berdasarkan" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="terbaru">Terbaru</SelectItem>
+                  <SelectItem value="judul">Judul</SelectItem>
+                  <SelectItem value="penulis">Penulis</SelectItem>
+                  <SelectItem value="rating">Rating Tertinggi</SelectItem>
+                  <SelectItem value="tahun">Tahun Terbit</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
 
             <div className="space-y-6">
@@ -1572,20 +1539,8 @@ export default function Books() {
                   Sebelumnya
                 </Button>
 
-                {generatePaginationNumbers().map((item, index) => {
-                  if (item === "...") {
-                    return (
-                      <span
-                        key={`ellipsis-${index}`}
-                        className="px-3 py-2 text-gray-500"
-                      >
-                        ...
-                      </span>
-                    );
-                  }
-
-                  const page = item as number;
-                  return (
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                  (page) => (
                     <Button
                       key={page}
                       variant={currentPage === page ? "default" : "outline"}
@@ -1598,8 +1553,8 @@ export default function Books() {
                     >
                       {page}
                     </Button>
-                  );
-                })}
+                  ),
+                )}
 
                 <Button
                   variant="outline"
