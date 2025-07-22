@@ -72,11 +72,6 @@ export default function BorrowBook() {
             <p className="text-gray-600 mb-8 leading-relaxed">
               Silakan login terlebih dahulu untuk meminjam buku.
             </p>
-            <a href="/login">
-              <Button className="bg-stis-blue hover:bg-stis-blue-dark text-white px-6 py-3 rounded-lg">
-                Login Sekarang
-              </Button>
-            </a>
           </div>
         </div>
       </div>
