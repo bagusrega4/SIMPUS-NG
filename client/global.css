@@ -208,21 +208,12 @@
       padding-right: 1rem;
     }
 
-    /* Line clamp for FAQ titles on mobile */
-    .line-clamp-2 {
-      overflow: hidden;
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 2;
-      line-height: 1.4;
-    }
-
-    /* Remove line clamp on larger screens */
-    .sm\:line-clamp-none {
+    /* FAQ title styling - ensure no truncation */
+    .faq-title {
       overflow: visible;
       display: block;
-      -webkit-box-orient: initial;
-      -webkit-line-clamp: initial;
+      white-space: normal;
+      word-wrap: break-word;
     }
 
     /* Better spacing on cards */

@@ -315,14 +315,13 @@ export default function FAQ() {
                     setOpenFAQ(openFAQ === faq.id ? null : faq.id)
                   }
                 >
-                  <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-200 bg-white rounded-xl overflow-hidden">
+                  <div className="border-0 shadow-lg hover:shadow-xl transition-all duration-200 bg-white rounded-xl">
                     <CollapsibleTrigger asChild>
-                      <Button
-                        variant="ghost"
-                        className="w-full p-4 sm:p-6 text-left justify-between hover:bg-gray-50 h-auto rounded-xl"
+                      <button
+                        className="w-full p-4 sm:p-6 text-left hover:bg-gray-50 rounded-xl cursor-pointer block"
                       >
-                        <div className="flex-1 pr-2 sm:pr-3 min-w-0">
-                          <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-2 sm:mb-3">
+                        <div className="w-full">
+                          <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-3">
                             <div className="flex items-center gap-2 flex-wrap">
                               <Badge variant="outline" className="text-xs px-2 py-1 flex-shrink-0 bg-white">
                                 {
@@ -337,18 +336,22 @@ export default function FAQ() {
                               </div>
                             </div>
                           </div>
-                          <h4 className="font-semibold text-gray-900 text-sm sm:text-base lg:text-lg text-left block leading-relaxed sm:leading-tight line-clamp-2 sm:line-clamp-none">
-                            {faq.question}
-                          </h4>
+                          <div className="flex items-start justify-between gap-3">
+                            <div className="flex-1 overflow-visible">
+                              <h4 className="font-semibold text-gray-900 text-sm sm:text-base lg:text-lg leading-normal break-words">
+                                {faq.question}
+                              </h4>
+                            </div>
+                            <div className="flex-shrink-0 ml-3">
+                              {openFAQ === faq.id ? (
+                                <ChevronUp className="w-5 h-5 text-gray-500" />
+                              ) : (
+                                <ChevronDown className="w-5 h-5 text-gray-500" />
+                              )}
+                            </div>
+                          </div>
                         </div>
-                        <div className="flex-shrink-0 ml-2">
-                          {openFAQ === faq.id ? (
-                            <ChevronUp className="w-5 h-5 text-gray-500" />
-                          ) : (
-                            <ChevronDown className="w-5 h-5 text-gray-500" />
-                          )}
-                        </div>
-                      </Button>
+                      </button>
                     </CollapsibleTrigger>
                     <CollapsibleContent>
                       <div className="px-4 sm:px-6 pb-4 sm:pb-6">
@@ -403,7 +406,7 @@ export default function FAQ() {
                         </div>
                       </div>
                     </CollapsibleContent>
-                  </Card>
+                  </div>
                 </Collapsible>
               ))}
             </div>
