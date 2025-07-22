@@ -442,30 +442,39 @@ export default function Index() {
                   setOpenFAQ(openFAQ === index ? null : index)
                 }
               >
-                <Card className="border-0 shadow-md hover:shadow-lg transition-shadow">
+                <div className="border-0 shadow-lg hover:shadow-xl transition-all duration-200 bg-white rounded-xl">
                   <CollapsibleTrigger asChild>
-                    <Button
-                      variant="ghost"
-                      className="w-full p-6 text-left justify-between hover:bg-gray-50"
+                    <button
+                      className="w-full p-4 sm:p-6 text-left hover:bg-gray-50 rounded-xl cursor-pointer block"
                     >
-                      <span className="font-semibold text-gray-900 text-lg">
-                        {faq.question}
-                      </span>
-                      {openFAQ === index ? (
-                        <ChevronUp className="w-5 h-5 text-gray-500" />
-                      ) : (
-                        <ChevronDown className="w-5 h-5 text-gray-500" />
-                      )}
-                    </Button>
+                      <div className="w-full">
+                        <div className="flex items-start justify-between gap-3">
+                          <div className="flex-1 overflow-visible">
+                            <h4 className="font-semibold text-gray-900 text-sm sm:text-base lg:text-lg leading-normal break-words">
+                              {faq.question}
+                            </h4>
+                          </div>
+                          <div className="flex-shrink-0 ml-3">
+                            {openFAQ === index ? (
+                              <ChevronUp className="w-5 h-5 text-gray-500" />
+                            ) : (
+                              <ChevronDown className="w-5 h-5 text-gray-500" />
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </button>
                   </CollapsibleTrigger>
                   <CollapsibleContent>
-                    <div className="px-6 pb-6">
-                      <p className="text-gray-600 leading-relaxed">
-                        {faq.answer}
-                      </p>
+                    <div className="px-4 sm:px-6 pb-4 sm:pb-6">
+                      <div className="bg-gradient-to-r from-stis-blue-light to-blue-50 rounded-xl p-4 sm:p-5 border border-blue-100">
+                        <p className="text-gray-800 leading-relaxed text-sm sm:text-base">
+                          {faq.answer}
+                        </p>
+                      </div>
                     </div>
                   </CollapsibleContent>
-                </Card>
+                </div>
               </Collapsible>
             ))}
           </div>

@@ -552,42 +552,72 @@ export default function Digital() {
 
                   {/* Pagination for E-books */}
                   {totalPagesEbooks > 1 && (
-                    <div className="flex items-center justify-center gap-2 mt-12">
-                      <Button
-                        variant="outline"
-                        disabled={currentPage === 1}
-                        onClick={() => setCurrentPage(currentPage - 1)}
-                        className="border-stis-blue text-stis-blue hover:bg-stis-blue hover:text-white"
-                      >
-                        Sebelumnya
-                      </Button>
-
-                      {Array.from(
-                        { length: totalPagesEbooks },
-                        (_, i) => i + 1,
-                      ).map((page) => (
+                    <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-2 mt-12 px-4">
+                      {/* Mobile: Simplified pagination with page info */}
+                      <div className="sm:hidden flex items-center justify-between w-full gap-2">
                         <Button
-                          key={page}
-                          variant={currentPage === page ? "default" : "outline"}
-                          className={
-                            currentPage === page
-                              ? "bg-stis-blue hover:bg-stis-blue-dark"
-                              : "border-stis-blue text-stis-blue hover:bg-stis-blue hover:text-white"
-                          }
-                          onClick={() => setCurrentPage(page)}
+                          variant="outline"
+                          size="sm"
+                          disabled={currentPage === 1}
+                          onClick={() => setCurrentPage(currentPage - 1)}
+                          className="border-stis-blue text-stis-blue hover:bg-stis-blue hover:text-white text-xs px-3 py-2"
                         >
-                          {page}
+                          ‹ Prev
                         </Button>
-                      ))}
 
-                      <Button
-                        variant="outline"
-                        disabled={currentPage === totalPagesEbooks}
-                        onClick={() => setCurrentPage(currentPage + 1)}
-                        className="border-stis-blue text-stis-blue hover:bg-stis-blue hover:text-white"
-                      >
-                        Selanjutnya
-                      </Button>
+                        <span className="text-sm text-gray-600 px-3 py-2 bg-gray-100 rounded-lg">
+                          {currentPage} / {totalPagesEbooks}
+                        </span>
+
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          disabled={currentPage === totalPagesEbooks}
+                          onClick={() => setCurrentPage(currentPage + 1)}
+                          className="border-stis-blue text-stis-blue hover:bg-stis-blue hover:text-white text-xs px-3 py-2"
+                        >
+                          Next ›
+                        </Button>
+                      </div>
+
+                      {/* Desktop: Full pagination */}
+                      <div className="hidden sm:flex items-center justify-center gap-2">
+                        <Button
+                          variant="outline"
+                          disabled={currentPage === 1}
+                          onClick={() => setCurrentPage(currentPage - 1)}
+                          className="border-stis-blue text-stis-blue hover:bg-stis-blue hover:text-white"
+                        >
+                          Sebelumnya
+                        </Button>
+
+                        {Array.from(
+                          { length: totalPagesEbooks },
+                          (_, i) => i + 1,
+                        ).map((page) => (
+                          <Button
+                            key={page}
+                            variant={currentPage === page ? "default" : "outline"}
+                            className={
+                              currentPage === page
+                                ? "bg-stis-blue hover:bg-stis-blue-dark"
+                                : "border-stis-blue text-stis-blue hover:bg-stis-blue hover:text-white"
+                            }
+                            onClick={() => setCurrentPage(page)}
+                          >
+                            {page}
+                          </Button>
+                        ))}
+
+                        <Button
+                          variant="outline"
+                          disabled={currentPage === totalPagesEbooks}
+                          onClick={() => setCurrentPage(currentPage + 1)}
+                          className="border-stis-blue text-stis-blue hover:bg-stis-blue hover:text-white"
+                        >
+                          Selanjutnya
+                        </Button>
+                      </div>
                     </div>
                   )}
                 </div>
@@ -716,42 +746,72 @@ export default function Digital() {
 
                   {/* Pagination for E-journals */}
                   {totalPagesEjournals > 1 && (
-                    <div className="flex items-center justify-center gap-2 mt-12">
-                      <Button
-                        variant="outline"
-                        disabled={currentPage === 1}
-                        onClick={() => setCurrentPage(currentPage - 1)}
-                        className="border-stis-blue text-stis-blue hover:bg-stis-blue hover:text-white"
-                      >
-                        Sebelumnya
-                      </Button>
-
-                      {Array.from(
-                        { length: totalPagesEjournals },
-                        (_, i) => i + 1,
-                      ).map((page) => (
+                    <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-2 mt-12 px-4">
+                      {/* Mobile: Simplified pagination with page info */}
+                      <div className="sm:hidden flex items-center justify-between w-full gap-2">
                         <Button
-                          key={page}
-                          variant={currentPage === page ? "default" : "outline"}
-                          className={
-                            currentPage === page
-                              ? "bg-stis-blue hover:bg-stis-blue-dark"
-                              : "border-stis-blue text-stis-blue hover:bg-stis-blue hover:text-white"
-                          }
-                          onClick={() => setCurrentPage(page)}
+                          variant="outline"
+                          size="sm"
+                          disabled={currentPage === 1}
+                          onClick={() => setCurrentPage(currentPage - 1)}
+                          className="border-stis-blue text-stis-blue hover:bg-stis-blue hover:text-white text-xs px-3 py-2"
                         >
-                          {page}
+                          ‹ Prev
                         </Button>
-                      ))}
 
-                      <Button
-                        variant="outline"
-                        disabled={currentPage === totalPagesEjournals}
-                        onClick={() => setCurrentPage(currentPage + 1)}
-                        className="border-stis-blue text-stis-blue hover:bg-stis-blue hover:text-white"
-                      >
-                        Selanjutnya
-                      </Button>
+                        <span className="text-sm text-gray-600 px-3 py-2 bg-gray-100 rounded-lg">
+                          {currentPage} / {totalPagesEjournals}
+                        </span>
+
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          disabled={currentPage === totalPagesEjournals}
+                          onClick={() => setCurrentPage(currentPage + 1)}
+                          className="border-stis-blue text-stis-blue hover:bg-stis-blue hover:text-white text-xs px-3 py-2"
+                        >
+                          Next ›
+                        </Button>
+                      </div>
+
+                      {/* Desktop: Full pagination */}
+                      <div className="hidden sm:flex items-center justify-center gap-2">
+                        <Button
+                          variant="outline"
+                          disabled={currentPage === 1}
+                          onClick={() => setCurrentPage(currentPage - 1)}
+                          className="border-stis-blue text-stis-blue hover:bg-stis-blue hover:text-white"
+                        >
+                          Sebelumnya
+                        </Button>
+
+                        {Array.from(
+                          { length: totalPagesEjournals },
+                          (_, i) => i + 1,
+                        ).map((page) => (
+                          <Button
+                            key={page}
+                            variant={currentPage === page ? "default" : "outline"}
+                            className={
+                              currentPage === page
+                                ? "bg-stis-blue hover:bg-stis-blue-dark"
+                                : "border-stis-blue text-stis-blue hover:bg-stis-blue hover:text-white"
+                            }
+                            onClick={() => setCurrentPage(page)}
+                          >
+                            {page}
+                          </Button>
+                        ))}
+
+                        <Button
+                          variant="outline"
+                          disabled={currentPage === totalPagesEjournals}
+                          onClick={() => setCurrentPage(currentPage + 1)}
+                          className="border-stis-blue text-stis-blue hover:bg-stis-blue hover:text-white"
+                        >
+                          Selanjutnya
+                        </Button>
+                      </div>
                     </div>
                   )}
                 </div>

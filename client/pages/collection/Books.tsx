@@ -1562,53 +1562,83 @@ export default function Books() {
 
             {/* Pagination */}
             {totalPages > 1 && (
-              <div className="flex items-center justify-center gap-2 mt-12">
-                <Button
-                  variant="outline"
-                  disabled={currentPage === 1}
-                  onClick={() => setCurrentPage(currentPage - 1)}
-                  className="border-stis-blue text-stis-blue hover:bg-stis-blue hover:text-white"
-                >
-                  Sebelumnya
-                </Button>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-2 mt-12 px-4">
+                {/* Mobile: Simplified pagination with page info */}
+                <div className="sm:hidden flex items-center justify-between w-full gap-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    disabled={currentPage === 1}
+                    onClick={() => setCurrentPage(currentPage - 1)}
+                    className="border-stis-blue text-stis-blue hover:bg-stis-blue hover:text-white text-xs px-3 py-2"
+                  >
+                    ‹ Prev
+                  </Button>
 
-                {generatePaginationNumbers().map((item, index) => {
-                  if (item === "...") {
+                  <span className="text-sm text-gray-600 px-3 py-2 bg-gray-100 rounded-lg">
+                    {currentPage} / {totalPages}
+                  </span>
+
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    disabled={currentPage === totalPages}
+                    onClick={() => setCurrentPage(currentPage + 1)}
+                    className="border-stis-blue text-stis-blue hover:bg-stis-blue hover:text-white text-xs px-3 py-2"
+                  >
+                    Next ›
+                  </Button>
+                </div>
+
+                {/* Desktop: Full pagination */}
+                <div className="hidden sm:flex items-center justify-center gap-2">
+                  <Button
+                    variant="outline"
+                    disabled={currentPage === 1}
+                    onClick={() => setCurrentPage(currentPage - 1)}
+                    className="border-stis-blue text-stis-blue hover:bg-stis-blue hover:text-white"
+                  >
+                    Sebelumnya
+                  </Button>
+
+                  {generatePaginationNumbers().map((item, index) => {
+                    if (item === "...") {
+                      return (
+                        <span
+                          key={`ellipsis-${index}`}
+                          className="px-3 py-2 text-gray-500"
+                        >
+                          ...
+                        </span>
+                      );
+                    }
+
+                    const page = item as number;
                     return (
-                      <span
-                        key={`ellipsis-${index}`}
-                        className="px-3 py-2 text-gray-500"
+                      <Button
+                        key={page}
+                        variant={currentPage === page ? "default" : "outline"}
+                        className={
+                          currentPage === page
+                            ? "bg-stis-blue hover:bg-stis-blue-dark"
+                            : "border-stis-blue text-stis-blue hover:bg-stis-blue hover:text-white"
+                        }
+                        onClick={() => setCurrentPage(page)}
                       >
-                        ...
-                      </span>
+                        {page}
+                      </Button>
                     );
-                  }
+                  })}
 
-                  const page = item as number;
-                  return (
-                    <Button
-                      key={page}
-                      variant={currentPage === page ? "default" : "outline"}
-                      className={
-                        currentPage === page
-                          ? "bg-stis-blue hover:bg-stis-blue-dark"
-                          : "border-stis-blue text-stis-blue hover:bg-stis-blue hover:text-white"
-                      }
-                      onClick={() => setCurrentPage(page)}
-                    >
-                      {page}
-                    </Button>
-                  );
-                })}
-
-                <Button
-                  variant="outline"
-                  disabled={currentPage === totalPages}
-                  onClick={() => setCurrentPage(currentPage + 1)}
-                  className="border-stis-blue text-stis-blue hover:bg-stis-blue hover:text-white"
-                >
-                  Selanjutnya
-                </Button>
+                  <Button
+                    variant="outline"
+                    disabled={currentPage === totalPages}
+                    onClick={() => setCurrentPage(currentPage + 1)}
+                    className="border-stis-blue text-stis-blue hover:bg-stis-blue hover:text-white"
+                  >
+                    Selanjutnya
+                  </Button>
+                </div>
               </div>
             )}
           </div>
